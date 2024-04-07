@@ -71,6 +71,7 @@ export function links() {
       href: 'https://shop.app',
       rel: 'preconnect',
     },
+    {href: fluidType, rel: 'stylesheet'},
     {href: tailwindCss, rel: 'stylesheet'},
   ];
 }
