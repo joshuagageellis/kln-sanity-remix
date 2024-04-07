@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "run-s create:initial && sanity dev",
+    "dev-slim": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
@@ -16,6 +17,7 @@
     "sanity"
   ],
   "dependencies": {
+    "@codemirror/view": "^6.26.1",
     "@frontvibe/sanity-color-picker": "^1.0.0",
     "@frontvibe/sanity-font-picker": "^1.0.0",
     "@frontvibe/sanity-plugin-range-slider": "^1.0.0",
