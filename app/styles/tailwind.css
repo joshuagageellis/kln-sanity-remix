@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --heading-font-family: 'Archivo', sans-serif;
+  --body-font-family: 'Archivo', sans-serif;
+  --fluid-fluid-min-width: 480;
+  --fluid-fluid-max-width: 1250;
+  --fluid-fluid-screen: 100vw;
+  --fluid-fluid-bp: calc(
+    (var(--fluid-fluid-screen) - var(--fluid-fluid-min-width) / 16 * 1rem) /
+      (var(--fluid-fluid-max-width) - var(--fluid-fluid-min-width))
+  );
+
+  @media screen and (min-width: 1250px) {
+    --fluid-fluid-screen: calc(var(--fluid-fluid-max-width) * 1px);
+  }
+
+  /* Fluid type size variables. */
+  --fluid-fs-h1-super: typeScale(48, 96);
+  --fluid-fs-h1: typeScale(48, 64);
+  --fluid-fs-h2: typeScale(36, 48);
+  --fluid-fs-h3: typeScale(24, 36);
+  --fluid-fs-h4: typeScale(20, 24);
+  --fluid-fs-h5: calcRem(18);
+  --fluid-fs-h6: calcRem(14);
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -9,15 +34,72 @@
   }
 
   body {
-    font-family: var(--body-font-family), var(--body-font-type);
-    font-size: calc(var(--body-base-size) * 1px);
-    line-height: var(--body-line-height);
-    letter-spacing: calc(var(--body-letter-spacing) * 1px);
-    -webkit-font-smoothing: var(--body-font-webkit-font-smoothing);
-    -moz-osx-font-smoothing: var(--body-font-moz-osx-font-smoothing);
+    font-family: var(--body-font-family);
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 350;
+  }
+
+  .h1-super,
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4,
+  h5,
+  .h5,
+  h6,
+  .h6 {
+    font-family: var(--heading-font-family);
+    margin: unset;
+    margin-bottom: var(--fluid-headline-mb-default);
+    font-size: var(--fluid-headline-fs);
+    line-height: var(--fluid-headline-lh, var(--fluid-headline-lh-default));
+    font-weight: var(--fluid-headline-fw, 400);
+  }
+
+  .h1-super {
+    --fluid-headline-fs: var(--fluid-fs-h1-super);
+    --fluid-headline-lh: 1.1;
+    --fluid-headline-fw: 800;
   }
 
   h1,
+  .h1 {
+    --fluid-headline-fs: var(--fluid-fs-h1);
+    --fluid-headline-lh: 1.1;
+    --fluid-headline-fw: 700;
+  }
+
+  h2,
+  .h2 {
+    --fluid-headline-fs: var(--fluid-fs-h2);
+  }
+
+  h3,
+  .h3 {
+    --fluid-headline-fs: var(--fluid-fs-h3);
+  }
+
+  h4,
+  .h4 {
+    --fluid-headline-fs: var(--fluid-fs-h4);
+  }
+
+  h5,
+  .h5 {
+    --fluid-headline-fs: var(--fluid-fs-h5);
+  }
+
+  h6,
+  .h6 {
+    --fluid-headline-fs: var(--fluid-fs-h6);
+  }
+
+  /* h1,
   h2,
   h3,
   h4,
@@ -53,5 +135,5 @@
 
   h6 {
     font-size: calc(var(--heading-base-size) * 0.375 * 1px);
-  }
+  } */
 }

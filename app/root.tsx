@@ -28,14 +28,11 @@ import {Layout} from '~/components/layout/Layout';
 import type {HydrogenSession} from './lib/hydrogen.session.server';
 
 import faviconAsset from '../public/favicon.ico';
-import {CssVars} from './components/CssVars';
-import {Fonts} from './components/Fonts';
 import {generateSanityImageUrl} from './components/sanity/SanityImage';
 import {Button} from './components/ui/Button';
 import {useAnalytics} from './hooks/useAnalytics';
 import {useLocalePath} from './hooks/useLocalePath';
 import {useSanityThemeContent} from './hooks/useSanityThemeContent';
-import {generateFontsPreloadLinks} from './lib/fonts';
 import {resolveShopifyPromises} from './lib/resolveShopifyPromises';
 import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
 import {seoPayload} from './lib/seo.server';
@@ -71,18 +68,13 @@ export function links() {
       href: 'https://shop.app',
       rel: 'preconnect',
     },
-    {href: fluidType, rel: 'stylesheet'},
     {href: tailwindCss, rel: 'stylesheet'},
+    {href:"https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap", rel: 'stylesheet'}
   ];
 }
 
 export const meta: MetaFunction<typeof loader> = (loaderData) => {
   const {data} = loaderData;
-  // Preload fonts files to avoid FOUT (flash of unstyled text)
-  const fontsPreloadLinks = generateFontsPreloadLinks({
-    fontsData: data?.sanityRoot.data?.fonts,
-  });
-
   return [
     {
       // Preconnect to the Sanity CDN before loading fonts
@@ -91,7 +83,6 @@ export const meta: MetaFunction<typeof loader> = (loaderData) => {
       tagName: 'link',
     },
     ...generateFaviconUrls(data as SerializeFrom<typeof loader>),
-    ...fontsPreloadLinks,
   ];
 };
 
@@ -203,9 +194,7 @@ export default function App() {
         <meta content="width=device-width,initial-scale=1" name="viewport" />
         <Meta />
         <Seo />
-        <Fonts />
         <Links />
-        <CssVars />
       </head>
       <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
         <Layout>

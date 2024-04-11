@@ -73,9 +73,9 @@ async function createSingletons() {
         {
           _id: `${singleton.id}`,
           _type: singleton._type,
-          ...initialSingletonsValues[
+          ...(initialSingletonsValues?.[singleton.id as keyof typeof initialSingletonsValues] ? initialSingletonsValues[
             singleton.id as keyof typeof initialSingletonsValues
-          ],
+          ] : {}),
         },
       ];
     })

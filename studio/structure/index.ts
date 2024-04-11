@@ -43,7 +43,6 @@ export const structure: StructureResolver = (S, context) => {
             ]),
         ),
       S.documentTypeListItem('colorScheme').showIcon(true),
-      singleton(S, SINGLETONS.typography),
       singleton(S, SINGLETONS.themeContent),
     ]);
 };
