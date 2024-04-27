@@ -1,205 +1,50 @@
-import type {Variants} from 'framer-motion';
-import type {CSSProperties} from 'react';
-
-import {Link, useLocation} from '@remix-run/react';
-import {vercelStegaCleanAll} from '@sanity/client/stega';
+import {Link} from '@remix-run/react';
 import {cx} from 'class-variance-authority';
-import {m, transform, useMotionValueEvent, useTransform} from 'framer-motion';
-import React, {useEffect, useState} from 'react';
+import {useScroll} from 'framer-motion';
+import {useEffect, useState} from 'react';
 
-import {useBoundedScroll} from '~/hooks/useBoundedScroll';
-import {useColorsCssVars} from '~/hooks/useColorsCssVars';
-import {useLocalePath} from '~/hooks/useLocalePath';
+import {CartDrawer} from '~/components/layout/CartDrawer';
+import {Logo} from '~/components/layout/Logo';
+import {DesktopNavigation} from '~/components/navigation/DesktopNavigation';
+import {MobileNavigation} from '~/components/navigation/MobileNavigation';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
-import {cn} from '~/lib/utils';
 
-import {headerVariants} from '../cva/header';
-import {DesktopNavigation} from '../navigation/DesktopNavigation';
-import {MobileNavigation} from '../navigation/MobileNavigation';
-import {CartDrawer} from './CartDrawer';
-import {Logo} from './Logo';
-
-export function Header() {
+export const Header = () => {
   const {data} = useSanityRoot();
-  const header = data?.header;
-  const logoWidth = header?.desktopLogoWidth
-    ? `${header?.desktopLogoWidth}px`
-    : null;
-  const homePath = useLocalePath({path: '/'});
-  const colorsCssVars = useColorsCssVars({
-    selector: 'header',
-    settings: header,
-  });
+  const {scrollY} = useScroll();
+  const headerData = data?.header;
 
-  return (
-    <HeaderWrapper>
-      <style dangerouslySetInnerHTML={{__html: colorsCssVars}} />
-      <div className="container">
-        <div className="flex items-center justify-between">
-          <Link className="group" prefetch="intent" to={homePath}>
-            <Logo
-              className="h-auto w-[var(--logoWidth)]"
-              sizes={logoWidth}
-              style={
-                {
-                  '--logoWidth': logoWidth || 'auto',
-                } as CSSProperties
-              }
-            />
-          </Link>
-          <div className="flex items-center gap-0 md:gap-2">
-            <DesktopNavigation data={header?.menu} />
-            <CartDrawer />
-            <MobileNavigation data={header?.menu} />
-          </div>
-        </div>
-      </div>
-    </HeaderWrapper>
-  );
-}
+  const [scrollPos, setScrollPos] = useState(0);
+  useEffect(() => {
+    return scrollY.on('change', (current) => {
+      setScrollPos(current);
+    });
+  }, [scrollY, setScrollPos]);
 
-function HeaderWrapper(props: {children: React.ReactNode}) {
-  const {data} = useSanityRoot();
-  const header = data?.header;
-  const showSeparatorLine = header?.showSeparatorLine;
-  const blur = header?.blur;
-  const sticky = vercelStegaCleanAll(header?.sticky);
-
-  const headerClassName = cx([
-    'section-padding bg-background text-foreground',
-    sticky !== 'none' && 'sticky top-0 z-50',
-    blur &&
-      'bg-opacity-95 backdrop-blur supports-[backdrop-filter]:bg-opacity-85',
-    headerVariants({
-      optional: showSeparatorLine ? 'separator-line' : null,
-    }),
+  const classes = cx([
+    'text-cream sticky bg-charcoal top-0 z-[88] group md:mb-[40px] md:h-[86px] transition-all',
+    scrollPos > 126 ? 'shadow-sm shadow-charcoal scrolled' : '',
   ]);
 
   return (
-    <>
-      {sticky === 'onScrollUp' ? (
-        <HeaderAnimation className={headerClassName}>
-          {props.children}
-        </HeaderAnimation>
-      ) : (
-        <header className={headerClassName}>{props.children}</header>
-      )}
-      <HeaderHeightCssVars />
-    </>
+    <header className={classes}>
+      <div className="flex w-full flex-row content-center justify-between gap-4 bg-charcoal p-2 pl-4 pr-4 transition-all duration-300 md:h-[126px] md:justify-normal md:gap-12 md:pl-6 md:pr-6 md:group-[.scrolled]:h-[86px]">
+        <Link
+          className="flex origin-left flex-col content-center justify-center transition-all duration-500 hover:scale-105"
+          to="/"
+        >
+          <span className="sr-only">Home</span>
+          <Logo
+            className="h-auto w-full max-w-[140px] md:max-w-[180px] lg:max-w-[220px]"
+            loading="eager"
+          />
+        </Link>
+        <DesktopNavigation data={headerData?.menu} />
+        <MobileNavigation data={headerData?.menu} />
+        <div className="flex flex-col justify-center content-center">
+          <CartDrawer />
+        </div>
+      </div>
+    </header>
   );
-}
-
-function HeaderAnimation(props: {
-  children: React.ReactNode;
-  className: string;
-}) {
-  const {pathname} = useLocation();
-  const [activeVariant, setActiveVariant] = useState<
-    'hidden' | 'initial' | 'visible'
-  >('initial');
-  const desktopHeaderHeight = useHeaderHeigth()?.desktopHeaderHeight || 0;
-  const {scrollYBoundedProgress} = useBoundedScroll(250);
-  const scrollYBoundedProgressDelayed = useTransform(
-    scrollYBoundedProgress,
-    [0, 0.75, 1],
-    [0, 0, 1],
-  );
-
-  useEffect(() => {
-    // Reset the header position on route change
-    setActiveVariant('initial');
-  }, [pathname]);
-
-  useMotionValueEvent(scrollYBoundedProgressDelayed, 'change', (latest) => {
-    if (latest === 0) {
-      setActiveVariant('visible');
-    } else if (latest > 0.5) {
-      setActiveVariant('hidden');
-    } else {
-      setActiveVariant('visible');
-    }
-
-    const newDesktopHeaderHeight = transform(
-      latest,
-      [0, 1],
-      [`${desktopHeaderHeight}px`, '0px'],
-    );
-
-    // Reassign header height css var on scroll
-    document.documentElement.style.setProperty(
-      '--desktopHeaderHeight',
-      newDesktopHeaderHeight,
-    );
-  });
-
-  const variants: Variants = {
-    hidden: {
-      transform: 'translateY(-100%)',
-    },
-    initial: {
-      transform: 'translateY(0)',
-      transition: {
-        duration: 0,
-      },
-    },
-    visible: {
-      transform: 'translateY(0)',
-    },
-  };
-
-  // Header animation inspired by the fantastic Build UI recipes
-  // (Check out the original at: https://buildui.com/recipes/fixed-header)
-  // Credit to the Build UI team for the awesome Header animation.
-  return (
-    <>
-      <m.header
-        animate={activeVariant}
-        className={cn(props.className)}
-        initial="visible"
-        transition={{
-          duration: 0.2,
-        }}
-        variants={variants}
-      >
-        {props.children}
-      </m.header>
-    </>
-  );
-}
-
-function HeaderHeightCssVars() {
-  const desktopHeaderHeight = useHeaderHeigth()?.desktopHeaderHeight || 0;
-
-  return (
-    <style
-      dangerouslySetInnerHTML={{
-        __html: `:root { --desktopHeaderHeight: ${desktopHeaderHeight}px; }`,
-      }}
-    />
-  );
-}
-
-function useHeaderHeigth() {
-  const {data} = useSanityRoot();
-  const headerPadding = {
-    bottom: data?.header?.padding?.bottom || 0,
-    top: data?.header?.padding?.top || 0,
-  };
-  const desktopLogoWidth = data?.header?.desktopLogoWidth || 1;
-  const headerBorder = data?.header?.showSeparatorLine ? 1 : 0;
-  const sanitySettings = data?.settings;
-  const logo = sanitySettings?.logo;
-  const desktopLogoHeight =
-    logo?._ref && logo?.width && logo?.height
-      ? (desktopLogoWidth * logo?.height) / logo?.width
-      : 44;
-
-  const desktopHeaderHeight = (
-    desktopLogoHeight +
-    headerPadding.top +
-    headerPadding.bottom +
-    headerBorder
-  ).toFixed(2);
-
-  return {desktopHeaderHeight};
-}
+};

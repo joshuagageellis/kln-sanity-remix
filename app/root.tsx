@@ -232,9 +232,7 @@ export function ErrorBoundary() {
         <meta charSet="utf-8" />
         <meta content="width=device-width,initial-scale=1" name="viewport" />
         <Meta />
-        <Fonts />
         <Links />
-        <CssVars />
       </head>
       <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
         <Layout>

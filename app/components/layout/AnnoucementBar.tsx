@@ -7,7 +7,6 @@ import {useMemo} from 'react';
 
 import type {ANNOUCEMENT_BAR_FRAGMENT} from '~/qroq/fragments';
 
-import {useColorsCssVars} from '~/hooks/useColorsCssVars';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
 import {IconArrowRight} from '../icons/IconArrowRight';
@@ -34,16 +33,6 @@ export function AnnouncementBar() {
     [header],
   );
 
-  const colorsCssVars = useColorsCssVars({
-    selector: `#announcement-bar`,
-    settings: {
-      colorScheme: header?.annoucementBarColorScheme!,
-      customCss: null,
-      hide: null,
-      padding: null,
-    },
-  });
-
   const isActive = annoucementBar?.length! > 1;
 
   if (!annoucementBar) return null;
@@ -51,7 +40,6 @@ export function AnnouncementBar() {
   return (
     <section className="bg-background text-foreground" id="announcement-bar">
       <div className="container">
-        <style dangerouslySetInnerHTML={{__html: colorsCssVars}} />
         <Carousel opts={{active: isActive, align: 'center'}} plugins={plugins}>
           <CarouselContent className="relative ml-0 justify-center">
             {annoucementBar?.map((item) => (

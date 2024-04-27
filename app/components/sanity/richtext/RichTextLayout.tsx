@@ -32,7 +32,7 @@ export function RichtextLayout(props: {
         cleanContentPosition === 'right' && 'ml-auto',
         cleanContentPosition === 'center' && 'mx-auto',
         'max-w-[var(--maxWidth)] space-y-2',
-        '[&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-6 [&_blockquote]:italic',
+        '[&_blockquote]:border-l-2 [&_blockquote]:pl-6 [&_blockquote]:italic',
         '[&_ul>li]:mt-2 [&_ul]:list-inside [&_ul]:list-disc',
         '[&_ol>li]:mt-2 [&_ol]:list-inside [&_ol]:list-decimal',
       ])}

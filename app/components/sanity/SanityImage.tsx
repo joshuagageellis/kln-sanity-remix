@@ -1,7 +1,7 @@
 import type {CropMode} from '@sanity/image-url/lib/types/types';
 
 import imageUrlBuilder from '@sanity/image-url';
-import React from 'react';
+import React, {useState} from 'react';
 
 import type {SanityImageFragment} from '~/lib/type';
 
@@ -17,8 +17,6 @@ export function SanityImage({
   draggable,
   fetchpriority,
   loading,
-  showBorder = true,
-  showShadow = true,
   sizes,
   style,
 }: {
@@ -36,6 +34,7 @@ export function SanityImage({
   style?: React.CSSProperties;
 }) {
   const {env} = useRootLoaderData();
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   if (!data) {
     return null;
@@ -105,10 +104,6 @@ export function SanityImage({
     <span
       className={cn(
         'relative block overflow-hidden !p-0',
-        showBorder &&
-          'rounded-[--media-border-corner-radius] border-[rgb(var(--border)_/_var(--media-border-opacity))] [border-width:--media-border-thickness]',
-        showShadow &&
-          '[box-shadow:rgb(var(--shadow)_/_var(--media-shadow-opacity))_var(--media-shadow-horizontal-offset)_var(--media-shadow-vertical-offset)_var(--media-shadow-blur-radius)_0px]',
       )}
       id={data._ref ? `img-${data._ref}` : undefined}
       style={
@@ -132,6 +127,8 @@ export function SanityImage({
         fetchpriority={fetchpriority}
         height={aspectRatioHeight || data.height}
         loading={loading}
+        onError={() => setLoaded(true)}
+        onLoad={() => setLoaded(true)}
         sizes={sizes!}
         src={urlDefault}
         srcSet={srcSet}
@@ -161,6 +158,7 @@ export function SanityImage({
                 right: 0;
                 bottom: 0;
                 filter: blur(6px);
+                display: ${loaded ? 'block' : 'none'};
               }
             `.trim(),
           }}

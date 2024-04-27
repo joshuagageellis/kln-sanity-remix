@@ -32,7 +32,7 @@ export function MobileNavigation(props: {data?: NavigationProps}) {
 
   // Todo => Add <Navlink /> support
   return (
-    <div className="touch:block lg:hidden">
+    <div className="touch:block md:hidden">
       <Drawer
         direction={device === 'desktop' ? 'right' : 'bottom'}
         onOpenChange={setOpen}

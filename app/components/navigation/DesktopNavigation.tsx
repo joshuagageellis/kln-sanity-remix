@@ -28,7 +28,7 @@ export function DesktopNavigation(props: {data?: NavigationProps}) {
   );
 
   return (
-    <NavigationMenu className="hidden touch:hidden lg:block" id="header-nav">
+    <NavigationMenu className="hidden touch:hidden md:flex flex-row justify-start flex-grow" id="header-nav">
       <CssVars
         dropdownWidth={dropdownWidth}
         viewportPosition={viewportPosition}
