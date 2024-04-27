@@ -8,56 +8,22 @@ import tailwindAnimatePlugin from 'tailwindcss-animate';
 export default {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    colors: {
+      'panther': '#3E4041',
+      'yosemite': '#49A0C4',
+      'citrus': '#92D67A',
+      'amethyst': '#C0AED8',
+      'salsa': '#CC5242',
+      'marble': '#F0EBD9',
+      'peachy': '#F3A985',
+      'yellow': '#FFDE42',
+      'cream': '#EBE8DE',
+      'charcoal': '#1E1F20',
+    },
+    fontFamily: {
+      sans: ['Archivo', 'sans-serif'],
+    },
     extend: {
-      container: {
-        center: true,
-        padding: {
-          DEFAULT: '1rem',
-          md: '1.5rem',
-          xl: '2rem',
-          '2xl': '12rem',
-        },
-      },
-      fontFamily: {
-        heading: 'var(--heading-font-family)',
-        body: 'var(--heading-body-family)',
-        extra: 'var(--heading-extra-family)',
-      },
-      colors: {
-        background: 'rgb(var(--background) / <alpha-value>)',
-        foreground: 'rgb(var(--foreground) / <alpha-value>)',
-        border: 'rgb(var(--border) / <alpha-value>)',
-        input: 'rgb(var(--input) / <alpha-value>)',
-        ring: 'rgb(var(--ring) / <alpha-value>)',
-        primary: {
-          DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
-          foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
-        },
-        secondary: {
-          DEFAULT: 'rgb(var(--secondary) / <alpha-value>)',
-          foreground: 'rgb(var(--secondary-foreground) / <alpha-value>)',
-        },
-        muted: {
-          DEFAULT: 'rgb(var(--muted) / <alpha-value>)',
-          foreground: 'rgb(var(--muted-foreground) / <alpha-value>)',
-        },
-        accent: {
-          DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
-          foreground: 'rgb(var(--accent-foreground) / <alpha-value>)',
-        },
-        popover: {
-          DEFAULT: 'rgb(var(--popover) / <alpha-value>)',
-          foreground: 'rgb(var(--popover-foreground) / <alpha-value>)',
-        },
-        card: {
-          DEFAULT: 'rgb(var(--card) / <alpha-value>)',
-          foreground: 'rgb(var(--card-foreground) / <alpha-value>)',
-        },
-        destructive: {
-          DEFAULT: 'rgb(var(--destructive) / <alpha-value>)',
-          foreground: 'rgb(var(--destructive-foreground) / <alpha-value>)',
-        },
-      },
       keyframes: {
         'accordion-down': {
           from: {height: '0'},
@@ -78,16 +44,6 @@ export default {
     typographyPlugin,
     tailwindAnimatePlugin,
     plugin(({addComponents, addVariant}) => {
-      addComponents({
-        '.section-padding': {
-          paddingBottom: 'calc(var(--paddingBottom) * .75)',
-          paddingTop: 'calc(var(--paddingTop) * .75)',
-          '@screen sm': {
-            paddingBottom: 'var(--paddingBottom)',
-            paddingTop: 'var(--paddingTop)',
-          },
-        },
-      });
       // Target touch and non-touch devices
       addVariant('touch', '@media (pointer: coarse)');
       addVariant('notouch', '@media (hover: hover)');
