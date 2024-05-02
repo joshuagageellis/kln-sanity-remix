@@ -148,22 +148,7 @@ export const HEADER_QUERY = q('*')
   .filter("_type == 'header'")
   .grab({
     annoucementBar: ANNOUCEMENT_BAR_ARRAY_FRAGMENT,
-    annoucementBarColorScheme: q('annoucementBarColorScheme')
-      .deref()
-      .grab(COLOR_SCHEME_FRAGMENT),
-    autoRotateAnnoucements: q.boolean().nullable(),
-    blur: q.boolean().nullable(),
-    colorScheme: q('colorScheme').deref().grab(COLOR_SCHEME_FRAGMENT),
-    desktopLogoWidth: q.number().nullable(),
     menu: MENU_FRAGMENT,
-    padding: q
-      .object({
-        bottom: q.number().nullable(),
-        top: q.number().nullable(),
-      })
-      .nullable(),
-    showSeparatorLine: q.boolean().nullable(),
-    sticky: z.enum(['none', 'always', 'onScrollUp']).nullable(),
   })
   .slice(0)
   .nullable();

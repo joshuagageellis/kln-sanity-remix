@@ -100,4 +100,15 @@ html {
   .h6 {
     --fluid-headline-fs: var(--fluid-fs-h6);
   }
+
+  /**
+  General text styles.
+  */
+  .body-20 {
+    font-family: var(--body-font-family);
+    font-size: typeScale(16, 20);
+    font-weight: 450;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+  }
 }

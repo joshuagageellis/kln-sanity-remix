@@ -29,4 +29,5 @@ export default defineField({
       ],
     }),
   ],
+  validation: (Rule) => Rule.max(1),
 });

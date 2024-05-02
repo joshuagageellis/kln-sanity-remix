@@ -2,22 +2,13 @@ import type {TypeFromSelection} from 'groqd';
 
 import {Link} from '@remix-run/react';
 import {cx} from 'class-variance-authority';
-import Autoplay from 'embla-carousel-autoplay';
-import {useMemo} from 'react';
+import {m} from 'framer-motion';
 
 import type {ANNOUCEMENT_BAR_FRAGMENT} from '~/qroq/fragments';
 
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
-import {IconArrowRight} from '../icons/IconArrowRight';
 import {SanityInternalLink} from '../sanity/link/SanityInternalLink';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../ui/Carousel';
 
 type AnnoucementBarProps = TypeFromSelection<typeof ANNOUCEMENT_BAR_FRAGMENT>;
 
@@ -25,55 +16,28 @@ export function AnnouncementBar() {
   const {data} = useSanityRoot();
   const header = data?.header;
   const annoucementBar = header?.annoucementBar;
-  const plugins = useMemo(
-    () =>
-      header?.autoRotateAnnoucements
-        ? [Autoplay({delay: 5000, stopOnMouseEnter: true})]
-        : [],
-    [header],
-  );
-
-  const isActive = annoucementBar?.length! > 1;
-
-  if (!annoucementBar) return null;
-
+  if (!annoucementBar || !annoucementBar.length) return null;
+  const annoucementBarItem = annoucementBar[0];
   return (
-    <section className="bg-background text-foreground" id="announcement-bar">
-      <div className="container">
-        <Carousel opts={{active: isActive, align: 'center'}} plugins={plugins}>
-          <CarouselContent className="relative ml-0 justify-center">
-            {annoucementBar?.map((item) => (
-              <CarouselItem key={item._key}>
-                <Item
-                  _key={item._key}
-                  externalLink={item.externalLink}
-                  link={item.link}
-                  openInNewTab={item.openInNewTab}
-                  text={item.text}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          {isActive && (
-            <>
-              <CarouselPrevious />
-              <CarouselNext />
-            </>
-          )}
-        </Carousel>
-      </div>
+    <section id="announcement-bar">
+      <m.div
+        animate={{opacity: [0, 1], y: [-100, 0]}}
+        transition={{delay: 0.3, duration: 0.5, ease: 'easeOut'}}
+      >
+        <div className="transition-all duration-300 bg-citrus text-panther relative flex justify-center p-3 pr-6 pl-6 has-[a:hover]:bg-yellow">
+          <AnnouncementBarLink {...annoucementBarItem as AnnoucementBarProps} />
+          <p className="body-20"><span>{annoucementBarItem.text}</span></p>
+        </div>
+      </m.div>
     </section>
   );
 }
 
-function Item(props: AnnoucementBarProps) {
-  if (!props.text) return null;
-
-  const className = cx('flex w-full justify-center py-3 text-center');
-
+const AnnouncementBarLink = (props:  AnnoucementBarProps) => {
+  const linkClass = "w-full h-full absolute top-0 left-0 z-10"
   return props.link ? (
     <SanityInternalLink
-      className={cx(['group', className])}
+      className={cx(linkClass)}
       data={{
         _key: props.link.slug.current,
         _type: 'internalLink',
@@ -82,31 +46,15 @@ function Item(props: AnnoucementBarProps) {
         name: props.text,
       }}
     >
-      <LinkWrapper>{props.text}</LinkWrapper>
+      <span className="sr-only">{props.text}</span>
     </SanityInternalLink>
   ) : props.externalLink ? (
     <Link
-      className={cx(['group', className])}
       rel={props.openInNewTab ? 'noopener noreferrer' : ''}
       target={props.openInNewTab ? '_blank' : undefined}
       to={props.externalLink}
     >
-      <LinkWrapper>{props.text}</LinkWrapper>
+      <span className="sr-only">{props.text}</span>
     </Link>
-  ) : (
-    <p className={className}>{props.text}</p>
-  );
-}
-
-function LinkWrapper({children}: {children: React.ReactNode}) {
-  return (
-    <p className="flex items-center text-sm underline-offset-4 group-hover:underline">
-      <span className="relative z-[2] block bg-background pr-2">
-        {children}
-      </span>
-      <span className="-translate-x-[2px] transition-transform group-hover:translate-x-[-0.15px]">
-        <IconArrowRight />
-      </span>
-    </p>
-  );
-}
+  ) : null;
+};
