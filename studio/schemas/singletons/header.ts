@@ -24,12 +24,6 @@ export default defineType({
       type: 'internationalizedArrayAnnouncementBar',
     }),
     defineField({
-      name: 'autoRotateAnnoucements',
-      type: 'boolean',
-      group: 'announcementBar',
-      initialValue: false,
-    }),
-    defineField({
       name: 'menu',
       group: 'navigation',
       type: 'internationalizedArrayHeaderNavigation',

@@ -27,10 +27,12 @@ export const Header = () => {
   ]);
 
   return (
-    <header className={classes}>
-      <div className="flex w-full flex-row content-center justify-between gap-4 bg-charcoal p-2 pl-4 pr-4 transition-all duration-300 md:h-[126px] md:justify-normal md:gap-12 md:pl-6 md:pr-6 md:group-[.scrolled]:h-[86px]">
+    <header className={classes} id="main-header">
+      <div className="container-w-padding flex w-full flex-row content-center justify-between gap-4 bg-charcoal pt-2 pb-2 transition-all duration-300 md:h-[126px] md:justify-normal md:gap-12 md:group-[.scrolled]:h-[86px]">
         <Link
           className="flex origin-left flex-col content-center justify-center transition-all duration-500 hover:scale-105"
+          // Used in mobile menu.
+          id="main-logo-link"
           to="/"
         >
           <span className="sr-only">Home</span>
@@ -40,9 +42,11 @@ export const Header = () => {
           />
         </Link>
         <DesktopNavigation data={headerData?.menu} />
-        <MobileNavigation data={headerData?.menu} />
-        <div className="flex flex-col justify-center content-center">
-          <CartDrawer />
+        <div className="flex flex-row justify-center">
+          <MobileNavigation data={headerData?.menu} />
+          <div className="flex flex-col justify-center content-center">
+            <CartDrawer />
+          </div>
         </div>
       </div>
     </header>

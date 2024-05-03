@@ -1,6 +1,6 @@
 import {cn} from 'app/lib/utils';
 import * as React from 'react';
-import {forwardRef} from 'react';
+import {forwardRef, useCallback, useEffect, useState} from 'react';
 import {Drawer as DrawerPrimitive} from 'vaul';
 
 import {IconClose} from '../icons/IconClose';
@@ -53,7 +53,7 @@ const DrawerOverlay = forwardRef<
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({className, ...props}, ref) => (
   <DrawerPrimitive.Overlay
-    className={cn('fixed inset-0 z-50 bg-black/80', className)}
+    className={cn('bg-black/80 fixed inset-0 z-50 h-full w-full', className)}
     ref={ref}
     {...props}
   />
@@ -63,31 +63,44 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 const DrawerContent = forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({children, className, ...props}, ref) => (
-  <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      className={cn(
-        'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-3xl border bg-background lg:rounded-none',
-        className,
-      )}
-      ref={ref}
-      {...props}
-    >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted md:hidden" />
-      {children}
-      <DrawerClose
+>(({children, className, ...props}, ref) => {
+
+
+  // Ensure drawer content is always below the header
+  const headerHeight = useHeaderHeight();
+  const cssVar = `
+    :root {
+      --header-height: ${headerHeight}px
+    }
+  `;
+
+  return (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <style dangerouslySetInnerHTML={{__html: cssVar}} />
+      <DrawerPrimitive.Content
         className={cn(
-          iconButtonClass,
-          'absolute right-2 top-2 hidden lg:inline-flex',
+          'fixed right-0 top-[--header-height] z-[99] h-full w-full max-w-[90%] bg-charcoal',
+          className,
         )}
+        ref={ref}
+        {...props}
       >
-        <IconClose className="size-6" strokeWidth={2} />
-        <span className="sr-only">Close</span>
-      </DrawerClose>
-    </DrawerPrimitive.Content>
-  </DrawerPortal>
-));
+        {children}
+        {/* <DrawerClose
+          className={cn(
+            iconButtonClass,
+            'absolute right-2 top-2 lg:inline-flex',
+          )}
+        >
+          <IconClose className="size-6" strokeWidth={2} />
+          <span className="sr-only">Close</span>
+        </DrawerClose> */}
+      </DrawerPrimitive.Content>
+    </DrawerPortal>
+  );
+});
+
 DrawerContent.displayName = 'DrawerContent';
 
 const DrawerHeader = ({
@@ -127,23 +140,37 @@ const DrawerTitle = forwardRef<
 ));
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
-const DrawerDescription = forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
->(({className, ...props}, ref) => (
-  <DrawerPrimitive.Description
-    className={cn('text-sm text-muted-foreground', className)}
-    ref={ref}
-    {...props}
-  />
-));
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
+// Calculate the header + alert height and return it
+const useHeaderHeight = () => {
+  const [headerHeight, setHeaderHeight] = useState<number>(0);
+
+  const getHeaderHeight = useCallback(() => {
+    const header = document.querySelector('header');
+    const alert = document.querySelector('#announcement-bar') as HTMLElement | null;
+    if (!header) return;
+    const combinedHeight = header.offsetHeight + (alert ? alert.offsetHeight : 0);
+    setHeaderHeight(combinedHeight);
+  }, [setHeaderHeight]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    getHeaderHeight();
+    window.addEventListener('scroll', getHeaderHeight);
+    window.addEventListener('resize', getHeaderHeight);
+
+    return () => {
+      window.removeEventListener('scroll', getHeaderHeight);
+      window.removeEventListener('resize', getHeaderHeight);
+    };
+  }, [getHeaderHeight]);
+
+  return headerHeight;
+};
 
 export {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerNestedRoot,

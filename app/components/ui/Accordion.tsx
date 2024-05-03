@@ -3,19 +3,17 @@ import {forwardRef} from 'react';
 
 import {cn} from '~/lib/utils';
 
-import {IconChevron} from '../icons/IconChevron';
+import {AccordionIcon} from '../icons/IconAccordion';
 
 const Accordion = AccordionPrimitive.Root;
+
+const AccordionHeader = AccordionPrimitive.AccordionHeader;
 
 const AccordionItem = forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({className, ...props}, ref) => (
-  <AccordionPrimitive.Item
-    className={cn('border-b', className)}
-    ref={ref}
-    {...props}
-  />
+  <AccordionPrimitive.Item className={cn(className)} ref={ref} {...props} />
 ));
 AccordionItem.displayName = 'AccordionItem';
 
@@ -24,20 +22,16 @@ const AccordionTrigger = forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({children, className, ...props}, ref) => (
   <AccordionPrimitive.Header asChild className="flex">
-    <div>
+    <div className={cn([className])}>
+      {children}
       <AccordionPrimitive.Trigger
         className={cn(
-          'group flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline',
-          className,
+          'group flex flex-0 items-center justify-between transition-all',
         )}
         ref={ref}
         {...props}
       >
-        {children}
-        <IconChevron
-          className="size-3 shrink-0 transition-transform duration-200 group-[[data-state='open']]:rotate-[180deg]"
-          direction="down"
-        />
+        <AccordionIcon />
       </AccordionPrimitive.Trigger>
     </div>
   </AccordionPrimitive.Header>
@@ -49,7 +43,7 @@ const AccordionContent = forwardRef<
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({children, className, ...props}, ref) => (
   <AccordionPrimitive.Content
-    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    className="overflow-hidden transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     ref={ref}
     {...props}
   >
@@ -59,4 +53,10 @@ const AccordionContent = forwardRef<
 
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export {Accordion, AccordionContent, AccordionItem, AccordionTrigger};
+export {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionTrigger,
+};

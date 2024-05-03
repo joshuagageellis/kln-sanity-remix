@@ -2,9 +2,9 @@ import {useMemo} from 'react';
 import {useMedia} from 'react-use';
 
 export function useDevice() {
-  const isMobile = useMedia('(max-width: 640px)', false);
+  const isMobile = useMedia('(max-width: 768px)', false);
   const isTablet = useMedia(
-    '(min-width: 641px) and (max-width: 1024px)',
+    '(min-width: 768px) and (max-width: 1024px)',
     false,
   );
 

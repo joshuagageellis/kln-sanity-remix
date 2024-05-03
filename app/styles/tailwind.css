@@ -101,6 +101,11 @@ html {
     --fluid-headline-fs: var(--fluid-fs-h6);
   }
 
+  .container-w-padding {
+    @extend .container;
+    padding: clamp(16px, 3.84vw, 48px);
+  }
+
   /**
   General text styles.
   */
@@ -110,5 +115,28 @@ html {
     font-weight: 450;
     letter-spacing: 0.2px;
     line-height: 1.4;
+  }
+
+  .mobile-nav-link {
+    font-family: var(--body-font-family);
+    font-size: calcRem(52);
+    font-weight: 450;
+    line-height: 1.2;
+    letter-spacing: 0.52px;
+  }
+
+  .mobile-nav-sub-link {
+    font-family: var(--body-font-family);
+    font-size: calcRem(20);
+    line-height: 1.2;
+    letter-spacing: 0.52px;
+    font-weight: 500;
+  }
+
+  .mobile-nav-accordion svg {
+    height: calcRem(44);
+    width: calcRem(44);
+    max-width: 60px;
+    max-height: 60px;
   }
 }

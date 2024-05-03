@@ -1,6 +1,6 @@
 import type {InferType} from 'groqd';
 
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import type {HEADER_QUERY} from '~/qroq/queries';
 

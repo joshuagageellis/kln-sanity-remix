@@ -1,168 +1,254 @@
-import {useCallback, useState} from 'react';
+import { m } from 'framer-motion';
+import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { ClientOnly } from 'remix-utils/client-only';
 
-import {useDevice} from '~/hooks/useDevice';
-import {cn} from '~/lib/utils';
+import { useDevice } from '~/hooks/useDevice';
+import { cn } from '~/lib/utils';
 
-import type {NavigationProps} from './DesktopNavigation';
-import type {SanityNestedNavigationProps} from './NestedNavigation';
+import type { NavigationProps } from './DesktopNavigation';
+import type { SanityNestedNavigationProps } from './NestedNavigation';
 
-import {IconChevron} from '../icons/IconChevron';
-import {IconMenu} from '../icons/IconMenu';
-import {SanityExternalLink} from '../sanity/link/SanityExternalLink';
-import {SanityInternalLink} from '../sanity/link/SanityInternalLink';
-import {iconButtonClass} from '../ui/Button';
+import { IconMenu } from '../icons/IconMenu';
+import { SanityExternalLink } from '../sanity/link/SanityExternalLink';
+import { SanityInternalLink } from '../sanity/link/SanityInternalLink';
 import {
-  Drawer,
-  DrawerContent,
-  DrawerNestedRoot,
-  DrawerTrigger,
-} from '../ui/Drawer';
-import {ScrollArea} from '../ui/ScrollArea';
+  Accordion, AccordionContent, AccordionItem, AccordionTrigger
+} from '../ui/Accordion';
+import { ScrollArea } from '../ui/ScrollArea';
 
-const mobileMenuLinkClass = cn(
-  'flex rounded-sm px-4 py-2 items-center gap-2 w-full transition-colors notouch:hover:bg-accent notouch:hover:text-accent-foreground touch:active:bg-accent touch:active:text-accent-foreground',
-);
+export function MobileNavigation(props: { data?: NavigationProps }) {
+  const {
+    data,
+  } = props;
 
-export function MobileNavigation(props: {data?: NavigationProps}) {
   const [open, setOpen] = useState(false);
+  // Used to restore scroll to top if opened while alert is visible.
+  const [activeAlert, setActiveAlert] = useState(false);
   const device = useDevice();
-  const handleClose = useCallback(() => setOpen(false), []);
 
-  if (!props.data) return null;
+  const handleOpen = useCallback((action: boolean) => {
+    // If within alert bar scroll, scroll to bottom of alert.
+    const alertBar = document.getElementById('announcement-bar');
+    if (action) {
+      if (alertBar) {
+        const alertHeight = alertBar.offsetHeight || 0;
+        const scrollY = window.scrollY;
+        if (scrollY < alertHeight) {
+          alertBar.style.display = 'none';
+          setActiveAlert(true);
+        } else {
+          setActiveAlert(false);
+        }
+      }
+    }
 
-  // Todo => Add <Navlink /> support
+    // Prevent scrolling when mobile menu is open
+    if (action) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Restore alert bar scroll if open.
+    if (!action && activeAlert && alertBar) {
+      alertBar.style.display = 'block';
+      setActiveAlert(false);
+    }
+
+    // Set focus to first item on open.
+    if (action) {
+      const firstItem = document.getElementById('mobile-menu')?.querySelectorAll('a')[0];
+      if (firstItem) {
+        firstItem.focus();
+      }
+    }
+
+    setOpen(action);
+  }, [setOpen, setActiveAlert, activeAlert])
+
+  if ('mobile' !== device && open) {
+    handleOpen(false);
+  }
+
+  // Keyboard event listeners.
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape' && open) {
+      handleOpen(false);
+    }
+  }, [handleOpen, open]);
+
+  const handleExtraneousTrigger = useCallback((e: MouseEvent) => {
+    if (open) {
+      handleOpen(false);
+    }
+  }, [handleOpen, open])
+
+  useEffect(() => {
+    const mainLogo = document.querySelector('#main-logo-link') as HTMLAnchorElement;
+    window.addEventListener('keydown', handleKeyDown);
+    mainLogo?.addEventListener('mousedown', handleExtraneousTrigger);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      mainLogo?.removeEventListener('mousedown', handleExtraneousTrigger);
+    }
+  }, [handleKeyDown, handleExtraneousTrigger])
+
   return (
-    <div className="touch:block md:hidden">
-      <Drawer
-        direction={device === 'desktop' ? 'right' : 'bottom'}
-        onOpenChange={setOpen}
-        open={open}
+    <div className='md:hidden' id="mobile-nav">
+      <button
+        className="text-cream h-[44px] w-[44px] p-2 flex items-center justify-center"
+        onClick={() => handleOpen(!open)}
       >
-        <DrawerTrigger className={cn(iconButtonClass, '-mr-2 lg:mr-0')}>
-          <IconMenu className="size-7" strokeWidth={1.5} />
-        </DrawerTrigger>
-        <MobileNavigationContent>
-          {props.data &&
-            props.data?.length > 0 &&
-            props.data?.map((item) => (
-              <li key={item._key}>
-                {item._type === 'internalLink' && (
-                  <SanityInternalLink
-                    className={mobileMenuLinkClass}
-                    data={item}
-                    onClick={handleClose}
-                  />
-                )}
-                {item._type === 'externalLink' && (
-                  <SanityExternalLink data={item} />
-                )}
-                {item._type === 'nestedNavigation' && (
-                  <MobileNavigationNested data={item} onClose={handleClose} />
-                )}
-              </li>
-            ))}
-        </MobileNavigationContent>
-      </Drawer>
+        <IconMenu className='w-[24px] h-auto' menuState={open} />
+      </button>
+
+      {/* Render Menu In Portal */}
+      <ClientOnly>
+        {() => createPortal(
+          <MobileMenuModal data={data} handleOpen={handleOpen} open={open} />,
+          document.body
+        )}
+      </ClientOnly>
     </div>
-  );
+  )
 }
 
-function MobileNavigationContent(props: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+const mobileMenuLinkClass = cn([
+  'text-cream',
+  'mobile-nav-link' // Custom class
+])
+
+function MobileMenuModal(props: { data?: NavigationProps, handleOpen: (action: boolean) => void, open: boolean }) {
+  useMobileMenuOffset();
+  const { data, handleOpen, open } = props;
   return (
-    <DrawerContent
-      className={cn([
-        'h-[--dialog-content-height] max-h-screen w-screen bg-background p-0 text-foreground',
-        '[--dialog-content-height:calc(100svh_*_.75)] [--dialog-content-max-width:calc(32rem)]',
-        'lg:left-auto lg:right-0 lg:max-w-[--dialog-content-max-width] lg:[--dialog-content-height:100svh]',
-        props.className,
-      ])}
-      onCloseAutoFocus={(e) => e.preventDefault()}
-      onOpenAutoFocus={(e) => e.preventDefault()}
+    <m.div
+      animate={{
+        opacity: open ? 1 : 0,
+        transition: { duration: 0.2 },
+        x: open ? 0 : '100%',
+      }}
+      className="bg-charcoal w-[100vw] h-[100vh] fixed z-50 top-[var(--mobile-menu-offset)]"
+      id="mobile-menu"
+      initial={false}
     >
-      <div className="mt-4 size-full overflow-hidden p-6">
-        <ScrollArea className="size-full pr-4">
-          <nav>
-            <ul className="flex flex-col gap-2 pb-6 text-xl font-medium">
-              {props.children}
-            </ul>
-          </nav>
-        </ScrollArea>
-      </div>
-    </DrawerContent>
-  );
+      <ScrollArea
+        className="h-full container-w-padding"
+      >
+        <nav className="mb-[var(--mobile-menu-offset)]">
+          <ul className="mt-8 flex flex-col gap-4">
+            {props.data &&
+              props.data?.length > 0 &&
+              props.data?.map((item) => (
+                <li key={item._key}>
+                  {item._type === 'internalLink' && (
+                    <SanityInternalLink
+                      className={mobileMenuLinkClass}
+                      data={item}
+                      onClick={() => handleOpen(false)}
+                    />
+                  )}
+                  {item._type === 'externalLink' && (
+                    <SanityExternalLink className={mobileMenuLinkClass} data={item} />
+                  )}
+                  {item._type === 'nestedNavigation' && (
+                    <MobileNavigationNested data={item} handleOpen={handleOpen} />
+                  )}
+                </li>
+              ))}
+          </ul>
+        </nav>
+      </ScrollArea>
+    </m.div>
+  )
 }
 
+const mobileMenuSubLinkClass = cn([
+  'text-cream',
+  'mobile-nav-sub-link' // Custom class
+])
+
+// Accordion like nested navigation.
 function MobileNavigationNested(props: {
-  data?: SanityNestedNavigationProps;
-  onClose: () => void;
+  data: SanityNestedNavigationProps
+  handleOpen: (action: boolean) => void
 }) {
-  const {data, onClose} = props;
-  const [open, setOpen] = useState(false);
-  const device = useDevice();
-  const handleClose = useCallback(() => {
-    onClose();
-    setOpen(false);
-  }, [onClose]);
+  const {
+    data,
+    handleOpen
+  } = props;
 
-  if (!data) return null;
+  const uuid = data._key;
+  if (!uuid) return null;
 
-  const {childLinks} = data;
-
-  return data.name && childLinks && childLinks.length > 0 ? (
-    <DrawerNestedRoot
-      direction={device === 'desktop' ? 'right' : 'bottom'}
-      onOpenChange={setOpen}
-      open={open}
+  return (
+    <Accordion
+      collapsible
+      type='single'
     >
-      <DrawerTrigger className={mobileMenuLinkClass}>
-        {data.name}
-        <span>
-          <IconChevron className="size-5" direction="right" />
-        </span>
-      </DrawerTrigger>
-      <MobileNavigationContent
-        className={cn([
-          'h-[calc(var(--dialog-content-height)*.95)]',
-          'lg:h-[--dialog-content-height] lg:max-w-[calc(var(--dialog-content-max-width)*.95)]',
-        ])}
-      >
-        {childLinks &&
-          childLinks.length > 0 &&
-          childLinks.map((child) => (
-            <li key={child._key}>
-              {child._type === 'internalLink' ? (
-                <SanityInternalLink
-                  className={mobileMenuLinkClass}
-                  data={child}
-                  onClick={handleClose}
-                />
-              ) : child._type === 'externalLink' ? (
-                <SanityExternalLink
-                  className={mobileMenuLinkClass}
-                  data={child}
-                />
-              ) : null}
-            </li>
-          ))}
-      </MobileNavigationContent>
-    </DrawerNestedRoot>
-  ) : data.link && data.name && (!childLinks || childLinks.length === 0) ? (
-    // Render internal link if no child links
-    <SanityInternalLink
-      className={mobileMenuLinkClass}
-      data={{
-        _key: data._key,
-        _type: 'internalLink',
-        anchor: null,
-        link: data.link,
-        name: data.name,
-      }}
-      onClick={handleClose}
-    >
-      {data.name}
-    </SanityInternalLink>
-  ) : null;
+      <AccordionItem
+        value={uuid}
+      > 
+        <AccordionTrigger
+          className="text-cream mobile-nav-accordion flex flex-row justify-between items-center w-full"
+        >
+          <SanityInternalLink
+            className={mobileMenuLinkClass}
+            data={{
+              _key: data._key,
+              _type: 'internalLink',
+              anchor: null,
+              link: data.link,
+              name: data.name,
+            }}
+            onClick={() => handleOpen(false)}
+          />
+        </AccordionTrigger>
+        <AccordionContent>
+          <ul
+            className="flex flex-col gap-4 mt-6"
+          >
+            {data.childLinks &&
+              data.childLinks.length > 0 &&
+              data.childLinks.map((child) => (
+                <li key={child._key}>
+                  {child._type === 'internalLink' ? (
+                    <SanityInternalLink
+                      className={mobileMenuSubLinkClass}
+                      data={child}
+                      onClick={() => handleOpen(false)}
+                    />
+                  ) : child._type === 'externalLink' ? (
+                    <SanityExternalLink
+                      className={mobileMenuSubLinkClass}
+                      data={child}
+                    />
+                  ) : null}
+                </li>
+              ))}
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+const useMobileMenuOffset = () => {
+  const calcOffset = useCallback(() => {
+    const header = document.getElementById('main-header');
+    const hHeight = header?.offsetHeight || 0;
+    document.documentElement.style.setProperty('--mobile-menu-offset', `${hHeight}px`);
+  }, [])
+
+  useEffect(() => {
+    calcOffset();
+    window.addEventListener('resize', calcOffset);
+    window.addEventListener('scroll', calcOffset);
+
+    return () => {
+      window.removeEventListener('resize', calcOffset);
+      window.removeEventListener('scroll', calcOffset);
+    }
+  }, [calcOffset])
 }
