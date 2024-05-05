@@ -8,9 +8,7 @@ import {cn} from '~/lib/utils';
 
 const buttonVariants = cva(
   [
-    'inline-flex items-center font-semibold select-none justify-center whitespace-nowrap ring-offset-background transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
-    'rounded-[--button-border-corner-radius]',
-    '[box-shadow:rgb(var(--shadow)_/_var(--button-shadow-opacity))_var(--button-shadow-horizontal-offset)_var(--button-shadow-vertical-offset)_var(--button-shadow-blur-radius)_0px]',
+    'inline-flex items-center select-none justify-center whitespace-nowrap duration-200 ring-offset-background transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   ],
   {
     defaultVariants: {
@@ -19,27 +17,17 @@ const buttonVariants = cva(
     },
     variants: {
       size: {
-        default: 'h-11 px-4 py-2',
+        default: 'btn-text px-4 py-4',
         icon: 'size-11',
-        lg: 'h-12 rounded-md px-8',
+        lg: 'btn-text h-[60px] px-8',
         primitive: 'h-auto p-0',
-        sm: 'h-9 rounded-md px-3',
+        sm: 'btn-text-sm'
       },
       variant: {
-        default:
-          'bg-primary text-primary-foreground notouch:hover:bg-primary/90 hover:active:bg-primary/80',
-        destructive:
-          'bg-destructive text-destructive-foreground notouch:hover:bg-destructive/90 hover:active:bg-destructive/80',
-        ghost:
-          'notouch:hover:bg-accent/55 shadow-none notouch:hover:text-accent-foreground hover:active:bg-accent active:text-accent-foreground [box-shadow:0_0_#0000]',
-        link: 'text-primary underline-offset-4 notouch:hover:underline touch:active:underline [box-shadow:0_0_#0000]',
-        outline: [
-          'bg-background notouch:hover:bg-accent/55 hover:active:bg-accent notouch:hover:text-accent-foreground active:text-accent-foreground',
-          '[border-width:--button-border-thickness] border-[rgb(var(--input)_/_var(--button-border-opacity))]',
-        ],
-        primitive: '[box-shadow:0_0_#0000]',
-        secondary:
-          'bg-secondary text-secondary-foreground notouch:hover:bg-secondary/55 hover:active:bg-secondary/30',
+        default: 'bg-amethyst text-charcoal hover:bg-citrus focus:bg-citrus',
+        ghost: '',
+        link: 'btn-text underline hover:text-panther focus:text-panther',
+        outline: 'border-[2px] border-charcoal bg-transparent text-charcoal hover:bg-charcoal focus:bg-charcoal focus:text-marble hover:text-marble',
       },
     },
   },

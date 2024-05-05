@@ -3,7 +3,7 @@ import * as React from 'react';
 import {forwardRef, useCallback, useEffect, useState} from 'react';
 import {Drawer as DrawerPrimitive} from 'vaul';
 
-import {IconClose} from '../icons/IconClose';
+import {AccordionIconClose} from '../icons/IconAccordion';
 import {iconButtonClass} from './Button';
 
 const Drawer = ({
@@ -53,7 +53,7 @@ const DrawerOverlay = forwardRef<
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({className, ...props}, ref) => (
   <DrawerPrimitive.Overlay
-    className={cn('bg-black/80 fixed inset-0 z-50 h-full w-full', className)}
+    className={cn('bg-charcoal/80 fixed inset-0 z-[98] h-full w-full', className)}
     ref={ref}
     {...props}
   />
@@ -80,22 +80,23 @@ const DrawerContent = forwardRef<
       <style dangerouslySetInnerHTML={{__html: cssVar}} />
       <DrawerPrimitive.Content
         className={cn(
-          'fixed right-0 top-[--header-height] z-[99] h-full w-full max-w-[90%] bg-charcoal',
+          'fixed right-0 bottom-0 z-[99] h-full w-full sm:max-w-[90%] bg-charcoal',
           className,
         )}
         ref={ref}
         {...props}
       >
         {children}
-        {/* <DrawerClose
+        <DrawerClose
           className={cn(
             iconButtonClass,
             'absolute right-2 top-2 lg:inline-flex',
+            'text-charcoal hover:text-panther transition-all duration-200 hover:rotate-90'
           )}
         >
-          <IconClose className="size-6" strokeWidth={2} />
+          <AccordionIconClose />
           <span className="sr-only">Close</span>
-        </DrawerClose> */}
+        </DrawerClose>
       </DrawerPrimitive.Content>
     </DrawerPortal>
   );

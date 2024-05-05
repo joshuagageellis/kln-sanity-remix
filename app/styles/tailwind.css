@@ -157,4 +157,17 @@ html {
     letter-spacing: 0.2px;
     line-height: 1.4;
   }
+
+  .btn-text {
+    font-family: var(--body-font-family);
+    font-size: typeScale(16, 20);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.2px;
+  }
+
+  .btn-text-sm {
+    font-size: calcRem(16);
+  }
 }

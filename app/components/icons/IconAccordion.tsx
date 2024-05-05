@@ -32,3 +32,23 @@ export const AccordionIcon = () => (
     <circle cx="25" cy="25" r="24.5" stroke="currentColor" />
   </svg>
 );
+
+
+export const AccordionIconClose = () => (
+  <svg
+    className="h-full w-full transition-all duration-200"
+    fill="none"
+    viewBox="0 0 50 50"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      className="transition-all duration-200"
+      stroke="currentColor"
+      x1="7.70707"
+      x2="43.0624"
+      y1="7.00131"
+      y2="42.3566"
+    />
+    <circle cx="25" cy="25" r="24.5" stroke="currentColor" />
+  </svg>
+);

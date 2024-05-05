@@ -99,12 +99,12 @@ function Badge(props: {cart?: CartApiQueryFragment; count: number}) {
     >
       <DrawerTrigger className={buttonClass}>{BadgeCounter}</DrawerTrigger>
       <DrawerContent
-        className="cart flex h-[97.5svh] max-h-screen w-screen flex-col gap-0 bg-background p-0 text-foreground lg:left-auto lg:right-0 lg:h-svh lg:max-w-lg"
+        className="cart bg-marble text-charcoal h-[100svh] flex max-h-screen w-screen flex-col gap-0 p-0 lg:left-auto lg:right-0 lg:max-w-lg shadow-lg"
         onCloseAutoFocus={(e) => e.preventDefault()}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <DrawerHeader className="px-6 py-5 shadow-sm shadow-foreground/10">
-          <DrawerTitle className="flex items-center gap-4 font-body font-bold">
+        <DrawerHeader className="px-6 py-5">
+          <DrawerTitle className="flex items-center gap-4 h4">
             <span>{themeContent?.cart?.heading}</span>
           </DrawerTitle>
         </DrawerHeader>

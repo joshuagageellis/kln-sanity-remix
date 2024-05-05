@@ -115,7 +115,7 @@ export function MobileNavigation(props: {
   return (
     <div className="md:hidden" id="mobile-nav">
       <button
-        className="flex h-[44px] w-[44px] items-center justify-center p-2 text-cream"
+        className="flex h-[44px] w-[44px] items-center justify-center p-2 text-marble"
         onClick={() => handleOpen(!open)}
       >
         <IconMenu className="h-auto w-[24px]" menuState={open} />
@@ -162,7 +162,7 @@ function MobileMenuModal(props: {
   return (
     <m.div
       animate={{
-        opacity: open ? 1 : 0,
+        // opacity: open ? 1 : 0,
         transition: {duration: 0.2},
         x: open ? 0 : '100%',
       }}

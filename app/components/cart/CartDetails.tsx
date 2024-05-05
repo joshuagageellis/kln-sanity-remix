@@ -155,7 +155,7 @@ function CartSummary({
       >
         <h2 className="sr-only">{themeContent?.cart?.orderSummary}</h2>
         <dl className="grid">
-          <div className="flex items-center justify-between font-medium">
+          <div className="flex items-center justify-between">
             <span>{themeContent?.cart?.subtotal}</span>
             {cost?.subtotalAmount &&
               parseFloat(cost.subtotalAmount.amount) > 0 && (
