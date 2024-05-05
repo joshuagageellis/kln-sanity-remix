@@ -12,7 +12,7 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
+  navigationMenuSubTriggerStyle,
 } from '../ui/NavigationMenu';
 
 export type SanityNestedNavigationProps = TypeFromSelection<
@@ -53,7 +53,7 @@ export function NestedNavigation(props: {
         )}
       </NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="m-0 grid w-full gap-1 p-2 lg:w-[var(--dropdown-width)]">
+        <ul className="m-0 grid w-full gap-2 p-6 lg:w-[var(--dropdown-width)]">
           {childLinks.map((child) => (
             <li key={child._key}>
               <ListItem {...child} />
@@ -65,7 +65,7 @@ export function NestedNavigation(props: {
   ) : data.link && data.name && (!childLinks || childLinks.length === 0) ? (
     // Render internal link if no child links
     <SanityInternalLink
-      className={navigationMenuTriggerStyle()}
+      className={navigationMenuSubTriggerStyle()}
       data={{
         _key: data._key,
         _type: 'internalLink',
@@ -86,16 +86,16 @@ function ListItem(props: SanityNestedNavigationProps['childLinks'][0]) {
         {props._type === 'internalLink' ? (
           <SanityInternalLink
             className={cn(
-              navigationMenuTriggerStyle(),
-              'w-full justify-start rounded-sm hover:bg-accent',
+              navigationMenuSubTriggerStyle(),
+              'w-full justify-start hover:bg-accent',
             )}
             data={props}
           />
         ) : props._type === 'externalLink' ? (
           <SanityExternalLink
             className={cn(
-              navigationMenuTriggerStyle(),
-              'w-full justify-start rounded-sm hover:bg-accent',
+              navigationMenuSubTriggerStyle(),
+              'w-full justify-start hover:bg-accent',
             )}
             data={props}
           />

@@ -140,7 +140,7 @@ export function MobileNavigation(props: {
 }
 
 const mobileMenuLinkClass = cn([
-  'text-cream',
+  'text-marble',
   'mobile-nav-link', // Custom class
 ]);
 

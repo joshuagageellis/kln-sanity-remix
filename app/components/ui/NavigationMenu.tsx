@@ -30,7 +30,7 @@ const NavigationMenuList = forwardRef<
 >(({className, ...props}, ref) => (
   <NavigationMenuPrimitive.List
     className={cn(
-      'group flex flex-1 list-none items-center justify-center space-x-1 gap-4 lg:gap-8',
+      'group flex flex-1 list-none items-center justify-center space-x-4 gap-6 lg:gap-8',
       className,
     )}
     ref={ref}
@@ -42,7 +42,11 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex items-center gap-1',
+  'group inline-flex items-center gap-1 primary-nav-link text-marble hover:text-amethyst focus:text-amethyst transition-all duration-200',
+);
+
+const navigationMenuSubTriggerStyle = cva(
+  'group inline-flex items-center gap-1 primary-nav-sub-link text-marble hover:text-amethyst transition-all duration-200',
 );
 
 const NavigationMenuTrigger = forwardRef<
@@ -56,7 +60,7 @@ const NavigationMenuTrigger = forwardRef<
   >
     {children}
     <IconChevron
-      className="relative size-3 transition duration-200 group-data-[state=open]:rotate-180"
+      className="relative size-3 transition group-data-[state=open]:rotate-180 duration-[inherit]"
     />
   </NavigationMenuPrimitive.Trigger>
 ));
@@ -68,7 +72,7 @@ const NavigationMenuContent = forwardRef<
 >(({className, ...props}, ref) => (
   <NavigationMenuPrimitive.Content
     className={cn(
-      'absolute left-0 top-0 w-auto bg-charcoal data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52',
+      'absolute left-0 top-0 w-auto bg-charcoal shadow-md data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52',
       className,
     )}
     ref={ref}
@@ -90,7 +94,7 @@ const NavigationMenuViewport = forwardRef<
   >
     <NavigationMenuPrimitive.Viewport
       className={cn(
-        'relative h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
+        'relative h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
         className,
       )}
       ref={ref}
@@ -109,5 +113,6 @@ export {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
+  navigationMenuSubTriggerStyle,
   navigationMenuTriggerStyle,
 };

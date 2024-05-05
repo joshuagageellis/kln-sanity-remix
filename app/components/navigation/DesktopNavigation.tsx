@@ -1,6 +1,6 @@
 import type {InferType} from 'groqd';
 
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import type {HEADER_QUERY} from '~/qroq/queries';
 
@@ -21,7 +21,7 @@ export type CallToActionProps = NonNullable<HeaderQuery>['callToAction'];
 export function DesktopNavigation(props: {data?: NavigationProps}) {
   const menuRef = useRef<HTMLUListElement>(null);
   const [activeItem, setActiveItem] = useState<null | string | undefined>(null);
-  const dropdownWidth = 200;
+  const dropdownWidth = 300;
   const viewportPosition = useViewportPosition(
     menuRef,
     activeItem,

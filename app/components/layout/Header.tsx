@@ -32,7 +32,7 @@ export const Header = () => {
     <header className={classes} id="main-header">
       <div className="container-w-padding flex w-full flex-row content-center justify-between gap-4 bg-charcoal pt-2 pb-2 transition-all duration-300 md:h-[126px] md:justify-normal md:gap-12 md:group-[.scrolled]:h-[86px]">
         <Link
-          className="flex origin-left flex-col content-center justify-center transition-all duration-500 hover:scale-105"
+          className="flex origin-left flex-col content-center justify-center transition-all duration-500"
           // Used in mobile menu.
           id="main-logo-link"
           to="/"
@@ -45,7 +45,7 @@ export const Header = () => {
         </Link>
         <DesktopNavigation data={headerData?.menu} />
         <div className="flex flex-row justify-center">
-          <MobileNavigation data={headerData?.menu} callToAction={headerData?.callToAction} />
+          <MobileNavigation callToAction={headerData?.callToAction} data={headerData?.menu} />
           <div className="flex flex-col justify-center content-center">
             <CartDrawer />
           </div>

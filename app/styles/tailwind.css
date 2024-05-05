@@ -140,4 +140,21 @@ html {
     max-width: 60px;
     max-height: 60px;
   }
+
+  .primary-nav-link {
+    font-family: var(--body-font-family);
+    font-size: calcRem(20);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.8;
+    letter-spacing: 0.2px;
+  }
+
+  .primary-nav-sub-link {
+    font-family: var(--body-font-family);
+    font-size: typeScale(16, 20);
+    font-weight: 450;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+  }
 }
