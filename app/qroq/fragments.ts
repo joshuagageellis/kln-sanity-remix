@@ -79,6 +79,21 @@ export const MENU_FRAGMENT = q(
   .nullable();
 
 /*
+|----------------------------------------------------------------- ---------
+| Mobile Menu Call To Action Fragment
+|--------------------------------------------------------------------------
+*/
+
+export const CALL_TO_ACTION_FRAGMENT = q('callToAction')
+  .grab({
+    externalLink: q.string().nullable(),
+    link: LINK_REFERENCE_FRAGMENT,
+    openInNewTab: q.boolean().nullable(),
+    text: q.string().nullable(),
+  })
+  .nullable();
+
+/*
 |--------------------------------------------------------------------------
 | Color Fragments
 |--------------------------------------------------------------------------
@@ -138,6 +153,8 @@ export const ANNOUCEMENT_BAR_ARRAY_FRAGMENT = q(
 | Settings Fragments
 |--------------------------------------------------------------------------
 */
+
+// TODO update to schema
 export const SETTINGS_FRAGMENT = {
   badgesCornerRadius: q.number().nullable(),
   badgesPosition: z

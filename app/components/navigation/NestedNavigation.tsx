@@ -1,6 +1,5 @@
 import type {TypeFromSelection} from 'groqd';
 
-import {cx} from 'class-variance-authority';
 import {useCallback} from 'react';
 
 import type {NESTED_NAVIGATION_FRAGMENT} from '~/qroq/links';

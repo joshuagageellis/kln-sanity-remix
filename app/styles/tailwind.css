@@ -103,7 +103,7 @@ html {
 
   .container-w-padding {
     @extend .container;
-    padding: clamp(16px, 3.84vw, 48px);
+    padding: 0 clamp(16px, 3.84vw, 48px);
   }
 
   /**
@@ -133,7 +133,8 @@ html {
     font-weight: 500;
   }
 
-  .mobile-nav-accordion svg {
+  .mobile-nav-accordion svg,
+  .mobile-nav-cta svg {
     height: calcRem(44);
     width: calcRem(44);
     max-width: 60px;

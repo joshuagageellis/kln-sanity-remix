@@ -16,6 +16,7 @@ import {NestedNavigation} from './NestedNavigation';
 
 type HeaderQuery = InferType<typeof HEADER_QUERY>;
 export type NavigationProps = NonNullable<HeaderQuery>['menu'];
+export type CallToActionProps = NonNullable<HeaderQuery>['callToAction'];
 
 export function DesktopNavigation(props: {data?: NavigationProps}) {
   const menuRef = useRef<HTMLUListElement>(null);

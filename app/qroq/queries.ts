@@ -3,6 +3,7 @@ import {q, z} from 'groqd';
 import {FOOTERS_FRAGMENT} from './footers';
 import {
   ANNOUCEMENT_BAR_ARRAY_FRAGMENT,
+  CALL_TO_ACTION_FRAGMENT,
   COLOR_SCHEME_FRAGMENT,
   FONT_FRAGMENT,
   MENU_FRAGMENT,
@@ -148,6 +149,7 @@ export const HEADER_QUERY = q('*')
   .filter("_type == 'header'")
   .grab({
     annoucementBar: ANNOUCEMENT_BAR_ARRAY_FRAGMENT,
+    callToAction: CALL_TO_ACTION_FRAGMENT,
     menu: MENU_FRAGMENT,
   })
   .slice(0)
