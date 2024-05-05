@@ -19,6 +19,8 @@ export default {
       'yellow': '#FFDE42',
       'cream': '#EBE8DE',
       'charcoal': '#1E1F20',
+      'black': '#000000',
+      'white': '#FFFFFF',
     },
     fontFamily: {
       sans: ['Archivo', 'sans-serif'],

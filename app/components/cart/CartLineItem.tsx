@@ -103,9 +103,9 @@ export function CartLineItem({
           )}
         </div>
 
-        <div className="flex flex-1 justify-between">
+        <div className="flex flex-1 justify-between gap-4">
           <div className="grid gap-1">
-            <h3 className="font-body text-xl font-medium">
+            <h3 className="h5">
               {merchandise?.product?.handle ? (
                 <Link onClick={onClose} to={productPath}>
                   {merchandise?.product?.title || ''}
@@ -119,7 +119,7 @@ export function CartLineItem({
             ) && (
               <div className="grid pb-2">
                 {(merchandise?.selectedOptions || []).map((option) => (
-                  <small className="text-sm opacity-80" key={option.name}>
+                  <small className="text-panther info-16" key={option.name}>
                     {option.name}: {option.value}
                   </small>
                 ))}
@@ -133,7 +133,7 @@ export function CartLineItem({
               <ItemRemoveButton lineId={id} loading={cartIsLoading} />
             </div>
           </div>
-          <span>
+          <span className="h5">
             <CartLinePrice as="span" line={line} />
           </span>
         </div>
@@ -161,6 +161,10 @@ function ItemRemoveButton({
       route={cartPath}
     >
       <IconButton
+        buttonProps={{
+          size: 'iconOutline',
+          variant: 'outline',
+        }}
         className={cn(
           'overflow-hidden',
         )}

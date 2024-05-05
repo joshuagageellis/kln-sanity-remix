@@ -71,7 +71,7 @@ export function CartDetails({
               animate="show"
               className={cn([
                 layout === 'page' &&
-                  'lg:sticky lg:top-[var(--desktopHeaderHeight)]',
+                  'lg:sticky lg:top-[var(--header-height)]',
               ])}
               exit="hide"
               forceMotion={layout === 'drawer'}
@@ -111,7 +111,7 @@ function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
   const cartIsLoading = Boolean(addToCartFetchers.length);
 
   return (
-    <div className="mt-2 flex flex-col">
+    <div className="mt-1 flex flex-col">
       <Button asChild>
         <a
           className={cn(
@@ -149,14 +149,14 @@ function CartSummary({
       <div
         aria-labelledby="summary-heading"
         className={cn([
-          layout === 'drawer' && 'grid gap-4 border-t p-6',
+          layout === 'drawer' && 'grid gap-2 border-t-[2px] border-charcoal p-6',
           layout === 'page' && 'grid gap-6',
         ])}
       >
         <h2 className="sr-only">{themeContent?.cart?.orderSummary}</h2>
         <dl className="grid">
           <div className="flex items-center justify-between">
-            <span>{themeContent?.cart?.subtotal}</span>
+            <span className="info-16">{themeContent?.cart?.subtotal}</span>
             {cost?.subtotalAmount &&
               parseFloat(cost.subtotalAmount.amount) > 0 && (
                 <span>

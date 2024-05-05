@@ -6,8 +6,6 @@ import type {
 import {AnimatePresence, m} from 'framer-motion';
 import {useState} from 'react';
 
-import type {CmsSectionSettings} from '~/hooks/useColorsCssVars';
-
 import {useOptimisticNavigationData} from '~/hooks/useOptimisticNavigationData';
 import {useSanityThemeContent} from '~/hooks/useSanityThemeContent';
 import {cn} from '~/lib/utils';
@@ -116,7 +114,7 @@ export function SortFilter({
               'hidden touch:hidden lg:block',
               'transition-all duration-200',
               isOpen
-                ? 'sticky top-[calc(var(--desktopHeaderHeight)_+_1rem)] opacity-100 md:w-[240px] md:min-w-[240px] md:pr-8'
+                ? 'sticky top-[calc(var(--header-height)_+_1rem)] opacity-100 md:w-[240px] md:min-w-[240px] md:pr-8'
                 : 'max-h-0 pr-0 opacity-0 md:max-h-full md:w-[0px] md:min-w-[0px]',
             ])}
           >
@@ -248,7 +246,7 @@ export function DesktopFiltersDrawer({
   return (
     <ScrollArea
       className={cn(
-        'h-[calc(100svh_-_var(--desktopHeaderHeight)_-2rem)] w-full px-4 transition-all',
+        'h-[calc(100svh_-_var(--header-height)_-2rem)] w-full px-4 transition-all',
         'rounded-[--product-card-border-corner-radius]',
         'border border-[rgb(var(--border))]',
       )}

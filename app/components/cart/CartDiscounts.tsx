@@ -35,7 +35,7 @@ export function CartDiscounts({
     <>
       {/* Have existing discount, display it with a remove option */}
       <dl className={codes && codes.length !== 0 ? 'grid' : 'hidden'}>
-        <div className="flex items-center justify-between font-medium">
+        <div className="flex items-center justify-between">
           <span>{themeContent?.cart?.discounts}</span>
           <div className="flex items-center justify-between">
             <UpdateDiscountForm>
@@ -60,7 +60,7 @@ export function CartDiscounts({
           className={cn(
             'flex',
             layout === 'page' && 'flex-col lg:flex-row',
-            'items-center justify-between gap-4',
+            'items-center justify-between gap-1',
           )}
         >
           <Input
@@ -71,6 +71,7 @@ export function CartDiscounts({
           <Button
             className={cn(layout === 'page' && 'w-full lg:w-auto')}
             disabled={cartIsLoading}
+            size={layout === 'page' ? 'default' : 'sm'}
             variant="outline"
           >
             {themeContent?.cart?.applyDiscount}

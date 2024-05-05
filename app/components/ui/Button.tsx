@@ -17,27 +17,28 @@ const buttonVariants = cva(
     },
     variants: {
       size: {
-        default: 'btn-text px-4 py-4',
+        default: 'btn-text px-4 py-4 min-h-[60px]',
         icon: 'size-11',
+        iconOutline: 'size-11',
         lg: 'btn-text h-[60px] px-8',
         primitive: 'h-auto p-0',
-        sm: 'btn-text-sm'
+        sm: 'btn-text-sm min-h-[48px] px-3 py-1',
       },
       variant: {
         default: 'bg-amethyst text-charcoal hover:bg-citrus focus:bg-citrus',
         ghost: '',
         link: 'btn-text underline hover:text-panther focus:text-panther',
-        outline: 'border-[2px] border-charcoal bg-transparent text-charcoal hover:bg-charcoal focus:bg-charcoal focus:text-marble hover:text-marble',
+        outline:
+          'border-[2px] border-charcoal bg-transparent text-charcoal hover:bg-charcoal focus:bg-charcoal focus:text-marble hover:text-marble',
       },
     },
   },
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+    asChild?: boolean;
+  }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({asChild = false, className, size, variant, ...props}, ref) => {
@@ -56,15 +57,16 @@ Button.displayName = 'Button';
 export interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
+  buttonProps?: VariantProps<typeof buttonVariants>|null;
 }
 
 export const iconButtonClass = buttonVariants({size: 'icon', variant: 'ghost'});
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({asChild = false, className, ...props}, ref) => {
+  ({asChild = false, buttonProps = null, className, ...props}, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp className={cn(iconButtonClass, className)} ref={ref} {...props} />
+      <Comp className={cn(buttonProps ? buttonVariants(buttonProps) : iconButtonClass, className)} ref={ref} {...props} />
     );
   },
 );

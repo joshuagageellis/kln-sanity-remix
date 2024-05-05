@@ -30,6 +30,10 @@ const QuantityButton = forwardRef<
         symbol === 'decrease' && 'Decrease quantity',
         symbol === 'increase' && 'Increase quantity',
       ])}
+      buttonProps={{
+        size: 'iconOutline',
+        variant: 'outline',
+      }}
       className={cn([
         'group disabled:opacity-100',
         symbol === 'decrease'
@@ -62,7 +66,7 @@ function Value(props: {children: React.ReactNode}) {
   return (
     <div
       className={cn(
-        'flex h-full min-w-[2.5rem] select-none items-center justify-center px-2 text-center',
+        'flex min-h-[44px] min-w-[44px] info-16 leading-none select-none items-center justify-center px-2 pt-[3px] text-center border-charcoal border-[2px] rounded-none',
       )}
     >
       {props.children}
