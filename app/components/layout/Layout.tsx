@@ -34,7 +34,7 @@ export function Layout({children = null}: LayoutProps) {
       <FramerMotion>
         <AnnouncementBar />
         <Header />
-        <main className="">
+        <main className="flex flex-col flex-grow">
           {children}
         </main>
         <Footer />
