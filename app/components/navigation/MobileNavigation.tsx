@@ -113,7 +113,7 @@ export function MobileNavigation(props: {
   }, [handleKeyDown, handleExtraneousTrigger]);
 
   return (
-    <div className="md:hidden" id="mobile-nav">
+    <div className="lg:hidden" id="mobile-nav">
       <button
         className="flex h-[44px] w-[44px] items-center justify-center p-2 text-marble"
         onClick={() => handleOpen(!open)}

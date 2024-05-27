@@ -30,7 +30,7 @@ const NavigationMenuList = forwardRef<
 >(({className, ...props}, ref) => (
   <NavigationMenuPrimitive.List
     className={cn(
-      'group flex flex-1 list-none items-center justify-center space-x-4 gap-6 lg:gap-8',
+      'group flex flex-1 list-none items-center justify-center space-x-4 gap-1 lg:gap-4',
       className,
     )}
     ref={ref}
@@ -60,7 +60,7 @@ const NavigationMenuTrigger = forwardRef<
   >
     {children}
     <IconChevron
-      className="relative size-3 transition group-data-[state=open]:rotate-180 duration-[inherit]"
+      className="relative size-3 transition group-data-[state=open]:rotate-180"
     />
   </NavigationMenuPrimitive.Trigger>
 ));
