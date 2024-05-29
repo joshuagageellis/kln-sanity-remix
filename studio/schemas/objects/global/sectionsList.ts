@@ -21,6 +21,9 @@ const globalSections = [
   {
     type: 'richtextSection',
   },
+  {
+    type: 'homepageCarouselSection'
+  }
 ];
 
 const pdpSections = [

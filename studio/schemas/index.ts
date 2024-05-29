@@ -46,6 +46,8 @@ import collectionProductGrid from './objects/sections/collectionProductGrid';
 import announcementBar from './objects/global/announcementBar';
 import aspectRatios from './objects/global/aspectRatios';
 import bannerRichtext from './objects/global/bannerRichtext';
+import structuredLink from './objects/global/structuredLink';
+import homepageCarouselSection from './objects/sections/homepageCarousel';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -69,6 +71,7 @@ const sections = [
   richtextSection,
   collectionBanner,
   collectionProductGrid,
+  homepageCarouselSection,
 ];
 const footers = [socialLinksOnly];
 const objects = [
@@ -95,6 +98,7 @@ const objects = [
   contentPosition,
   richtext,
   aspectRatios,
+  structuredLink,
 ];
 
 export const schemaTypes = [

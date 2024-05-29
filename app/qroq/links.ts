@@ -61,3 +61,17 @@ export const LINKS_LIST_SELECTION = {
   '_type == "internalLink"': INTERNAL_LINK_FRAGMENT,
   '_type == "nestedNavigation"': NESTED_NAVIGATION_FRAGMENT,
 };
+
+/*
+|--------------------------------------------------------------------------
+| Structured Link
+|--------------------------------------------------------------------------
+*/
+export const STRUCTURED_LINK_FRAGMENT = {
+  _key: q.string().nullable(),
+  _type: q.literal('structuredLink'),
+  externalLink: q.boolean().nullable(),
+  manualLink: q.string().nullable(),
+  reference: LINK_REFERENCE_FRAGMENT,
+  title: q.string().nullable(),
+} satisfies Selection;

@@ -29,10 +29,38 @@ html {
   --fluid-fs-h4: typeScale(20, 24);
   --fluid-fs-h5: calcRem(18);
   --fluid-fs-h6: calcRem(14);
+
+  /**
+  Color vars.
+  */
+  --color-panther: #3E4041;
+  --color-yosemite: #49A0C4;
+  --color-citrus: #92D67A;
+  --color-amethyst: #C0AED8;
+  --color-salsa: #CC5242;
+  --color-marble: #F0EBD9;
+  --color-peachy: #F3A985;
+  --color-yellow: #FFDE42;
+  --color-cream: #EBE8DE;
+  --color-charcoal: #1E1F20;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
 }
 
 @layer base {
   * {
+  }
+
+  .container-w-padding {
+    width: 100%;
+    padding: 0 clamp(16px, 3.84vw, 48px);
+  }
+
+  .site-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+    gap: clamp(12px, 1.667vw, 24px);
   }
 
   body {
@@ -101,9 +129,18 @@ html {
     --fluid-headline-fs: var(--fluid-fs-h6);
   }
 
-  .container-w-padding {
-    @extend .container;
-    padding: 0 clamp(16px, 3.84vw, 48px);
+  .highlight {
+    color: var(--highlight-color);
+  }
+
+  .highlight > span {
+    padding: 0.2em 0.25em 0.1em;
+    background: var(--highlight-bg);
+  }
+
+  .highlight--amethyst {
+    --highlight-bg: var(--color-amethyst);
+    --highlight-color: var(--color-charcoal);
   }
 
   /**

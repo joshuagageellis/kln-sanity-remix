@@ -30,6 +30,8 @@ const buttonVariants = cva(
         link: 'btn-text underline hover:text-panther focus:text-panther',
         outline:
           'border-[2px] border-charcoal bg-transparent text-charcoal hover:bg-charcoal focus:bg-charcoal focus:text-marble hover:text-marble',
+        outlineDark:
+          'border-[2px] border-marble bg-transparent text-marble hover:bg-amethyst focus:bg-amethyst focus:text-charcoal hover:text-charcoal hover:border-amethyst',
       },
     },
   },

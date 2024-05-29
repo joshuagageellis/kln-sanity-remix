@@ -31,7 +31,7 @@ export function CmsSection(props: {
   const type = data._type;
   const Section = useMemo(() => sections[type], [type]);
 
-  if (data.settings?.hide) return null;
+  if (data?.settings?.hide) return null;
 
   return Section ? (
     <SectionWrapper
@@ -54,10 +54,6 @@ function SectionWrapper(props: {
 }) {
   const {children, data} = props;
   const isDev = useIsDev();
-  const sectionSelector = `#section-${data._key}`;
-  const customCss = data.settings?.customCss?.code
-    ? `${sectionSelector} ${data.settings.customCss.code}`
-    : '';
   const sectionType = data._type;
 
   return props.type === 'footer' ? (
@@ -77,9 +73,6 @@ function SectionWrapper(props: {
         id={`section-${data._key}`}
       >
         {children}
-        {data.settings?.customCss && (
-          <style dangerouslySetInnerHTML={{__html: customCss}} />
-        )}
       </section>
     </SectionContext.Provider>
   );

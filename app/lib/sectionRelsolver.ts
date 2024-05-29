@@ -5,6 +5,7 @@ import {CollectionListSection} from '~/components/sections/CollectionListSection
 import {CollectionProductGridSection} from '~/components/sections/CollectionProductGridSection';
 import {FeaturedCollectionSection} from '~/components/sections/FeaturedCollectionSection';
 import {FeaturedProductSection} from '~/components/sections/FeaturedProductSection';
+import {HomepageCarouselSection} from '~/components/sections/HomepageCarouselSection';
 import {ImageBannerSection} from '~/components/sections/ImageBannerSection';
 import {ProductInformationSection} from '~/components/sections/ProductInformationSection';
 import {RelatedProductsSection} from '~/components/sections/RelatedProductsSection';
@@ -19,6 +20,7 @@ export const sections: {
   collectionProductGridSection: CollectionProductGridSection,
   featuredCollectionSection: FeaturedCollectionSection,
   featuredProductSection: FeaturedProductSection,
+  homepageCarouselSection: HomepageCarouselSection,
   imageBannerSection: ImageBannerSection,
   productInformationSection: ProductInformationSection,
   relatedProductsSection: RelatedProductsSection,

@@ -8,6 +8,7 @@ import {
   RICHTEXT_BLOCKS,
 } from './blocks';
 import {COLOR_SCHEME_FRAGMENT, IMAGE_FRAGMENT} from './fragments';
+import {STRUCTURED_LINK_FRAGMENT} from './links';
 import {getIntValue} from './utils';
 
 export const contentPositionValues = [
@@ -33,21 +34,29 @@ export const aspectRatioValues = ['square', 'video', 'auto'] as const;
 */
 export const SECTION_SETTINGS_FRAGMENT = q('settings')
   .grab({
-    colorScheme: q('colorScheme').deref().grab(COLOR_SCHEME_FRAGMENT),
-    customCss: q
-      .object({
-        code: q.string().optional(),
-      })
-      .nullable(),
     hide: q.boolean().nullable(),
-    padding: q
-      .object({
-        bottom: q.number().nullable(),
-        top: q.number().nullable(),
-      })
-      .nullable(),
   })
   .nullable();
+
+/*
+|--------------------------------------------------------------------------
+| Homepage Carousel Section
+|--------------------------------------------------------------------------
+*/
+export const HOMEPAGE_CAROUSEL_SECTION_FRAGMENT = {
+  _key: q.string().nullable(),
+  _type: q.literal('homepageCarouselSection'),
+  settings: SECTION_SETTINGS_FRAGMENT,
+  slides: q('slides[]', {isArray: true})
+    .grab({
+      _key: q.string(),
+      description: q.string().nullable(),
+      image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+      link: q('link').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+      title: q.string().nullable(),
+    })
+    .nullable(),
+} satisfies Selection;
 
 /*
 |--------------------------------------------------------------------------
@@ -303,6 +312,7 @@ export const SECTIONS_LIST_SELECTION = {
   "_type == 'collectionListSection'": COLLECTION_LIST_SECTION_FRAGMENT,
   "_type == 'featuredCollectionSection'": FEATURED_COLLECTION_SECTION_FRAGMENT,
   "_type == 'featuredProductSection'": FEATURED_PRODUCT_SECTION_FRAGMENT,
+  "_type == 'homepageCarouselSection'": HOMEPAGE_CAROUSEL_SECTION_FRAGMENT,
   "_type == 'imageBannerSection'": IMAGE_BANNER_SECTION_FRAGMENT,
   "_type == 'richtextSection'": RICHTEXT_SECTION_FRAGMENT,
 };
