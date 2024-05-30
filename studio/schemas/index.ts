@@ -48,6 +48,7 @@ import aspectRatios from './objects/global/aspectRatios';
 import bannerRichtext from './objects/global/bannerRichtext';
 import structuredLink from './objects/global/structuredLink';
 import homepageCarouselSection from './objects/sections/homepageCarousel';
+import homepageLargeText from './objects/sections/homepageLargeText';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -72,6 +73,7 @@ const sections = [
   collectionBanner,
   collectionProductGrid,
   homepageCarouselSection,
+  homepageLargeText,
 ];
 const footers = [socialLinksOnly];
 const objects = [

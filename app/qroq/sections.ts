@@ -60,6 +60,18 @@ export const HOMEPAGE_CAROUSEL_SECTION_FRAGMENT = {
 
 /*
 |--------------------------------------------------------------------------
+| Large Text Section
+|--------------------------------------------------------------------------
+*/
+export const HOMEPAGE_LARGE_TEXT_SECTION = {
+  _key: q.string().nullable(),
+  _type: q.literal('homepageLargeText'),
+  content: q.string().nullable(),
+  settings: SECTION_SETTINGS_FRAGMENT,
+} satisfies Selection;
+
+/*
+|--------------------------------------------------------------------------
 | Image Banner Section
 |--------------------------------------------------------------------------
 */
@@ -313,6 +325,7 @@ export const SECTIONS_LIST_SELECTION = {
   "_type == 'featuredCollectionSection'": FEATURED_COLLECTION_SECTION_FRAGMENT,
   "_type == 'featuredProductSection'": FEATURED_PRODUCT_SECTION_FRAGMENT,
   "_type == 'homepageCarouselSection'": HOMEPAGE_CAROUSEL_SECTION_FRAGMENT,
+  "_type == 'homepageLargeText'": HOMEPAGE_LARGE_TEXT_SECTION,
   "_type == 'imageBannerSection'": IMAGE_BANNER_SECTION_FRAGMENT,
   "_type == 'richtextSection'": RICHTEXT_SECTION_FRAGMENT,
 };

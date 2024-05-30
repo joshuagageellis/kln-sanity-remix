@@ -1,13 +1,9 @@
-import type {VariantProps} from 'class-variance-authority';
 import type {TypeFromSelection} from 'groqd';
 
 import type {STRUCTURED_LINK_FRAGMENT} from '~/qroq/links';
 
-import type {ButtonProps} from './Button';
-
-import {SanityExternalLink} from '../sanity/link/SanityExternalLink';
-import {SanityInternalLink} from '../sanity/link/SanityInternalLink';
-import {Button} from './Button';
+import {SanityExternalLink} from './SanityExternalLink';
+import {SanityInternalLink} from './SanityInternalLink';
 
 type StructuredLinkProps = TypeFromSelection<typeof STRUCTURED_LINK_FRAGMENT>;
 

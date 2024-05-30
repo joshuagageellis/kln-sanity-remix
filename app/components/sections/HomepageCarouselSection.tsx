@@ -5,7 +5,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import type {SectionDefaultProps} from '~/lib/type';
 import type {HOMEPAGE_CAROUSEL_SECTION_FRAGMENT} from '~/qroq/sections';
 
-import {StructuredLink} from '~/components/ui/StructuredLink';
+import {StructuredLink} from '~/components/sanity/link/StructuredLink';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
 import {SanityImage} from '../sanity/SanityImage';
@@ -29,12 +29,12 @@ export function HomepageCarouselSection(
   const rootData = useSanityRoot();
 
   return (
-    <div className="homepage-carousel relative flex flex-col">
+    <div className="homepage-carousel relative flex flex-col mb-16 md:mb-32">
       {rootData?.data?.settings?.siteName && (
         <h1 className="sr-only">{rootData.data.settings?.siteName}</h1>
       )}
       <Carousel
-        // plugins={[Autoplay()]}
+        plugins={[Autoplay()]}
         style={
           {
             '--slide-spacing': 'var(--container-padding)',

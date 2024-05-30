@@ -23,6 +23,9 @@ const globalSections = [
   },
   {
     type: 'homepageCarouselSection'
+  },
+  {
+    type: 'homepageLargeText'
   }
 ];
 

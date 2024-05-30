@@ -1,4 +1,3 @@
-import { EyeOff, GalleryHorizontal } from 'lucide-react';
 import {defineArrayMember, defineField} from 'sanity';
 
 export default defineField({
