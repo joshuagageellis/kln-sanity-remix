@@ -9,15 +9,15 @@ import {StructuredLink} from '~/components/ui/StructuredLink';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
 import {SanityImage} from '../sanity/SanityImage';
+import { Button } from '../ui/Button';
 import {
   Carousel,
   CarouselContent,
+  CarouselCounter,
   CarouselItem,
   CarouselNext,
-  CarouselPagination,
   CarouselPrevious,
 } from '../ui/Carousel';
-import { Button } from '../ui/Button';
 
 type HomepageCarouselSectionProps = TypeFromSelection<
   typeof HOMEPAGE_CAROUSEL_SECTION_FRAGMENT
@@ -29,7 +29,7 @@ export function HomepageCarouselSection(
   const rootData = useSanityRoot();
 
   return (
-    <div>
+    <div className="homepage-carousel relative flex flex-col">
       {rootData?.data?.settings?.siteName && (
         <h1 className="sr-only">{rootData.data.settings?.siteName}</h1>
       )}
@@ -37,32 +37,57 @@ export function HomepageCarouselSection(
         // plugins={[Autoplay()]}
         style={
           {
-            '--slides-per-view': 1,
+            '--slide-spacing': 'var(--container-padding)',
+						'--slides-per-view': 1,
           } as React.CSSProperties
         }
       >
+				<div className="hidden md:grid site-grid container-w-padding absolute top-0 left-0">
+					{/* Essentially a fake slide, spaces the navigation */}
+					<span className="row-start-1 col-start-1 col-span-9">
+						<span className="block w-[calc(100%+var(--container-padding))] ml-[calc(-1*var(--container-padding))]">
+							<span className="block aspect-video w-full h-full"></span>
+						</span>
+					</span>
+					<div className="flex flex-col justify-end pb-12 row-start-1 col-start-10 col-span-2">
+						<div className="flex-row flex justify-between gap-2 text-marble relative bg-charcoal p-2 z-10">
+							<CarouselPrevious />
+							<CarouselCounter>
+								{props.data.slides && (
+									<span>
+										{props.data.slides.length}
+									</span>
+								)}
+							</CarouselCounter>
+							<CarouselNext />
+						</div>
+					</div>
+				</div>
+
         <CarouselContent>
           {props.data.slides?.map((slide, index) => (
             <CarouselItem key={index}>
-							<div className="site-grid gap-y-0 container-w-padding">
-								<div className="col-start-1 col-span-10 md:col-span-9">
-									<SanityImage
-										aspectRatio="16/9"
-										className="w-full h-full"
-										data={slide.image}
-										decoding="async"
-										draggable={false}
-										fetchpriority={index === 0 ? 'high' : 'low'}
-										loading={index === 0 ? 'eager' : 'lazy'}
-										sizes="100vw"
-									/>
+							<div className="site-grid gap-y-0 container-w-padding overflow-hidden">
+								<div className="row-start-1 col-start-1 col-span-10 md:col-span-9">
+									<div className="w-[calc(100%+var(--container-padding))] ml-[calc(-1*var(--container-padding))]">
+										<SanityImage
+											aspectRatio="16/9"
+											className="h-full w-full object-cover"
+											data={slide.image}
+											decoding="async"
+											draggable={false}
+											fetchpriority={index === 0 ? 'high' : 'low'}
+											loading={index === 0 ? 'eager' : 'lazy'}
+											sizes="100vw"
+										/>
+									</div>
 								</div>
 								<div className="row-start-2 col-span-full">
 									{slide.title && (
-										<div className="flex w-full justify-end z-10 mt-[-20px] relative">
-											<h2 className="highlight highlight--amethyst h1-super">
+										<div className="flex w-full justify-end z-10 mt-[-20px] relative text-right">
+											<h2 className="text-pretty highlight highlight--amethyst h1-super mr-[calc(-1*var(--container-padding))] md:max-w-[90%]">
 												<span>
-													<span className="pr-4">
+													<span className="pr-[var(--container-padding)] pl-[var(--container-padding)]">
 														{slide.title}
 													</span>
 												</span>
@@ -95,9 +120,21 @@ export function HomepageCarouselSection(
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPagination />
-        <CarouselPrevious />
-        <CarouselNext />
+
+				{/* Mobile only slider nav */}
+				<div className="text-marble mt-4 site-grid container-w-padding relative md:hidden">
+					<div className="flex-row flex justify-between gap-6">
+						<CarouselPrevious />
+						<CarouselCounter>
+							{props.data.slides && (
+								<span>
+									{props.data.slides.length}
+								</span>
+							)}
+						</CarouselCounter>
+						<CarouselNext />
+					</div>
+				</div>
       </Carousel>
     </div>
   );

@@ -49,11 +49,12 @@ html {
 
 @layer base {
   * {
+    --container-padding: clamp(16px, 3.84vw, 48px);
   }
 
   .container-w-padding {
     width: 100%;
-    padding: 0 clamp(16px, 3.84vw, 48px);
+    padding: 0 var(--container-padding);
   }
 
   .site-grid {
@@ -93,7 +94,7 @@ html {
 
   .h1-super {
     --fluid-headline-fs: var(--fluid-fs-h1-super);
-    --fluid-headline-lh: 1.1;
+    --fluid-headline-lh: 1.2;
     --fluid-headline-fw: 800;
   }
 
@@ -135,7 +136,10 @@ html {
 
   .highlight > span {
     padding: 0.2em 0.25em 0.1em;
-    background: var(--highlight-bg);
+    background: var(--highlight-bg); 
+    box-decoration-break: clone;
+    /* display: inline-flex; */
+    /* box-shadow: 1em 0 0 var(--highlight-bg), -1em 0 0 var(--highlight-bg); */
   }
 
   .highlight--amethyst {

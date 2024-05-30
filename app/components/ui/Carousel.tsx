@@ -8,7 +8,7 @@ import * as React from 'react';
 
 import {cn} from '~/lib/utils';
 
-import {IconChevron} from '../icons/IconChevron';
+import {IconObliqueChevron} from '../icons/IconObliqueChevron';
 import {Button, IconButton} from './Button';
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -208,23 +208,17 @@ const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof IconButton>
 >(({className, ...props}, ref) => {
-  const {canScrollPrev, orientation, scrollPrev} = useCarousel();
+  const {canScrollPrev, scrollPrev} = useCarousel();
 
   return (
     <IconButton
-      className={cn(
-        'absolute rounded-full',
-        orientation === 'horizontal'
-          ? '-left-12 top-1/2 -translate-y-1/2'
-          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
-        className,
-      )}
+      className={cn(className, 'rotate-180')}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       ref={ref}
       {...props}
     >
-      <IconChevron className="size-4" direction="left" />
+      <IconObliqueChevron className="size-6" />
       <span className="sr-only">Previous slide</span>
     </IconButton>
   );
@@ -235,23 +229,17 @@ const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof IconButton>
 >(({className, ...props}, ref) => {
-  const {canScrollNext, orientation, scrollNext} = useCarousel();
+  const {canScrollNext, scrollNext} = useCarousel();
 
   return (
     <IconButton
-      className={cn(
-        'absolute rounded-full',
-        orientation === 'horizontal'
-          ? '-right-12 top-1/2 -translate-y-1/2'
-          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
-        className,
-      )}
+      className={cn(className, '')}
       disabled={!canScrollNext}
       onClick={scrollNext}
       ref={ref}
       {...props}
     >
-      <IconChevron className="size-4" direction="right" />
+      <IconObliqueChevron className="size-6" direction="right" />
       <span className="sr-only">Next slide</span>
     </IconButton>
   );
@@ -275,7 +263,7 @@ const CarouselPagination = React.forwardRef<
           onClick={() => onDotButtonClick(index)}
           ref={ref}
           size="primitive"
-          variant="primitive"
+          variant="outlineDark"
           {...props}
         >
           <span
@@ -299,7 +287,7 @@ const CarouselCounter = React.forwardRef<
   const {selectedIndex} = useCarouselPagination(api);
 
   return (
-    <div className="flex items-center gap-1 tabular-nums text-muted-foreground">
+    <div className="flex items-center gap-2 tabular-nums info-16">
       <span className={cn(className)} ref={ref} {...props}>
         {selectedIndex + 1}
       </span>
