@@ -21,7 +21,7 @@ export default defineField({
 			title: 'Link',
 			type: 'reference',
 			weak: true,
-			to: [{type: 'page'}, {type: 'shopifyProduct'}, {type: 'shopifyCollection'}],
+			to: [{type: 'page'}, {type: 'product'}, {type: 'blogPost'}, {type: 'collection'}, ],
 			hidden: ({parent}) => parent?.externalLink,
 		}),
 		defineField({

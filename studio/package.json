@@ -5,8 +5,7 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "run-s create:initial && sanity dev",
-    "dev-slim": "sanity dev",
+    "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",

@@ -31,3 +31,5 @@ export type SanityImageFragment = TypeFromSelection<typeof IMAGE_FRAGMENT>;
 export type SectionDefaultProps = {
   encodeDataAttribute?: EncodeDataAttributeCallback;
 };
+
+export type ArrayMember<A> = A extends readonly (infer T)[] ? T : never

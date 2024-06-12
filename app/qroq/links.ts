@@ -68,10 +68,24 @@ export const LINKS_LIST_SELECTION = {
 |--------------------------------------------------------------------------
 */
 export const STRUCTURED_LINK_FRAGMENT = {
-  _key: q.string().nullable(),
   _type: q.literal('structuredLink'),
   externalLink: q.boolean().nullable(),
   manualLink: q.string().nullable(),
-  reference: LINK_REFERENCE_FRAGMENT,
+  reference: q('reference')
+    .deref()
+    .grab({
+      documentType: ['_type', q.string()],
+      slug: [
+        `coalesce(
+          slug,
+          store.slug
+        )`,
+        q.object({
+          _type: q.string(),
+          current: q.string(),
+        }),
+      ],
+    })
+    .nullable(),
   title: q.string().nullable(),
 } satisfies Selection;

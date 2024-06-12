@@ -1,5 +1,6 @@
 import type {TypeFromSelection} from 'groqd';
 
+import { cx } from 'class-variance-authority';
 import Autoplay from 'embla-carousel-autoplay';
 import {useInView} from 'framer-motion';
 import {useMemo, useRef} from 'react';
@@ -9,7 +10,10 @@ import type {CAROUSEL_SECTION_FRAGMENT} from '~/qroq/sections';
 
 import {useDevice} from '~/hooks/useDevice';
 
+import type { StructuredLinkProps } from '../sanity/link/StructuredLink';
+
 import {SanityImage} from '../sanity/SanityImage';
+import { StructuredLink } from '../sanity/link/StructuredLink';
 import {
   Carousel,
   CarouselContent,
@@ -21,37 +25,48 @@ import {
 
 type CarouselSectionProps = TypeFromSelection<typeof CAROUSEL_SECTION_FRAGMENT>;
 
+// const ProductCard
+// const PageCard
+
 export function CarouselSection(
   props: SectionDefaultProps & {data: CarouselSectionProps},
 ) {
   const {data} = props;
-  const {arrows, autoplay, loop, pagination, slides, title} = data;
+  const {displayStyle, introLinks, slides} = data;
   const ref = useRef<HTMLDivElement>(null);
-  const slidesPerViewDesktop = data.slidesPerViewDesktop || 3;
+  const slidesPerViewDesktop = 3;
   const inView = useInView(ref);
-  const plugins = useMemo(() => (autoplay ? [Autoplay()] : []), [autoplay]);
-  const imageSizes = slidesPerViewDesktop
-    ? `(min-width: 1024px) ${
-        100 / slidesPerViewDesktop
-      }vw, (min-width: 768px) 50vw, 100vw`
-    : '(min-width: 768px) 50vw, 100vw';
+
   const device = useDevice();
-  const isActive =
-    device === 'mobile'
-      ? slides?.length! > 1
-      : slides?.length! > slidesPerViewDesktop;
+
+  console.log(introLinks, slides);
+
 
   return (
     <div className="container" ref={ref}>
-      <h2>{title}</h2>
+      {introLinks.length && (
+        <div className={cx(
+          '',
+          introLinks.length > 1 ? '' : '',
+        )}>
+          {introLinks.filter((l) => l.structuredLink).map((introLink) => (
+            <StructuredLink
+              className=""
+              key={introLink._key}
+              {...introLink.structuredLink as StructuredLinkProps}
+            >
+              {introLink.structuredLink?.title}
+              Test
+            </StructuredLink>
+          ))}
+        </div>
+      )}
       {slides && slides?.length > 0 && (
         <Carousel
-          className="mt-4 [--slide-spacing:1rem]"
+          className="mt-4 [--slide-spacing:12px]"
           opts={{
-            active: isActive,
-            loop: loop || false,
+            loop: false,
           }}
-          plugins={plugins}
           style={
             {
               '--slides-per-view': slidesPerViewDesktop,
@@ -68,19 +83,17 @@ export function CarouselSection(
                     loading={inView ? 'eager' : 'lazy'}
                     showBorder={false}
                     showShadow={false}
-                    sizes={imageSizes}
+                    // sizes={imageSizes}
                   />
                 </CarouselItem>
               ))}
-            </CarouselContent>
-            {arrows && isActive && (
-              <div className="hidden md:block">
-                <CarouselPrevious />
-                <CarouselNext />
-              </div>
-            )}
+            </CarouselContent>            
+            <div className="hidden md:block">
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
           </div>
-          {pagination && isActive && <CarouselPagination />}
+          {/* {pagination && isActive && <CarouselPagination />} */}
         </Carousel>
       )}
     </div>

@@ -2,6 +2,8 @@ import type {Selection} from 'groqd';
 
 import {q, z} from 'groqd';
 
+import { StructuredLink } from '~/components/sanity/link/StructuredLink';
+
 import {
   BANNER_RICHTEXT_BLOCKS,
   PRODUCT_RICHTEXT_BLOCKS,
@@ -242,19 +244,20 @@ export const COLLECTION_LIST_SECTION_FRAGMENT = {
 export const CAROUSEL_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('carouselSection'),
-  arrows: q.boolean().nullable(),
-  autoplay: q.boolean().nullable(),
-  loop: q.boolean().nullable(),
-  pagination: q.boolean().nullable(),
+  displayStyle: q.string().nullable(),
+  introLinks: q('introLinks[]', {isArray: true})
+    .grab({
+      _key: q.string(),
+      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+    }),
   settings: SECTION_SETTINGS_FRAGMENT,
   slides: q('slides[]', {isArray: true})
     .grab({
       _key: q.string(),
       image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
     })
     .nullable(),
-  slidesPerViewDesktop: q.number().nullable(),
-  title: [getIntValue('title'), q.string()],
 } satisfies Selection;
 
 /*

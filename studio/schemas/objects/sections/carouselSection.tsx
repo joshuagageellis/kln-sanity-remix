@@ -10,46 +10,55 @@ export default defineField({
       title: 'title',
       settings: 'settings',
     },
-    prepare({title, settings}: any) {
+    prepare({settings}: any) {
       return {
-        title: title?.[0]?.value || 'Missing title',
+        title: 'Carousel Section',
         media: settings.hide ? EyeOff : GalleryHorizontal,
       };
     },
   },
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'internationalizedArrayString',
-    }),
-    defineField({
-      name: 'pagination',
-      title: 'Enable dot pagination',
-      type: 'boolean',
-    }),
-    defineField({
-      name: 'arrows',
-      title: 'Enable arrows navigation',
-      type: 'boolean',
-    }),
-    defineField({
-      name: 'autoplay',
-      title: 'Enable autoplay',
-      type: 'boolean',
-    }),
-    defineField({
-      name: 'loop',
-      title: 'Enable infinite looping',
-      type: 'boolean',
-    }),
-    defineField({
-      name: 'slidesPerViewDesktop',
-      type: 'rangeSlider',
+      name: 'displayStyle',
+      title: 'Display slide card style',
+      type: 'string',
+      description: 'Choose the style of the slide card',
+      validation: (Rule: any) => Rule.required(),
       options: {
-        min: 1,
-        max: 10,
-      },
+        list: [
+          {title: 'Page', value: 'page'},
+          {title: 'Product (Shows Price)', value: 'product'},
+        ]
+      }
+    }),
+    defineField({
+      name: 'introLinks',
+      title: 'Introduction Links',
+      description: 'Title Like Links. 2 or more links will be displayed in oversized style aligned to the left.',
+      type: 'array',
+      validation: (Rule: any) => Rule.max(3),
+      of: [
+        defineArrayMember({
+          name: 'introLink',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'structuredLink',
+              type: 'structuredLink',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'structuredLink.title',
+            },
+            prepare(context) {
+              return {
+                title: context.title ? context.title : 'Intro Link',
+              };
+            },
+          },
+        }),
+      ],
     }),
     defineField({
       name: 'slides',
@@ -60,10 +69,15 @@ export default defineField({
           type: 'object',
           fields: [
             defineField({
-              name: 'image',
+              name: 'image',              
               type: 'image',
             }),
-          ],
+            defineField({
+              name: 'structuredLink',
+              description: 'If this is a product slide, link to the product page. If this is a page slide, link to the page.',
+              type: 'structuredLink',
+            }),
+          ],          
           preview: {
             select: {
               media: 'image',

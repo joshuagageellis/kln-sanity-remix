@@ -5,7 +5,7 @@ import type {STRUCTURED_LINK_FRAGMENT} from '~/qroq/links';
 import {SanityExternalLink} from './SanityExternalLink';
 import {SanityInternalLink} from './SanityInternalLink';
 
-type StructuredLinkProps = TypeFromSelection<typeof STRUCTURED_LINK_FRAGMENT>;
+export type StructuredLinkProps = TypeFromSelection<typeof STRUCTURED_LINK_FRAGMENT>;
 
 export function StructuredLink(
   props: StructuredLinkProps & {
