@@ -24,6 +24,7 @@ html {
   /* Fluid type size variables. */
   --fluid-fs-h1-super: typeScale(48, 96);
   --fluid-fs-h1: typeScale(48, 64);
+  --fluid-fs-h2-super: typeScale(64, 86);
   --fluid-fs-h2: typeScale(36, 48);
   --fluid-fs-h3: typeScale(24, 36);
   --fluid-fs-h4: typeScale(20, 24);
@@ -76,6 +77,7 @@ html {
   .h1,
   h2,
   .h2,
+  .h2-super,
   h3,
   .h3,
   h4,
@@ -103,6 +105,12 @@ html {
     --fluid-headline-fs: var(--fluid-fs-h1);
     --fluid-headline-lh: 1.1;
     --fluid-headline-fw: 700;
+  }
+
+  .h2-super {
+    --fluid-headline-fs: var(--fluid-fs-h2-super);
+    --fluid-headline-lh: 1.2;
+    --fluid-headline-fw: 800;
   }
 
   h2,

@@ -44,23 +44,31 @@ export function CarouselSection(
 
   return (
     <div className="container" ref={ref}>
-      {introLinks.length && (
-        <div className={cx(
-          '',
-          introLinks.length > 1 ? '' : '',
-        )}>
+      <div className={cx(
+        'container-w-padding',
+        'flex flex-row gap-4',
+        introLinks.length > 1 ? '' : '',
+      )}>
+        {introLinks.length && (
+        <ul className="flex flex-col gap-4 md:gap-6 text-left">
           {introLinks.filter((l) => l.structuredLink).map((introLink) => (
-            <StructuredLink
-              className=""
-              key={introLink._key}
-              {...introLink.structuredLink as StructuredLinkProps}
-            >
-              {introLink.structuredLink?.title}
-              Test
-            </StructuredLink>
+            <li key={introLink._key}>
+              <StructuredLink
+                className={cx(
+                  'text-cream',
+                  introLinks.length > 1 ? 'h2-super' : '',
+                )}
+                key={introLink._key}
+                {...introLink.structuredLink as StructuredLinkProps}
+              >
+                {introLink.structuredLink?.title}
+              </StructuredLink>
+            </li>
           ))}
-        </div>
-      )}
+        </ul>
+        )}
+        {/* pagination */}
+      </div>
       {slides && slides?.length > 0 && (
         <Carousel
           className="mt-4 [--slide-spacing:12px]"
