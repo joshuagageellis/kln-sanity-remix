@@ -34,7 +34,10 @@ export function HomepageCarouselSection(
         <h1 className="sr-only">{rootData.data.settings?.siteName}</h1>
       )}
       <Carousel
-        plugins={[Autoplay()]}
+        plugins={[Autoplay({
+					delay: 5000,
+					stopOnInteraction: true,
+				})]}
         style={
           {
             '--slide-spacing': 'var(--container-padding)',
@@ -66,7 +69,7 @@ export function HomepageCarouselSection(
 
         <CarouselContent>
           {props.data.slides?.map((slide, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem fullWidth={true} key={index}>
 							<div className="site-grid gap-y-0 container-w-padding overflow-hidden">
 								<div className="row-start-1 col-start-1 col-span-10 md:col-span-9">
 									<div className="w-[calc(100%+var(--container-padding))] ml-[calc(-1*var(--container-padding))]">

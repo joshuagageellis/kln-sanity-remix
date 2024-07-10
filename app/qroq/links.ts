@@ -75,6 +75,34 @@ export const STRUCTURED_LINK_FRAGMENT = {
     .deref()
     .grab({
       documentType: ['_type', q.string()],
+      /**
+       * Attempt to get a product reference.
+       * Nullable if this is not a product.
+       */
+      product: q('store')
+        .grab({
+          firstVariant: q('variants[]', {isArray: true})
+            .slice(0)
+            .deref()
+            .grab({
+              store: q('store').grab({
+                gid: q.string(),
+                previewImageUrl: q.string().nullable(),
+                price: q.number(),
+              }),
+            })
+            .nullable(),
+          gid: q.string(),
+          options: q('options[]', {isArray: true})
+            .grab({
+              name: q.string(),
+              values: q.array(q.string()),
+            })
+            .nullable(),
+          previewImageUrl: q.string().nullable(),
+          title: q.string(),
+        })
+        .nullable(),
       slug: [
         `coalesce(
           slug,

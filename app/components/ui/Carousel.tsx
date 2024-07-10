@@ -186,14 +186,15 @@ CarouselContent.displayName = 'CarouselContent';
 
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({className, ...props}, ref) => {
+  React.HTMLAttributes<HTMLDivElement> & {fullWidth?: boolean}
+>(({className, fullWidth, ...props}, ref) => {
   return (
     <div
       aria-roledescription="slide"
       className={cn(
         'min-w-0 select-none',
-        'flex-[0_0_100%] pl-[--slide-spacing] md:first:pl-0 md:flex-[0_0_var(--slide-size)]',
+        'flex-[0_0_100%] md:flex-[0_0_var(--slide-size)]',
+        'pl-[--slide-spacing] md:first:pl-0',
         className,
       )}
       ref={ref}

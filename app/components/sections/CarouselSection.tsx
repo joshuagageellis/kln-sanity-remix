@@ -5,7 +5,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import {useInView} from 'framer-motion';
 import {useMemo, useRef} from 'react';
 
-import type {SectionDefaultProps} from '~/lib/type';
+import type {ArrayMember, SectionDefaultProps} from '~/lib/type';
 import type {CAROUSEL_SECTION_FRAGMENT} from '~/qroq/sections';
 
 import {useDevice} from '~/hooks/useDevice';
@@ -25,8 +25,90 @@ import {
 
 type CarouselSectionProps = TypeFromSelection<typeof CAROUSEL_SECTION_FRAGMENT>;
 
-// const ProductCard
-// const PageCard
+export type CarouselCardProps = {
+  inView: boolean;
+  slide: ArrayMember<CarouselSectionProps['slides']>;
+};
+
+const PageCard = ({inView, slide}: CarouselCardProps) => {
+  const title = slide.structuredLink?.title;
+
+  return (
+    <div className="relative group">
+      {slide.structuredLink && title && (
+        <StructuredLink
+          className="absolute top-0 left-0 w-full h-full z-10 overlay-link"
+          {...(slide.structuredLink as StructuredLinkProps)}
+        >
+          <span className="sr-only">{title}</span>
+        </StructuredLink>
+      )}
+      <div className="">
+        <div className="aspect-[5/4]">
+          <SanityImage
+            aspectRatio='5/4'
+            className="size-full object-cover"
+            data={slide.image}
+            loading={inView ? 'eager' : 'lazy'}
+            showBorder={false}
+            showShadow={false}
+          />
+        </div>
+        {title && (
+          <div className="text-cream flex flex-row gap-2 w-full items-center justify-between mt-3">
+            <p className="h5 highlight-hover highlight-hover--citrus">
+              <span>{title}</span>  
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+};
+
+const ProductCard = ({inView, slide}: CarouselCardProps) => {
+  const title = slide.structuredLink?.title || slide.structuredLink?.reference?.product?.title || '';
+
+  return (
+    <div className="relative group">
+      {slide.structuredLink && (
+        <StructuredLink
+          className="absolute top-0 left-0 w-full h-full z-10 overlay-link"
+          {...(slide.structuredLink as StructuredLinkProps)}
+        >
+          <span className="sr-only">{title}</span>
+        </StructuredLink>
+      )}
+      <div className="">
+        <div className="aspect-[5/4]">
+          <SanityImage
+            aspectRatio='5/4'
+            className="size-full object-cover"
+            data={slide.image}
+            loading={inView ? 'eager' : 'lazy'}
+            showBorder={false}
+            showShadow={false}
+          />
+        </div>
+        {slide.structuredLink?.reference && (
+          <div className="text-cream flex flex-row gap-2 w-full items-center justify-between mt-3">
+            <p className="h5 highlight-hover highlight-hover--citrus">
+              <span>{title}</span>  
+            </p>
+            {slide.structuredLink?.reference?.product && (
+              <p className="mr-[0.5rem]">
+                Starting at $
+                {slide.structuredLink.reference.product.firstVariant?.store.price}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+};
+
+
 
 export function CarouselSection(
   props: SectionDefaultProps & {data: CarouselSectionProps},
@@ -50,7 +132,7 @@ export function CarouselSection(
         <Carousel
           className="mt-4 [--slide-spacing:2rem] md:[--slide-spacing:1rem]"
           opts={{
-            loop: false,
+            loop: device === 'mobile',
           }}
           style={
             {
@@ -109,16 +191,16 @@ export function CarouselSection(
             >
               {slides.map((slide) => (
                 <CarouselItem className="[&>span]:h-full" key={slide._key}>
-                  <SanityImage
-                    aspectRatio='5/4'
-                    className="size-full object-cover"
-                    data={slide.image}
-                    loading={inView ? 'eager' : 'lazy'}
-                    showBorder={false}
-                    showShadow={false}
-                  />
+                  {slide?.structuredLink?.reference?.documentType === 'product' ? (
+                    <ProductCard inView={inView} slide={slide} /> 
+                  ) : (
+                    <PageCard inView={inView} slide={slide} />
+                  )}
                 </CarouselItem>
               ))}
+              {device !== 'mobile' && (
+                <CarouselItem></CarouselItem>
+              )}
             </CarouselContent>
           </div>
         </Carousel>

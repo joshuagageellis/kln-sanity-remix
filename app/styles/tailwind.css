@@ -157,6 +157,30 @@ html {
     --highlight-color: var(--color-charcoal);
   }
 
+  .highlight--citrus {
+    --highlight-bg: var(--color-citrus);
+    --highlight-color: var(--color-charcoal);
+  }
+
+  /** Hover effect highlight. */
+  .highlight-hover > span {
+    box-decoration-break: clone;
+    padding: 0.5em 0.5em;
+    line-height: 2;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .overlay-link:hover ~ * .highlight-hover > span {
+    background: var(--highlight-bg);
+    color: var(--highlight-color);
+  }
+
+  .highlight-hover--citrus {
+    --highlight-bg: var(--color-citrus);
+    --highlight-color: var(--color-charcoal);
+  }
+
   /**
   General text styles.
   */

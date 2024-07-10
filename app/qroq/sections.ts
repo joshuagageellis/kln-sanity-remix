@@ -2,8 +2,6 @@ import type {Selection} from 'groqd';
 
 import {q, z} from 'groqd';
 
-import { StructuredLink } from '~/components/sanity/link/StructuredLink';
-
 import {
   BANNER_RICHTEXT_BLOCKS,
   PRODUCT_RICHTEXT_BLOCKS,
