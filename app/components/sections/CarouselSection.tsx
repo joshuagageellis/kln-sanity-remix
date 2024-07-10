@@ -20,7 +20,6 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPagination,
   CarouselPrevious,
 } from '../ui/Carousel';
 
@@ -49,7 +48,7 @@ export function CarouselSection(
     <div className="pt-6 pb-6 md:pt-16 md:pb-16" ref={ref}>
       {slides && slides?.length > 0 && (
         <Carousel
-          className="mt-4 [--slide-spacing:12px]"
+          className="mt-4 [--slide-spacing:2rem] md:[--slide-spacing:1rem]"
           opts={{
             loop: false,
           }}
@@ -96,14 +95,15 @@ export function CarouselSection(
             <div
               className={cx(
                 'text-marble',
-                introLinks.length > 1 ? 'order-1 mb-4 ml-[-11px] sm:ml-0' : 'order-2 mr-[-11px] sm:mr-0',
+                introLinks.length > 1 ? 'order-1 mb-4 ml-[-11px]' : 'order-2 mr-[-11px] sm:mr-0',
               )}
             >
               <CarouselPrevious />
               <CarouselNext />
             </div>
           </div>
-          <div className="relative">
+          <div className="relative overflow-hidden">
+            <span className="bg-gradient-to-l from-charcoal via-charcoal via-10% to-transparent absolute md:block hidden top-0 right-[-1px] h-full w-16 z-10"></span>
             <CarouselContent
               className='md:ml-[--container-padding] md:pl-0 md:pr-0 pl-[--container-padding] pr-[--container-padding]'
             >
