@@ -2,6 +2,8 @@ import type {TypeFromSelection} from 'groqd';
 
 import type {STRUCTURED_LINK_FRAGMENT} from '~/qroq/links';
 
+import {cn} from '~/lib/utils';
+
 import {SanityExternalLink} from './SanityExternalLink';
 import {SanityInternalLink} from './SanityInternalLink';
 
@@ -22,11 +24,13 @@ export function StructuredLink(
     return null;
   }
 
+  const className = cn(props.className, 'group');
+
   return (
     <>
       {isExternal ? (
         <SanityExternalLink
-          className={props.className}
+          className={className}
           data={{
             _key: null,
             _type: 'externalLink',
@@ -39,7 +43,7 @@ export function StructuredLink(
         </SanityExternalLink>
       ) : (
         <SanityInternalLink
-          className={props.className}
+          className={className}
           data={{
             _key: null,
             _type: 'internalLink',

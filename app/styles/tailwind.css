@@ -123,6 +123,8 @@ html {
   h3,
   .h3 {
     --fluid-headline-fs: var(--fluid-fs-h3);
+    --fluid-headline-lh: 1.2;
+    --fluid-headline-fw: 500;
   }
 
   h4,
