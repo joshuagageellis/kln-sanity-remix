@@ -194,7 +194,7 @@ const CarouselItem = React.forwardRef<
       className={cn(
         'min-w-0 select-none',
         'flex-[0_0_100%] md:flex-[0_0_var(--slide-size)]',
-        'pl-[--slide-spacing] md:first:pl-0',
+        'pl-[--slide-spacing]',
         className,
       )}
       ref={ref}

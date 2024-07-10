@@ -187,7 +187,7 @@ export function CarouselSection(
           <div className="relative overflow-hidden">
             <span className="bg-gradient-to-l from-charcoal via-charcoal via-10% to-transparent absolute md:block hidden top-0 right-[-1px] h-full w-16 z-10"></span>
             <CarouselContent
-              className='md:ml-[--container-padding] md:pl-0 md:pr-0 pl-[--container-padding] pr-[--container-padding]'
+              className='md:ml-[calc(var(--container-padding)-var(--slide-spacing))] md:pl-0 md:pr-0 pl-[--container-padding] pr-[--container-padding]'
             >
               {slides.map((slide) => (
                 <CarouselItem className="[&>span]:h-full" key={slide._key}>
