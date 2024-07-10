@@ -55,7 +55,7 @@ const PageCard = ({inView, slide}: CarouselCardProps) => {
           />
         </div>
         {title && (
-          <div className="text-cream flex flex-row gap-2 w-full items-center justify-between mt-3">
+          <div className="text-on-dark flex flex-row gap-2 w-full items-center justify-between mt-3">
             <p className="h5 highlight-hover highlight-hover--citrus">
               <span>{title}</span>  
             </p>
@@ -91,7 +91,7 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
           />
         </div>
         {slide.structuredLink?.reference && (
-          <div className="text-cream flex flex-row gap-2 w-full items-center justify-between mt-3">
+          <div className="text-on-dark flex flex-row gap-2 w-full items-center justify-between mt-3">
             <p className="h5 highlight-hover highlight-hover--citrus">
               <span>{title}</span>  
             </p>
@@ -159,7 +159,7 @@ export function CarouselSection(
                   .map((introLink) => (
                     <li key={introLink._key}>
                       <StructuredLink
-                        className={cx('text-cream', 'flex md:justify-end')}
+                        className={cx('text-on-dark', 'flex md:justify-end')}
                         key={introLink._key}
                         {...(introLink.structuredLink as StructuredLinkProps)}
                       >

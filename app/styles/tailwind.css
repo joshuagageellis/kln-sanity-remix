@@ -46,6 +46,14 @@ html {
   --color-charcoal: #1E1F20;
   --color-black: #000000;
   --color-white: #FFFFFF;
+
+  /**
+  Colors that change.
+  */
+  --color-text-on-light: var(--color-charcoal);
+  --color-bg-light: var(--color-cream);
+  --color-text-on-dark: var(--color-cream);
+  --color-bg-dark: var(--color-charcoal);
 }
 
 @layer base {
@@ -142,6 +150,22 @@ html {
     --fluid-headline-fs: var(--fluid-fs-h6);
   }
 
+  .text-on-light {
+    color: var(--color-text-on-light);
+  }
+
+  .bg-light {
+    background-color: var(--color-bg-light);
+  }
+
+  .text-on-dark {
+    color: var(--color-text-on-dark);
+  }
+
+  .bg-dark {
+    background-color: var(--color-bg-dark);
+  }
+
   .highlight {
     color: var(--highlight-color);
   }
@@ -171,7 +195,10 @@ html {
     transition: all 0.3s ease;
   }
 
-  .overlay-link:hover ~ * .highlight-hover > span {
+  .overlay-link:hover ~ * .highlight-hover > span,
+  .overlay-link:focus-visible ~ * .highlight-hover > span,
+  .highlight-hover:hover > span,
+  .highlight-hover:focus-visible > span {
     background: var(--highlight-bg);
     color: var(--highlight-color);
   }
