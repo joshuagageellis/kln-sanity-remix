@@ -73,6 +73,10 @@ html {
     gap: clamp(12px, 1.667vw, 24px);
   }
 
+  .site-grid-gap {
+    gap: clamp(12px, 1.667vw, 24px);
+  }
+
   body {
     font-family: var(--body-font-family);
     font-size: 1rem;
@@ -192,7 +196,7 @@ html {
     padding: 0.5em 0.5em;
     line-height: 2;
     background: transparent;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
   }
 
   .overlay-link:hover ~ * .highlight-hover > span,

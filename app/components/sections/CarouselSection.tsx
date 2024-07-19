@@ -1,9 +1,8 @@
 import type {TypeFromSelection} from 'groqd';
 
 import {cx} from 'class-variance-authority';
-import Autoplay from 'embla-carousel-autoplay';
 import {useInView} from 'framer-motion';
-import {useMemo, useRef} from 'react';
+import {useRef} from 'react';
 
 import type {ArrayMember, SectionDefaultProps} from '~/lib/type';
 import type {CAROUSEL_SECTION_FRAGMENT} from '~/qroq/sections';

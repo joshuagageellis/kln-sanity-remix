@@ -40,6 +40,26 @@ export const SECTION_SETTINGS_FRAGMENT = q('settings')
 
 /*
 |--------------------------------------------------------------------------
+| Featured Work Section
+|--------------------------------------------------------------------------
+*/
+export const FEATURED_WORK_SECTION_FRAGMENT = {
+  _key: q.string().nullable(),
+  _type: q.literal('featuredWorkSection'),
+  deck: q.string().nullable(),
+  settings: SECTION_SETTINGS_FRAGMENT,
+  title: q.string().nullable(),
+  workSamples: q('workSamples[]', {isArray: true})
+    .grab({
+      _key: q.string(),
+      image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+    })
+    .nullable(),
+} satisfies Selection;
+
+/*
+|--------------------------------------------------------------------------
 | Homepage Carousel Section
 |--------------------------------------------------------------------------
 */
@@ -325,6 +345,7 @@ export const SECTIONS_LIST_SELECTION = {
   "_type == 'collectionListSection'": COLLECTION_LIST_SECTION_FRAGMENT,
   "_type == 'featuredCollectionSection'": FEATURED_COLLECTION_SECTION_FRAGMENT,
   "_type == 'featuredProductSection'": FEATURED_PRODUCT_SECTION_FRAGMENT,
+  "_type == 'featuredWorkSection'": FEATURED_WORK_SECTION_FRAGMENT,
   "_type == 'homepageCarouselSection'": HOMEPAGE_CAROUSEL_SECTION_FRAGMENT,
   "_type == 'homepageLargeText'": HOMEPAGE_LARGE_TEXT_SECTION,
   "_type == 'imageBannerSection'": IMAGE_BANNER_SECTION_FRAGMENT,

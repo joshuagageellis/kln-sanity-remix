@@ -5,6 +5,7 @@ import {CollectionListSection} from '~/components/sections/CollectionListSection
 import {CollectionProductGridSection} from '~/components/sections/CollectionProductGridSection';
 import {FeaturedCollectionSection} from '~/components/sections/FeaturedCollectionSection';
 import {FeaturedProductSection} from '~/components/sections/FeaturedProductSection';
+import {FeaturedWorkSection} from '~/components/sections/FeaturedWorkSection';
 import {HomepageCarouselSection} from '~/components/sections/HomepageCarouselSection';
 import {HomepageLargeText} from '~/components/sections/HomepageLargeText';
 import {ImageBannerSection} from '~/components/sections/ImageBannerSection';
@@ -21,6 +22,7 @@ export const sections: {
   collectionProductGridSection: CollectionProductGridSection,
   featuredCollectionSection: FeaturedCollectionSection,
   featuredProductSection: FeaturedProductSection,
+  featuredWorkSection: FeaturedWorkSection,
   homepageCarouselSection: HomepageCarouselSection,
   homepageLargeText: HomepageLargeText,
   imageBannerSection: ImageBannerSection,

@@ -49,6 +49,7 @@ import bannerRichtext from './objects/global/bannerRichtext';
 import structuredLink from './objects/global/structuredLink';
 import homepageCarouselSection from './objects/sections/homepageCarousel';
 import homepageLargeText from './objects/sections/homepageLargeText';
+import featuredWorkSection from './objects/sections/featuredWorkSection';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -74,6 +75,7 @@ const sections = [
   collectionProductGrid,
   homepageCarouselSection,
   homepageLargeText,
+  featuredWorkSection,
 ];
 const footers = [socialLinksOnly];
 const objects = [

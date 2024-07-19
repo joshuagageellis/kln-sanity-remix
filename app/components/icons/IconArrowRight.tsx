@@ -1,15 +1,8 @@
 import {Icon} from './Icon';
 
-export function IconArrowRight() {
-  return (
-    <Icon className="size-4" fill="none" viewBox="0 0 14 10">
-      <title>Arrow Right</title>
-      <path
-        clipRule="evenodd"
-        d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-        fill="currentColor"
-        fillRule="evenodd"
-      ></path>
-    </Icon>
-  );
-}
+export const IconArrowRight = ({className = 'size-4'}: {className?: string}) => (
+  <Icon className={className} fill="none" viewBox="0 0 12 18">
+    <title>Arrow Right</title>
+    <path d="M0.999965 16.8367L10.1428 9L0.999966 1.16327" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </Icon>
+);

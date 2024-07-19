@@ -26,6 +26,9 @@ const globalSections = [
   },
   {
     type: 'homepageLargeText'
+  },
+  {
+    type: 'featuredWorkSection'
   }
 ];
 
