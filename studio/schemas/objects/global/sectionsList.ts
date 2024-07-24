@@ -29,6 +29,9 @@ const globalSections = [
   },
   {
     type: 'featuredWorkSection'
+  },
+  {
+    type: 'twoColumnAccordionSection'
   }
 ];
 

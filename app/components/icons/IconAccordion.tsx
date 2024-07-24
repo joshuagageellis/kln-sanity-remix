@@ -1,6 +1,15 @@
-export const AccordionIcon = () => (
+import {
+  cn,
+} from '~/lib/utils';
+
+export const AccordionIcon = ({
+  className = '',
+}) => (
   <svg
-    className="h-full w-full transition-all duration-200 group-data-[state=open]:rotate-90"
+    className={cn([
+      "h-full w-full transition-all duration-200 group-data-[state=open]:rotate-90",
+      className,
+    ])}
     fill="none"
     viewBox="0 0 50 50"
     xmlns="http://www.w3.org/2000/svg"

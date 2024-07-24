@@ -190,19 +190,24 @@ html {
     --highlight-color: var(--color-charcoal);
   }
 
-  /** Hover effect highlight. */
-  .highlight-hover > span {
+  /**
+  Hover effect highlight.
+  - action is meant for accordions, or data states
+  */
+  .highlight-hover > span,
+  .highlight-hover-action > span {
     box-decoration-break: clone;
     padding: 0.5em 0.5em;
     line-height: 2;
     background: transparent;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out, color 0.1s ease-in;
   }
 
   .overlay-link:hover ~ * .highlight-hover > span,
   .overlay-link:focus-visible ~ * .highlight-hover > span,
   .highlight-hover:hover > span,
-  .highlight-hover:focus-visible > span {
+  .highlight-hover:focus-visible > span,
+  .highlight-hover-action[data-state='open'] > span {
     background: var(--highlight-bg);
     color: var(--highlight-color);
   }
@@ -215,7 +220,8 @@ html {
   /**
   General text styles.
   */
-  .body-20 {
+  .body-20,
+  p {
     font-family: var(--body-font-family);
     font-size: typeScale(16, 20);
     font-variation-settings: 'wght' 450, 'wdth' 105;

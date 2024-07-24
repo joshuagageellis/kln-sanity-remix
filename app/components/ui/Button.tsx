@@ -17,7 +17,7 @@ const buttonVariants = cva(
     },
     variants: {
       size: {
-        default: 'btn-text px-4 py-4 min-h-[60px]',
+        default: 'btn-text px-2 py-2 min-h-[48px] md:px-4 md:py-4 md:min-h-[60px]',
         icon: 'size-11',
         iconOutline: 'size-11',
         lg: 'btn-text h-[60px] px-8',
@@ -47,7 +47,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
-        className={cn(buttonVariants({className, size, variant}))}
+        // .customButton for custom styles
+        className={cn('customButton', buttonVariants({className, size, variant}))}
         ref={ref}
         {...props}
       />

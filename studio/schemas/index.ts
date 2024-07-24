@@ -50,6 +50,7 @@ import structuredLink from './objects/global/structuredLink';
 import homepageCarouselSection from './objects/sections/homepageCarousel';
 import homepageLargeText from './objects/sections/homepageLargeText';
 import featuredWorkSection from './objects/sections/featuredWorkSection';
+import twoColumnAccordionSection from './objects/sections/twoColumnAccordionSection';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -76,6 +77,7 @@ const sections = [
   homepageCarouselSection,
   homepageLargeText,
   featuredWorkSection,
+  twoColumnAccordionSection,
 ];
 const footers = [socialLinksOnly];
 const objects = [

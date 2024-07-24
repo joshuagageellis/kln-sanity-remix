@@ -40,6 +40,36 @@ export const SECTION_SETTINGS_FRAGMENT = q('settings')
 
 /*
 |--------------------------------------------------------------------------
+| Two Column With Accordion
+|--------------------------------------------------------------------------
+*/
+export const TWO_COLUMN_ACCORDION_SECTION_FRAGMENT = {
+  _key: q.string().nullable(),
+  _type: q.literal('twoColumnAccordionSection'),
+  accordions: q('accordions[]', {isArray: true})
+    .grab({
+      _key: q.string(),
+      content: q(
+        `coalesce(
+          content[_key == $language][0].value[],
+          content[_key == $defaultLanguage][0].value[],
+        )[]`,
+        {isArray: true},
+      )
+        .filter()
+        .select(RICHTEXT_BLOCKS)
+        .nullable(),
+      title: q.string().nullable(),
+    })
+    .nullable(),
+  deck: q.string().nullable(),
+  settings: SECTION_SETTINGS_FRAGMENT,
+  structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+  title: q.string().nullable(),
+}
+
+/*
+|--------------------------------------------------------------------------
 | Featured Work Section
 |--------------------------------------------------------------------------
 */
@@ -350,6 +380,7 @@ export const SECTIONS_LIST_SELECTION = {
   "_type == 'homepageLargeText'": HOMEPAGE_LARGE_TEXT_SECTION,
   "_type == 'imageBannerSection'": IMAGE_BANNER_SECTION_FRAGMENT,
   "_type == 'richtextSection'": RICHTEXT_SECTION_FRAGMENT,
+  "_type == 'twoColumnAccordionSection'": TWO_COLUMN_ACCORDION_SECTION_FRAGMENT,
 };
 
 export const SECTIONS_FRAGMENT = q('sections[]', {isArray: true})

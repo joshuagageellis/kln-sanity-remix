@@ -17,25 +17,45 @@ const AccordionItem = forwardRef<
 ));
 AccordionItem.displayName = 'AccordionItem';
 
+/**
+ * Accordion Trigger
+ * 
+ * @param {props.triggerSize} - Size of the trigger icon. 'large' or 'small'.
+ * @param {props.hoverEffect} - Whether to show hover effect on the trigger icon.
+ */
 const AccordionTrigger = forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({children, className, ...props}, ref) => (
-  <AccordionPrimitive.Header asChild className="flex">
-    <div className={cn([className])}>
-      {children}
-      <AccordionPrimitive.Trigger
-        className={cn(
-          'group flex flex-0 items-center justify-between transition-all',
-        )}
-        ref={ref}
-        {...props}
-      >
-        <AccordionIcon />
-      </AccordionPrimitive.Trigger>
-    </div>
-  </AccordionPrimitive.Header>
-));
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {hoverEffect?: boolean, triggerSize?: 'large' | 'small'} 
+>(({children, className, hoverEffect = false, triggerSize, ...props}, ref) => {
+  // Trigger Size.
+  const triggerSizeClass = triggerSize ? (
+    triggerSize === 'large' ? 'w-6 h-6' : 'w-9 h-9 w-[50px] h-[50px]'
+  ) : '';
+
+  return (
+    <AccordionPrimitive.Header asChild className="flex">
+      <div className={cn([
+        className,
+        hoverEffect ? 'highlight-hover-action highlight-hover--citrus' : '',
+      ])}>
+        <span>
+          {children}
+        </span>
+        <AccordionPrimitive.Trigger
+          className={cn(
+            'group flex flex-0 items-center justify-between transition-all',
+          )}
+          ref={ref}
+          {...props}
+        >
+          <AccordionIcon
+            className={triggerSizeClass}
+          />
+        </AccordionPrimitive.Trigger>
+      </div>
+    </AccordionPrimitive.Header>
+  );
+});
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = forwardRef<
