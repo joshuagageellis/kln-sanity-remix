@@ -69,7 +69,7 @@ export function links() {
       rel: 'preconnect',
     },
     {href: tailwindCss, rel: 'stylesheet'},
-    {href:"https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap", rel: 'stylesheet'}
+    {href:"https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap", rel: 'stylesheet'},
   ];
 }
 
@@ -241,7 +241,7 @@ export function ErrorBoundary() {
               <span>{errorStatus}</span>
               <h1 className="mt-5">{title}</h1>
               {errorStatus === 404 ? (
-                <Button asChild className="mt-6" variant="secondary">
+                <Button asChild className="mt-6" variant="default">
                   <Link to={collectionsPath}>
                     {themeContent?.cart?.continueShopping}
                   </Link>
@@ -250,7 +250,7 @@ export function ErrorBoundary() {
                 <Button
                   className="mt-6"
                   onClick={() => navigate(0)}
-                  variant="secondary"
+                  variant="default"
                 >
                   {themeContent?.error?.reloadPage}
                 </Button>

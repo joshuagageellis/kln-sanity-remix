@@ -1,4 +1,5 @@
 import {FooterSocialLinksOnly} from '~/components/footers/FooterSocialLinksOnly';
+import {PrimaryFooter} from '~/components/footers/PrimaryFooter';
 import {CarouselSection} from '~/components/sections/CarouselSection';
 import {CollectionBannerSection} from '~/components/sections/CollectionBannerSection';
 import {CollectionListSection} from '~/components/sections/CollectionListSection';
@@ -28,6 +29,7 @@ export const sections: {
   homepageCarouselSection: HomepageCarouselSection,
   homepageLargeText: HomepageLargeText,
   imageBannerSection: ImageBannerSection,
+  primaryFooter: PrimaryFooter,
   productInformationSection: ProductInformationSection,
   relatedProductsSection: RelatedProductsSection,
   richtextSection: RichtextSection,

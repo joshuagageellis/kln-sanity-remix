@@ -19,19 +19,6 @@ export default defineField({
   },
   fields: [
     defineField({
-      name: 'displayStyle',
-      title: 'Display slide card style',
-      type: 'string',
-      description: 'Choose the style of the slide card',
-      validation: (Rule: any) => Rule.required(),
-      options: {
-        list: [
-          {title: 'Page', value: 'page'},
-          {title: 'Product (Shows Price)', value: 'product'},
-        ]
-      }
-    }),
-    defineField({
       name: 'introLinks',
       title: 'Introduction Links',
       description: 'Title Like Links. 2 or more links will be displayed in oversized style aligned to the left.',

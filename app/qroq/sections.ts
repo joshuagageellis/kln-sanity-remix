@@ -292,7 +292,6 @@ export const COLLECTION_LIST_SECTION_FRAGMENT = {
 export const CAROUSEL_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('carouselSection'),
-  displayStyle: q.string().nullable(),
   introLinks: q('introLinks[]', {isArray: true})
     .grab({
       _key: q.string(),

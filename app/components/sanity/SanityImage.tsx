@@ -17,6 +17,7 @@ export function SanityImage({
   draggable,
   fetchpriority,
   loading,
+  loadingBefore = true,
   sizes,
   style,
 }: {
@@ -28,6 +29,7 @@ export function SanityImage({
   draggable?: boolean;
   fetchpriority?: 'auto' | 'high' | 'low';
   loading?: 'eager' | 'lazy';
+  loadingBefore?: boolean;
   showBorder?: boolean;
   showShadow?: boolean;
   sizes?: null | string;
@@ -140,7 +142,7 @@ export function SanityImage({
         }
         width={aspectRatioWidth || data.width}
       />
-      {data._ref && (
+      {loadingBefore && data._ref && (
         <style
           // Blurry bg image used as LQIP (Low Quality Image Placeholder)
           // while high quality image is loading.

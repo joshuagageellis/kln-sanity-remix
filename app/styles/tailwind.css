@@ -296,4 +296,28 @@ html {
     line-height: 1.4;
     letter-spacing: 0.2px;
   }
+
+  /* Input styles. */
+  .default-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 2px solid var(--color-cream);
+    min-height: 48px;
+    font-variation-settings: 'wght' 500, 'wdth' 110;
+    font-size: typeScale(16, 20);
+    padding: 0.2em 1em;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .default-input {
+      min-height: 60px;
+    }
+  }
+
+  .default-input::placeholder {
+    color: var(--color-cream);
+    opacity: 0.5;
+  }
 }

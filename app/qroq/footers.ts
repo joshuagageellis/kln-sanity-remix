@@ -3,6 +3,7 @@ import type {Selection} from 'groqd';
 import {q} from 'groqd';
 
 import {COLOR_SCHEME_FRAGMENT} from './fragments';
+import {STRUCTURED_LINK_FRAGMENT} from './links';
 import {getIntValue} from './utils';
 
 /*
@@ -40,10 +41,31 @@ export const FOOTER_SOCIAL_LINKS_ONLY_FRAGMENT = {
 
 /*
 |--------------------------------------------------------------------------
+| Primary Footer
+|--------------------------------------------------------------------------
+*/
+export const PRIMARY_FOOTER = {
+  _key: q.string().nullable(),
+  _type: q.literal('socialLinksOnly'),
+  displaySocial: q.boolean().nullable(),
+  mcTitle: q.string().nullable(),
+  navigation: q('navigation[]', {isArray: true})
+    .grab({
+      _key: q.string(),
+      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+    }),
+  settings: FOOTER_SETTINGS_FRAGMENT,
+  structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+} satisfies Selection;
+
+
+/*
+|--------------------------------------------------------------------------
 | List of footer
 |--------------------------------------------------------------------------
 */
 export const FOOTERS_LIST_SELECTION = {
+  "_type == 'primaryFooter'": PRIMARY_FOOTER,
   "_type == 'socialLinksOnly'": FOOTER_SOCIAL_LINKS_ONLY_FRAGMENT,
 };
 

@@ -43,6 +43,7 @@ export function Logo(props: {
         altText: siteName || '',
       }}
       dataSanity={encodeData}
+      loadingBefore={false}
       {...props}
     />
   );

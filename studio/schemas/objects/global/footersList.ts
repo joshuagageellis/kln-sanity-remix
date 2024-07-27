@@ -11,6 +11,9 @@ export default defineField({
     defineArrayMember({
       type: 'socialLinksOnly',
     }),
+    defineArrayMember({
+      type: 'primaryFooter',
+    }),
   ],
   components: {
     input: (props: ArrayOfObjectsInputProps) =>

@@ -107,13 +107,11 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
   )
 };
 
-
-
 export function CarouselSection(
   props: SectionDefaultProps & {data: CarouselSectionProps},
 ) {
   const {data} = props;
-  const {displayStyle, introLinks, slides} = data;
+  const {introLinks, slides} = data;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   
