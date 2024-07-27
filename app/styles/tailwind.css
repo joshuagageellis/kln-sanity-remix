@@ -308,6 +308,7 @@ html {
     font-size: typeScale(16, 20);
     padding: 0.2em 1em;
     width: 100%;
+    border-radius: 0;
   }
 
   @media (min-width: 768px) {

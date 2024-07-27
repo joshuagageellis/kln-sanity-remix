@@ -93,12 +93,12 @@ export function TwoColumnAccordionSection(
           )}
         </div>
         <div className="col-span-full lg:col-span-6 lg:col-start-6">
-          <Accordion className="flex flex-col gap-4 md:gap-12" type="multiple">
+          <Accordion className="flex flex-col gap-4 md:gap-6 lg:gap-8" type="multiple">
             {accordions &&
               accordions.map((accordion) => (
                 <AccordionItem key={accordion._key} value={accordion._key}>
-                  <AccordionTrigger className="flex flex-row gap-4 justify-between items-center" hoverEffect triggerSize="small">
-                    <h3>{accordion.title}</h3>
+                  <AccordionTrigger className="ml-[-0.5rem] lg:ml-0 flex flex-row gap-4 justify-between items-center" hoverEffect triggerSize="small">
+                    <h3 className="left-[-0.5rem]">{accordion.title}</h3>
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="mt-6 mb-2">
