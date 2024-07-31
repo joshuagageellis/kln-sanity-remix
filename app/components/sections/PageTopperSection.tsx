@@ -51,7 +51,7 @@ export function PageTopperSection(
 	useHeaderColors(bgColor);
 	const useBgColor = bgColor || 'citrus';
 	return (
-		<section className={
+		<div className={
 			cn(
 				topperVariants({bgColor: useBgColor as VariantProps<typeof topperVariants>['bgColor']}),
 			)
@@ -75,6 +75,6 @@ export function PageTopperSection(
 					</div>
 				)}
 			</div>
-		</section>
+		</div>
 	);
 }

@@ -11,10 +11,6 @@ export default defineField({
       type: 'internationalizedArrayBannerRichtext',
     }),
     defineField({
-      type: 'contentPosition',
-      name: 'contentPosition',
-    }),
-    defineField({
       name: 'contentAlignment',
       type: 'string',
       options: {
@@ -24,10 +20,6 @@ export default defineField({
             value: 'left',
           },
           {
-            title: 'Center',
-            value: 'center',
-          },
-          {
             title: 'Right',
             value: 'right',
           },
@@ -35,31 +27,36 @@ export default defineField({
       },
     }),
     defineField({
+      type: 'string',
+      name: 'aspectRatioValues',
+      options: {
+        list: [
+          {
+            title: '16:9',
+            value: '16/9',
+          },
+          {
+            title: '4:3',
+            value: '4/3',
+          },
+          {
+            title: '5:4',
+            value: '5/4',
+          },
+          {
+            title: '1:1',
+            value: '1/1',
+          },
+        ],
+      },
+    }),
+    defineField({
       type: 'image',
+      title: 'Image',
       name: 'backgroundImage',
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: 'bannerHeight',
-      type: 'rangeSlider',
-      options: {
-        min: 0,
-        max: 2000,
-        suffix: 'px',
-      },
-      validation: (Rule: any) => Rule.min(0).max(2000),
-    }),
-    defineField({
-      name: 'overlayOpacity',
-      type: 'rangeSlider',
-      options: {
-        min: 0,
-        max: 100,
-        suffix: '%',
-      },
-      validation: (Rule: any) => Rule.min(0).max(100),
     }),
     defineField({
       type: 'sectionSettings',
@@ -67,9 +64,6 @@ export default defineField({
     }),
   ],
   initialValue: {
-    overlayOpacity: 0,
-    contentPosition: 'middle_center',
-    bannerHeight: 450,
     settings: {
       padding: {
         top: 0,

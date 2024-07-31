@@ -66,10 +66,10 @@ export function RichtextSection(
   );
 
   return (
-    <section className="py-12 md:py-14 lg:py-16 container-w-padding site-grid bg-light">
+    <div className="py-12 md:py-14 lg:py-16 container-w-padding site-grid bg-light">
       <div className={cn(
         "text-on-light col-span-full md:col-span-9 lg:col-span-7",
-        props.data.desktopContentPosition === 'center' && 'md:col-start-2 lg:col-start-3',
+        props.data.desktopContentPosition === 'center' && 'md:col-start-2 lg:col-start-3 flex justify-center',
         props.data.desktopContentPosition === 'left' && '',
         props.data.desktopContentPosition === 'right' && 'md:col-start-3 lg:col-start-5 flex justify-end flex-row',
       )}>
@@ -85,6 +85,6 @@ export function RichtextSection(
           )}
         </RichtextLayout>
       </div>
-    </section>
+    </div>
   );
 }

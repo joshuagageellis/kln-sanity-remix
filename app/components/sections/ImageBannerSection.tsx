@@ -8,14 +8,10 @@ import {useMemo} from 'react';
 import type {SectionDefaultProps} from '~/lib/type';
 import type {IMAGE_BANNER_SECTION_FRAGMENT} from '~/qroq/sections';
 
+import {cn} from '~/lib/utils';
+
 import type {ButtonBlockProps} from '../sanity/richtext/components/ButtonBlock';
 
-import {
-  Banner,
-  BannerContent,
-  BannerMedia,
-  BannerMediaOverlay,
-} from '../Banner';
 import {SanityImage} from '../sanity/SanityImage';
 import {ButtonBlock} from '../sanity/richtext/components/ButtonBlock';
 
@@ -27,31 +23,45 @@ export function ImageBannerSection(
   props: SectionDefaultProps & {data: ImageBannerSectionProps},
 ) {
   const {data} = props;
-  const {contentAlignment, contentPosition, overlayOpacity} = data;
+  let {aspectRatioValues, contentAlignment} = data;
+  aspectRatioValues = aspectRatioValues || '4/3';
+  contentAlignment = contentAlignment || 'left';
 
   // Todo: add encodeDataAttribute to SanityImage
   return (
-    <Banner height={data.bannerHeight}>
-      <BannerMedia>
+    <div
+      className={cn(
+        'site-grid container-w-padding text-on-light bg-light py-8 md:py-16 lg:py-24',
+      )}
+    >
+      <div className={
+        cn(
+          'flex flex-col justify-end',
+          'col-span-full md:col-span-5 lg:col-span-4',
+          contentAlignment === 'left' ? 'md:pr-6 lg:pr-11' : 'md:col-start-7 lg:col-start-8 md:row-span-1 md:pl-6 lg:pl-11',
+        )
+      }>
+        <BannerRichtext value={data.content as PortableTextBlock[]} />
+      </div>
+      <div className={
+        cn(
+          'col-span-full md:col-span-6 lg:col-span-7',
+          contentAlignment === 'left' ? '' : 'md:col-start-1 md:row-end-1',
+          `aspect-[${aspectRatioValues}]`
+        )
+      }>
         <SanityImage
-          aspectRatio="16/9"
+          aspectRatio={aspectRatioValues || '4/3'}
+          className='w-full'
           data={data.backgroundImage}
           decoding="sync"
           draggable={false}
-          fetchpriority="high"
           showBorder={false}
           showShadow={false}
           sizes="100vw"
         />
-      </BannerMedia>
-      <BannerMediaOverlay opacity={overlayOpacity} />
-      <BannerContent
-        contentAlignment={contentAlignment}
-        contentPosition={contentPosition}
-      >
-        <BannerRichtext value={data.content as PortableTextBlock[]} />
-      </BannerContent>
-    </Banner>
+      </div>
+    </div>
   );
 }
 

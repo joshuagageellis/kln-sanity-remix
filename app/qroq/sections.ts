@@ -147,8 +147,8 @@ export const HOMEPAGE_LARGE_TEXT_SECTION = {
 export const IMAGE_BANNER_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('imageBannerSection'),
+  aspectRatioValues: q.string().nullable(),
   backgroundImage: q('backgroundImage').grab(IMAGE_FRAGMENT).nullable(),
-  bannerHeight: q.number().nullable(),
   content: q(
     `coalesce(
         content[_key == $language][0].value[],
@@ -159,9 +159,7 @@ export const IMAGE_BANNER_SECTION_FRAGMENT = {
     .filter()
     .select(BANNER_RICHTEXT_BLOCKS)
     .nullable(),
-  contentAlignment: z.enum(contentAlignmentValues).nullable(),
-  contentPosition: z.enum(contentPositionValues).nullable(),
-  overlayOpacity: q.number().nullable(),
+    contentAlignment: q.string().nullable(),
   settings: SECTION_SETTINGS_FRAGMENT,
 } satisfies Selection;
 

@@ -63,7 +63,7 @@ export function FeaturedWorkSection(props: SectionDefaultProps & {data: Featured
 	const {deck, title, workSamples} = data;
 
 	return (
-		<section className="relative flex flex-col w-full pt-16 pb-16 md:pt-32 md:pb-32 lg:pt-52 lg:pb-52">
+		<div className="relative flex flex-col w-full pt-16 pb-16 md:pt-32 md:pb-32 lg:pt-52 lg:pb-52">
 			<div className="container-w-padding site-grid">
 				<div className="col-span-full lg:col-span-5 lg:row-start-1 lg:row-end-3 lg:pt-12">
 					<div className="mb-8 md:mb-12 lg:mb-20 text-on-dark pr-0 md:pr-6 max-w-[640px] lg:min-h-[200px] lg:flex-col lg:flex justify-end">
@@ -91,6 +91,6 @@ export function FeaturedWorkSection(props: SectionDefaultProps & {data: Featured
 					))}
 				</div>
 			</div>
-		</section>
+		</div>
 	);
 }

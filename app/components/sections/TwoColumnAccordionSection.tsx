@@ -74,7 +74,7 @@ export function TwoColumnAccordionSection(
   );
 
   return (
-    <section className="text-on-dark py-12 lg:py-48">
+    <div className="text-on-dark py-12 lg:py-48">
       <div className="container-w-padding site-grid">
         <div className="mb-8 lg:mb-0 col-span-full lg:col-span-5 lg:pr-6 lg:py-8 lg:mt-9">
           <h2>{title}</h2>
@@ -117,6 +117,6 @@ export function TwoColumnAccordionSection(
           </Accordion>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

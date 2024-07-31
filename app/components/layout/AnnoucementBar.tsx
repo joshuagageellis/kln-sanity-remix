@@ -6,6 +6,7 @@ import {m} from 'framer-motion';
 
 import type {ANNOUCEMENT_BAR_FRAGMENT} from '~/qroq/fragments';
 
+import {ArrowLink} from '~/components/ui/ArrowLink';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
 import {SanityInternalLink} from '../sanity/link/SanityInternalLink';
@@ -24,9 +25,19 @@ export function AnnouncementBar() {
         animate={{opacity: [0, 1]}}
         transition={{delay: 0.3, duration: 0.5, ease: 'easeOut'}}
       >
-        <div className="transition-all duration-300 bg-citrus text-panther relative flex justify-center p-3 pr-6 pl-6 has-[a:hover]:bg-yellow has-[a:focus]:bg-yellow">
+        <div className="group transition-all duration-300 bg-citrus text-charcoal relative flex justify-center p-3 pr-6 pl-6 has-[a:hover]:bg-amethyst has-[a:focus]:bg-amethyst">
           <AnnouncementBarLink {...annoucementBarItem as AnnoucementBarProps} />
-          <p className="body-20"><span>{annoucementBarItem.text}</span></p>
+          {!(annoucementBarItem.link || annoucementBarItem.externalLink) ? (
+            <p className="body-20"><span>{annoucementBarItem.text}</span></p>
+          ) : (
+            <ArrowLink
+              className=""
+              size="small"
+              variant="primary"
+            >
+              {annoucementBarItem.text}
+            </ArrowLink>
+          )}
         </div>
       </m.div>
     </section>
