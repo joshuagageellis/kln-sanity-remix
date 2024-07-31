@@ -42,11 +42,11 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex items-center gap-1 primary-nav-link text-marble hover:text-amethyst focus:text-amethyst transition-all duration-200',
+  'group inline-flex items-center gap-1 primary-nav-link text-[--header-color] hover:[--header-hover-color] focus:[--header-hover-color] transition-all duration-200',
 );
 
 const navigationMenuSubTriggerStyle = cva(
-  'group inline-flex items-center gap-1 primary-nav-sub-link text-marble hover:text-amethyst transition-all duration-200',
+  'group inline-flex items-center gap-1 primary-nav-sub-link text-cream hover:text-amethyst focus:text-amethyst transition-all duration-200',
 );
 
 const NavigationMenuTrigger = forwardRef<
@@ -60,7 +60,7 @@ const NavigationMenuTrigger = forwardRef<
   >
     {children}
     <IconChevron
-      className="relative size-3 transition group-data-[state=open]:rotate-180"
+      className="relative size-3 transition-transform group-data-[state=open]:rotate-180"
     />
   </NavigationMenuPrimitive.Trigger>
 ));

@@ -52,8 +52,10 @@ export function MobileNavigation(props: {
       // Prevent scrolling when mobile menu is open
       if (action) {
         document.body.style.overflow = 'hidden';
+        document.documentElement.setAttribute('data-mobile-menu-open', 'true');
       } else {
         document.body.style.overflow = 'auto';
+        document.documentElement.removeAttribute('data-mobile-menu-open');
       }
 
       // Restore alert bar scroll if open.
@@ -77,7 +79,7 @@ export function MobileNavigation(props: {
     [setOpen, setActiveAlert, activeAlert],
   );
 
-  if ('mobile' !== device && open) {
+  if ('desktop' === device && open) {
     handleOpen(false);
   }
 
@@ -115,7 +117,7 @@ export function MobileNavigation(props: {
   return (
     <div className="lg:hidden" id="mobile-nav">
       <button
-        className="flex h-[44px] w-[44px] items-center justify-center p-2 text-marble"
+        className="flex h-[44px] w-[44px] items-center justify-center p-2 text-[--header-color]"
         onClick={() => handleOpen(!open)}
       >
         <IconMenu className="h-auto w-[24px]" menuState={open} />

@@ -1,0 +1,31 @@
+/**
+Handle main header color changes.
+**/
+.main-header {
+	--header-color: var(--color-cream);
+	--header-hover-color: var(--color-amethyst);
+	--header-bg: var(--color-charcoal);
+}
+
+[data-topper-color="citrus"]:not([data-mobile-menu-open="true"]) .main-header:not(.scrolled) img,
+[data-topper-color="salsa"]:not([data-mobile-menu-open="true"]) .main-header:not(.scrolled) img {
+	filter: invert(1);
+}
+
+[data-topper-color="citrus"]:not([data-mobile-menu-open="true"]) .main-header:not(.scrolled) {
+	--header-color: var(--color-charcoal);
+	--header-hover-color: var(--color-salsa);
+	--header-bg: var(--color-citrus);
+}
+
+[data-topper-color="salsa"]:not([data-mobile-menu-open="true"]) .main-header:not(.scrolled) {
+	--header-color: var(--color-charcoal);
+	--header-hover-color: var(--color-cream);
+	--header-bg: var(--color-salsa);
+}
+
+[data-topper-color="charcoal"]:not([data-mobile-menu-open="true"]) .main-header:not(.scrolled) {
+	--header-color: var(--color-cream);
+	--header-hover-color: var(--color-amethyst);
+	--header-bg: var(--color-charcoal);
+}

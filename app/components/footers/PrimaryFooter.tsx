@@ -22,8 +22,6 @@ export function PrimaryFooter({data}: SectionDefaultProps & {data: PrimaryFooter
     structuredLink,
   } = data;
 
-  console.log(data);
-
   return (
     <footer className="text-on-dark">
       {structuredLink && (

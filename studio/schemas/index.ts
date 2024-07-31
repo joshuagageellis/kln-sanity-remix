@@ -52,6 +52,7 @@ import homepageLargeText from './objects/sections/homepageLargeText';
 import featuredWorkSection from './objects/sections/featuredWorkSection';
 import twoColumnAccordionSection from './objects/sections/twoColumnAccordionSection';
 import primaryFooter from './objects/footers/primaryFooter';
+import pageTopperSection from './objects/sections/pageTopperSection';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -79,6 +80,7 @@ const sections = [
   homepageLargeText,
   featuredWorkSection,
   twoColumnAccordionSection,
+  pageTopperSection,
 ];
 const footers = [socialLinksOnly, primaryFooter];
 const objects = [

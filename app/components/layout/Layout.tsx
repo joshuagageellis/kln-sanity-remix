@@ -1,5 +1,5 @@
 import {ShopifyProvider} from '@shopify/hydrogen-react';
-import {Suspense, lazy} from 'react';
+import { Suspense, lazy } from 'react';
 
 import {useRootLoaderData} from '~/root';
 

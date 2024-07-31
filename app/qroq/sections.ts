@@ -43,6 +43,23 @@ export const SECTION_SETTINGS_FRAGMENT = q('settings')
 | Two Column With Accordion
 |--------------------------------------------------------------------------
 */
+export const PAGE_TOPPER_SECTION_FRAGMENT = {
+  _key: q.string().nullable(),
+  _type: q.literal('pageTopperSection'),
+  bgColor: q.string().nullable(),
+  deck: q.string().nullable(),
+  displayButton: q.boolean().nullable(),
+  link: q('link').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+  settings: SECTION_SETTINGS_FRAGMENT,
+  subtitle: q.string().nullable(),
+  title: q.string().nullable(),
+} satisfies Selection;
+
+/*
+|--------------------------------------------------------------------------
+| Two Column With Accordion
+|--------------------------------------------------------------------------
+*/
 export const TWO_COLUMN_ACCORDION_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('twoColumnAccordionSection'),
@@ -66,7 +83,7 @@ export const TWO_COLUMN_ACCORDION_SECTION_FRAGMENT = {
   settings: SECTION_SETTINGS_FRAGMENT,
   structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
   title: q.string().nullable(),
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +100,9 @@ export const FEATURED_WORK_SECTION_FRAGMENT = {
     .grab({
       _key: q.string(),
       image: q('image').grab(IMAGE_FRAGMENT).nullable(),
-      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+      structuredLink: q('structuredLink')
+        .grab(STRUCTURED_LINK_FRAGMENT)
+        .nullable(),
     })
     .nullable(),
 } satisfies Selection;
@@ -292,17 +311,20 @@ export const COLLECTION_LIST_SECTION_FRAGMENT = {
 export const CAROUSEL_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('carouselSection'),
-  introLinks: q('introLinks[]', {isArray: true})
-    .grab({
-      _key: q.string(),
-      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
-    }),
+  introLinks: q('introLinks[]', {isArray: true}).grab({
+    _key: q.string(),
+    structuredLink: q('structuredLink')
+      .grab(STRUCTURED_LINK_FRAGMENT)
+      .nullable(),
+  }),
   settings: SECTION_SETTINGS_FRAGMENT,
   slides: q('slides[]', {isArray: true})
     .grab({
       _key: q.string(),
       image: q('image').grab(IMAGE_FRAGMENT).nullable(),
-      structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+      structuredLink: q('structuredLink')
+        .grab(STRUCTURED_LINK_FRAGMENT)
+        .nullable(),
     })
     .nullable(),
 } satisfies Selection;
@@ -317,7 +339,6 @@ export const RICHTEXT_SECTION_FRAGMENT = {
   _type: q.literal('richtextSection'),
   contentAlignment: z.enum(contentAlignmentValues).nullable(),
   desktopContentPosition: z.enum(contentAlignmentValues).nullable(),
-  maxWidth: q.number().nullable(),
   richtext: q(
     `coalesce(
       richtext[_key == $language][0].value[],
@@ -378,6 +399,7 @@ export const SECTIONS_LIST_SELECTION = {
   "_type == 'homepageCarouselSection'": HOMEPAGE_CAROUSEL_SECTION_FRAGMENT,
   "_type == 'homepageLargeText'": HOMEPAGE_LARGE_TEXT_SECTION,
   "_type == 'imageBannerSection'": IMAGE_BANNER_SECTION_FRAGMENT,
+  "_type == 'pageTopperSection'": PAGE_TOPPER_SECTION_FRAGMENT,
   "_type == 'richtextSection'": RICHTEXT_SECTION_FRAGMENT,
   "_type == 'twoColumnAccordionSection'": TWO_COLUMN_ACCORDION_SECTION_FRAGMENT,
 };

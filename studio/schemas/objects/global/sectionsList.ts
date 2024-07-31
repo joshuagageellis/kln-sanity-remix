@@ -32,6 +32,9 @@ const globalSections = [
   },
   {
     type: 'twoColumnAccordionSection'
+  },
+  {
+    type: 'pageTopperSection'
   }
 ];
 

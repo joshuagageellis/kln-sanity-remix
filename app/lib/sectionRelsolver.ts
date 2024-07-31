@@ -10,6 +10,7 @@ import {FeaturedWorkSection} from '~/components/sections/FeaturedWorkSection';
 import {HomepageCarouselSection} from '~/components/sections/HomepageCarouselSection';
 import {HomepageLargeText} from '~/components/sections/HomepageLargeText';
 import {ImageBannerSection} from '~/components/sections/ImageBannerSection';
+import { PageTopperSection } from '~/components/sections/PageTopperSection';
 import {ProductInformationSection} from '~/components/sections/ProductInformationSection';
 import {RelatedProductsSection} from '~/components/sections/RelatedProductsSection';
 import {RichtextSection} from '~/components/sections/RichtextSection';
@@ -29,6 +30,7 @@ export const sections: {
   homepageCarouselSection: HomepageCarouselSection,
   homepageLargeText: HomepageLargeText,
   imageBannerSection: ImageBannerSection,
+  pageTopperSection: PageTopperSection,
   primaryFooter: PrimaryFooter,
   productInformationSection: ProductInformationSection,
   relatedProductsSection: RelatedProductsSection,

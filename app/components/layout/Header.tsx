@@ -14,6 +14,10 @@ export const Header = () => {
   const {scrollY} = useScroll();
   const headerData = data?.header;
 
+  /**
+   * Match the header background color to the theme color.
+   * Only applies to page & case study routes.
+   */
   const [scrollPos, setScrollPos] = useState(0);
   useEffect(() => {
     return scrollY.on('change', (current) => {
@@ -22,13 +26,24 @@ export const Header = () => {
   }, [scrollY, setScrollPos]);
 
   const classes = cx([
-    'text-cream sticky bg-charcoal top-0 z-[88] group lg:mb-[40px] lg:h-[86px] transition-all',
-    scrollPos > 126 ? 'shadow-sm shadow-charcoal scrolled' : '',
+    'main-header', // Used in stylesheet.
+    'text-[--header-color]',
+    'bg-[--header-bg]',
+    'sticky top-0 z-[88] group lg:mb-[40px] lg:h-[86px] transition-all',
+    scrollPos > 126 ? 'scrolled' : '',
   ]);
 
   return (
     <header className={classes} id="main-header">
-      <div className="container-w-padding flex w-full flex-row content-center justify-between gap-4 bg-charcoal pt-2 pb-2 transition-all duration-300 lg:h-[126px] lg:justify-normal lg:gap-12 lg:group-[.scrolled]:h-[86px]">
+      <div
+        className={
+          cx([
+            "container-w-padding pt-2 pb-2 lg:h-[126px] lg:group-[.scrolled]:h-[86px]",      
+            "flex w-full flex-row content-center justify-between gap-4 lg:justify-normal lg:gap-12",
+            "transition-all duration-300",
+            'bg-[--header-bg]',
+          ])}
+      >
         <Link
           className="flex origin-left flex-col content-center justify-center transition-all duration-500"
           // Used in mobile menu.

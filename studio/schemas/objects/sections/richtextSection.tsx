@@ -52,16 +52,6 @@ export default defineField({
       },
     }),
     defineField({
-      name: 'maxWidth',
-      title: 'Content Max Width',
-      type: 'rangeSlider',
-      options: {
-        min: 0,
-        max: 1920,
-        suffix: 'px',
-      },
-    }),
-    defineField({
       type: 'sectionSettings',
       name: 'settings',
     }),
@@ -69,7 +59,6 @@ export default defineField({
   initialValue: {
     desktopContentPosition: 'center',
     contentAlignment: 'left',
-    maxWidth: 900,
   },
   preview: {
     select: {

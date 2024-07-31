@@ -69,7 +69,7 @@ function Badge(props: {cart?: CartApiQueryFragment; count: number}) {
     () => (
       <span className="relative">
         <span className="sr-only">{themeContent?.cart?.heading}</span>
-        <IconBag className="size-6" />
+        <IconBag className="size-6 transition-none" />
         {count > 0 && (
           <div
             className={cx([
@@ -89,7 +89,7 @@ function Badge(props: {cart?: CartApiQueryFragment; count: number}) {
     [count, themeContent?.cart?.heading],
   );
 
-  const buttonClass = cn(iconButtonClass, 'group');
+  const buttonClass = cn(iconButtonClass, 'group', 'transition-none');
 
   return isHydrated ? (
     <Drawer
