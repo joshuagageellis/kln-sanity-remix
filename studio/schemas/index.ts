@@ -53,6 +53,7 @@ import featuredWorkSection from './objects/sections/featuredWorkSection';
 import twoColumnAccordionSection from './objects/sections/twoColumnAccordionSection';
 import primaryFooter from './objects/footers/primaryFooter';
 import pageTopperSection from './objects/sections/pageTopperSection';
+import caseStudy from './documents/caseStudy';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -63,6 +64,7 @@ const documents = [
   productTemplate,
   collectionTemplate,
   blogPost,
+  caseStudy,
   productVariant,
 ];
 const sections = [

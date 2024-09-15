@@ -24,7 +24,7 @@ import {vercelStegaCleanAll} from '@sanity/client/stega';
 import {type SeoConfig} from '@shopify/hydrogen';
 
 import type {SIMPLE_IMAGE_FRAGMENT} from '~/qroq/fragments';
-import type {PAGE_QUERY, ROOT_QUERY} from '~/qroq/queries';
+import type {CASE_STUDY_QUERY, PAGE_QUERY, ROOT_QUERY} from '~/qroq/queries';
 
 import {generateSanityImageUrl} from '~/components/sanity/SanityImage';
 
@@ -442,6 +442,33 @@ function page({
   };
 }
 
+function caseStudy({
+  page,
+  sanity,
+}: {
+  page: InferType<typeof CASE_STUDY_QUERY>;
+  sanity: SanityConfig;
+}): SeoConfig<WebPage> {
+  const media = generateOGImageData({
+    image: page?.seo?.image,
+    sanity,
+  });
+  return {
+    description: page?.seo?.description ?? '',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Home page',
+    },
+    media,
+    robots: {
+      noFollow: false,
+      noIndex: false,
+    },
+    title: page?.seo?.title ?? '',
+  };
+}
+
 function policy({
   policy,
   url,
@@ -499,6 +526,7 @@ function policies({
 export const seoPayload = {
   article,
   blog,
+  caseStudy,
   collection,
   home,
   listCollections,

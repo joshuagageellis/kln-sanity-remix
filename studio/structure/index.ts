@@ -3,6 +3,7 @@ import {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/structure';
 import {SINGLETONS, singleton} from './singletons';
 
 import {IconBlog} from '../components/icons/Blog';
+import {IconCaseStudy} from '../components/icons/CaseStudy';
 import {products} from './productStructure';
 import {collections} from './collectionStructure';
 import {LayoutTemplate, PanelsTopLeft} from 'lucide-react';
@@ -20,6 +21,7 @@ export const structure: StructureResolver = (S, context) => {
       products(S, context),
       collections(S, context),
       // S.documentTypeListItem('blogPost').icon(IconBlog),
+      S.documentTypeListItem('caseStudy').icon(IconCaseStudy),
       S.divider(),
       singleton(S, SINGLETONS.header),
       singleton(S, SINGLETONS.footer),

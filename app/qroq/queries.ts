@@ -75,6 +75,33 @@ export const PAGE_QUERY = q('*')
 
 /*
 |--------------------------------------------------------------------------
+| Case Study Query
+|--------------------------------------------------------------------------
+*/
+export const CASE_STUDY_QUERY = q('*')
+  .filter(
+    `(
+      _type == "caseStudy" &&
+      slug.current == $handle
+    )
+    `,
+  )
+  .grab({
+    _type: q.literal('caseStudy'),
+    sections: SECTIONS_FRAGMENT,
+    seo: q('seo')
+      .grab({
+        description: [getIntValue('description'), q.string().nullable()],
+        image: q('image').grab(SIMPLE_IMAGE_FRAGMENT).nullable(),
+        title: [getIntValue('title'), q.string().nullable()],
+      })
+      .nullable(),
+  })
+  .slice(0)
+  .nullable();
+
+/*
+|--------------------------------------------------------------------------
 | Product Query
 |--------------------------------------------------------------------------
 */
