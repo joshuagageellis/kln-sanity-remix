@@ -40,7 +40,7 @@ export const SECTION_SETTINGS_FRAGMENT = q('settings')
 
 /*
 |--------------------------------------------------------------------------
-| Two Column With Accordion
+| Page Topper
 |--------------------------------------------------------------------------
 */
 export const PAGE_TOPPER_SECTION_FRAGMENT = {
@@ -52,6 +52,30 @@ export const PAGE_TOPPER_SECTION_FRAGMENT = {
   link: q('link').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
   settings: SECTION_SETTINGS_FRAGMENT,
   subtitle: q.string().nullable(),
+  title: q.string().nullable(),
+} satisfies Selection;
+
+/*
+|--------------------------------------------------------------------------
+| Case Study Topper
+|--------------------------------------------------------------------------
+*/
+export const CASE_STUDY_TOPPER_SECTION_FRAGMENT = {
+  _key: q.string().nullable(),
+  _type: q.literal('caseStudyTopperSection'),
+  bgColor: q.string().nullable(),
+  collaborators: q.string().nullable(),
+  date: q.string().nullable(),
+  link: q('link').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+  location: q.string().nullable(),
+  settings: SECTION_SETTINGS_FRAGMENT,
+  slides: q('slides[]', {isArray: true})
+    .grab({
+      _key: q.string(),
+      image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+      title: q.string().nullable(),
+    })
+    .nullable(),
   title: q.string().nullable(),
 } satisfies Selection;
 
@@ -390,6 +414,7 @@ export const COLLECTION_PRODUCT_GRID_SECTION_FRAGMENT = {
 */
 export const SECTIONS_LIST_SELECTION = {
   "_type == 'carouselSection'": CAROUSEL_SECTION_FRAGMENT,
+  "_type == 'caseStudyTopperSection'": CASE_STUDY_TOPPER_SECTION_FRAGMENT,
   "_type == 'collectionListSection'": COLLECTION_LIST_SECTION_FRAGMENT,
   "_type == 'featuredCollectionSection'": FEATURED_COLLECTION_SECTION_FRAGMENT,
   "_type == 'featuredProductSection'": FEATURED_PRODUCT_SECTION_FRAGMENT,

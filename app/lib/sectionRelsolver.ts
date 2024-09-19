@@ -1,6 +1,7 @@
 import {FooterSocialLinksOnly} from '~/components/footers/FooterSocialLinksOnly';
 import {PrimaryFooter} from '~/components/footers/PrimaryFooter';
 import {CarouselSection} from '~/components/sections/CarouselSection';
+import {CaseStudyTopperSection} from '~/components/sections/CaseStudyTopperSection';
 import {CollectionBannerSection} from '~/components/sections/CollectionBannerSection';
 import {CollectionListSection} from '~/components/sections/CollectionListSection';
 import {CollectionProductGridSection} from '~/components/sections/CollectionProductGridSection';
@@ -10,17 +11,17 @@ import {FeaturedWorkSection} from '~/components/sections/FeaturedWorkSection';
 import {HomepageCarouselSection} from '~/components/sections/HomepageCarouselSection';
 import {HomepageLargeText} from '~/components/sections/HomepageLargeText';
 import {ImageBannerSection} from '~/components/sections/ImageBannerSection';
-import { PageTopperSection } from '~/components/sections/PageTopperSection';
+import {PageTopperSection} from '~/components/sections/PageTopperSection';
 import {ProductInformationSection} from '~/components/sections/ProductInformationSection';
 import {RelatedProductsSection} from '~/components/sections/RelatedProductsSection';
 import {RichtextSection} from '~/components/sections/RichtextSection';
 import {TwoColumnAccordionSection} from '~/components/sections/TwoColumnAccordionSection';
 
-
 export const sections: {
   [key: string]: React.FC<any>;
 } = {
   carouselSection: CarouselSection,
+  caseStudyTopperSection: CaseStudyTopperSection,
   collectionBannerSection: CollectionBannerSection,
   collectionListSection: CollectionListSection,
   collectionProductGridSection: CollectionProductGridSection,

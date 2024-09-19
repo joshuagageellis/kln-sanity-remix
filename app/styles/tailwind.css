@@ -238,6 +238,16 @@ html {
     letter-spacing: 0.16px;
   }
 
+  .info-16-link {
+    font-family: var(--body-font-family);
+    font-size: calcRem(16);
+    font-style: normal;
+    font-variation-settings: 'wght' 450, 'wdth' 105;
+    line-height: 1.25;
+    letter-spacing: 0.16px;
+    text-decoration: underline;
+  }
+
   .mobile-nav-link {
     font-family: var(--body-font-family);
     font-size: calcRem(52);

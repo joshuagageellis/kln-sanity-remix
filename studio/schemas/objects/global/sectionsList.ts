@@ -35,6 +35,9 @@ const globalSections = [
   },
   {
     type: 'pageTopperSection'
+  },
+  {
+    type: 'caseStudyTopperSection'
   }
 ];
 
