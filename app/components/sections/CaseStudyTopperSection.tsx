@@ -9,6 +9,7 @@ import type {CASE_STUDY_TOPPER_SECTION_FRAGMENT} from '~/qroq/sections';
 
 import {cn} from '~/lib/utils';
 
+import { SanityImage } from '../sanity/SanityImage';
 import { StructuredLink } from '../sanity/link/StructuredLink';
 import {
   Carousel,
@@ -17,7 +18,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '../ui/Carousel';
-import { SanityImage } from '../sanity/SanityImage';
 
 type CaseStudyTopperSectionProps = TypeFromSelection<
   typeof CASE_STUDY_TOPPER_SECTION_FRAGMENT
@@ -89,7 +89,7 @@ export function CaseStudyTopperSection(
 			{slides && slides.length > 0 && (
 				<div className="container-w-padding">
 					<Carousel
-          className="mt-4 [--slide-spacing:2rem] md:[--slide-spacing:1rem]"
+          className="-mt-7 md:-mt-16 [--slide-spacing:2rem] md:[--slide-spacing:1rem]"
           opts={{
             loop: true,
           }}
@@ -100,10 +100,7 @@ export function CaseStudyTopperSection(
           }
         >
           <div className="relative gird">
-            <CarouselContent
-              // className='md:ml-[calc(var(--container-padding)-var(--slide-spacing))] md:pl-0 md:pr-0 pl-[--container-padding] pr-[--container-padding]'
-              className="w-100"
-            >
+            <CarouselContent className="w-100">
               {slides.map((slide, i) => (
                 <CarouselItem className="[&>span]:h-full" key={slide._key}>
                   <div>
@@ -117,15 +114,22 @@ export function CaseStudyTopperSection(
                       showShadow={false}
                     />
                     {/* desc */}
-                    {slide.title && (
-                      <div className="text-on-light mt-4 md:mt-7">
-                        <h2 className="body-20 mt-0">{title}</h2>
+                    {slide.description && (
+                      <div className="text-on-dark mt-4 md:mt-7 max-w-[640px]">
+                        <p className="body-20 mt-0">{slide.description}</p>
                       </div>
                     )}
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <div className="text-marble absolute right-0 w-full top-0">
+              <span className="w-full aspect-video block"></span>
+              <div className="mt-4 md:mt-7 flex flex-row justify-end relative z-20">
+                <CarouselPrevious />
+                <CarouselNext />
+              </div>
+            </div>
           </div>
         </Carousel>
 				</div>

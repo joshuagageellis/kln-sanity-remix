@@ -72,8 +72,8 @@ export const CASE_STUDY_TOPPER_SECTION_FRAGMENT = {
   slides: q('slides[]', {isArray: true})
     .grab({
       _key: q.string(),
+      description: q.string().nullable(),
       image: q('image').grab(IMAGE_FRAGMENT).nullable(),
-      title: q.string().nullable(),
     })
     .nullable(),
   title: q.string().nullable(),

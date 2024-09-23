@@ -1,7 +1,11 @@
 import type {TypeFromSelection} from 'groqd';
 
+import {useLocation} from '@remix-run/react';
+
 import type {SectionDefaultProps} from '~/lib/type';
 import type {PRIMARY_FOOTER} from '~/qroq/footers';
+
+import {useLocalePath} from '~/hooks/useLocalePath';
 
 import type { StructuredLinkProps } from '../sanity/link/StructuredLink';
 
@@ -22,9 +26,19 @@ export function PrimaryFooter({data}: SectionDefaultProps & {data: PrimaryFooter
     structuredLink,
   } = data;
 
+  
+  /**
+   * Hide the top CTA if on the internally linked page.
+  */
+  const {pathname} = useLocation();
+  const path = useLocalePath({
+    path: pathname
+  });
+  const hideTopCTA = path.replace(/^\/+/g, '') === structuredLink?.reference?.slug?.current
+
   return (
     <footer className="text-on-dark">
-      {structuredLink && (
+      {structuredLink && !hideTopCTA && (
         <div className="border-b-[2px] border-panther">
           <StructuredLink
             className="transition-all duration-300 block hover:bg-citrus focus-visible:bg-citrus hover:text-charcoal focus-visible:text-charcoal"

@@ -31,15 +31,13 @@ const devOnlyPlugins = [
   }),
   groqdPlaygroundTool(),
 ];
-const SANITY_STUDIO_PRODUCTION_URL = isDev
+const FE_PREVIEW = isDev
   ? localePreviewUrl
-  : previewUrl
-    ? previewUrl
-    : localePreviewUrl;
+  : previewUrl;
 
 export default defineConfig({
   name: 'default',
-  title: 'Fluid',
+  title: 'KLN Studios',
   projectId,
   dataset,
   plugins: [
@@ -52,7 +50,7 @@ export default defineConfig({
     media(),
     presentationTool({
       // Required: set the base URL to the preview location in the front end
-      previewUrl: `${SANITY_STUDIO_PRODUCTION_URL}/sanity/preview`,
+      previewUrl: `${FE_PREVIEW}/sanity/preview`,
       locate,
       icon: PreviewIcon,
       title: 'Preview',

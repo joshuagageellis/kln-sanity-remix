@@ -1,12 +1,13 @@
 import type {TypeFromSelection} from 'groqd';
 
-import {Link} from '@remix-run/react';
+import {Link, useLocation} from '@remix-run/react';
 import {cx} from 'class-variance-authority';
 import {m} from 'framer-motion';
 
 import type {ANNOUCEMENT_BAR_FRAGMENT} from '~/qroq/fragments';
 
 import {ArrowLink} from '~/components/ui/ArrowLink';
+import { useLocalePath } from '~/hooks/useLocalePath';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
 import {SanityInternalLink} from '../sanity/link/SanityInternalLink';
@@ -15,10 +16,22 @@ type AnnoucementBarProps = TypeFromSelection<typeof ANNOUCEMENT_BAR_FRAGMENT>;
 
 export function AnnouncementBar() {
   const {data} = useSanityRoot();
+  const {pathname} = useLocation();
+  const path = useLocalePath({
+    path: pathname
+  });
   const header = data?.header;
   const annoucementBar = header?.annoucementBar;
   if (!annoucementBar || !annoucementBar.length) return null;
   const annoucementBarItem = annoucementBar[0];
+
+  /**
+   * Hide alert bar if on route.
+   */
+  if (path.replace(/^\/+/g, '') === annoucementBarItem.link?.slug?.current) {
+    return null;
+  }
+
   return (
     <section id="announcement-bar">
       <m.div

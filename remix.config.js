@@ -23,5 +23,5 @@ module.exports = {
     './server.ts',
     './tailwind.config.ts',
     './sanity.details.ts',
-  ],
+  ]
 };

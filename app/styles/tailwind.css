@@ -321,6 +321,10 @@ html {
     border-radius: 0;
   }
 
+  .default-input--dark {
+    border: 2px solid var(--color-charcoal);
+  }
+
   @media (min-width: 768px) {
     .default-input {
       min-height: 60px;

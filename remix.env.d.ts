@@ -38,6 +38,8 @@ declare global {
     SANITY_STUDIO_URL: string;
     SANITY_STUDIO_USE_PREVIEW_MODE: string;
     SESSION_SECRET: string;
+    SENDGRID_API_KEY: string;
+    SENDGRID_FROM_EMAIL: string;
   }
 }
 
