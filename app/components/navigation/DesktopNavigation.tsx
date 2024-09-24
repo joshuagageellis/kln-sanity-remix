@@ -64,7 +64,7 @@ export function DesktopNavigation(props: {data?: NavigationProps}) {
 function CssVars(props: {dropdownWidth: number; viewportPosition: number}) {
   const cssVar = `
     #header-nav {
-      --viewport-position: ${props.viewportPosition}%;
+      --viewport-position: ${props.viewportPosition}px;
       --dropdown-width: ${props.dropdownWidth}px;
     }
   `;
@@ -86,20 +86,20 @@ function useViewportPosition(
     if (!menuElement) return;
 
     const menuWidth = menuElement.offsetWidth;
-    const menuLeft = menuElement.getBoundingClientRect().left;
     const activeChild = Array.from(menuElement.children).find(
       (child) => child.id === activeItem,
-    );
-    const dropdownWidthPercentage = (dropdownWidth / menuWidth) * 100;
-    const rect = activeChild?.getBoundingClientRect();
-    const positionPercentage = rect
-      ? ((rect.left - menuLeft) / menuWidth) * 100
-      : 0;
+    ) as HTMLElement;
 
-    if (positionPercentage + dropdownWidthPercentage > 100) {
-      setViewportPosition(100 - dropdownWidthPercentage);
+    if (!activeChild) {
+      setViewportPosition(0);
+      return;
+    }
+
+    const left = activeChild.offsetLeft;
+    if (left + dropdownWidth > menuWidth) {
+      setViewportPosition(menuWidth - dropdownWidth);
     } else {
-      setViewportPosition(positionPercentage);
+      setViewportPosition(left);
     }
   }, [menuRef, activeItem, dropdownWidth]);
 

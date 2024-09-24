@@ -13,6 +13,7 @@ import {
   NavigationMenuLink,
   NavigationMenuTrigger,
   navigationMenuSubTriggerStyle,
+  navigationMenuTriggerStyle,
 } from '../ui/NavigationMenu';
 
 export type SanityNestedNavigationProps = TypeFromSelection<
@@ -65,7 +66,7 @@ export function NestedNavigation(props: {
   ) : data.link && data.name && (!childLinks || childLinks.length === 0) ? (
     // Render internal link if no child links
     <SanityInternalLink
-      className={navigationMenuSubTriggerStyle()}
+      className={navigationMenuTriggerStyle()}
       data={{
         _key: data._key,
         _type: 'internalLink',
