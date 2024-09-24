@@ -239,13 +239,13 @@ export function ErrorBoundary() {
       <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
         <Layout>
           <section>
-            <div className="container flex flex-col items-center justify-center py-20 text-center">
-              <span>{errorStatus}</span>
+            <div className="container-w-padding bg-cream flex flex-col items-center justify-center py-20 text-center">
+              <span className="info-16">{errorStatus}</span>
               <h1 className="mt-5">{title}</h1>
               {errorStatus === 404 ? (
                 <Button asChild className="mt-6" variant="default">
-                  <Link to={collectionsPath}>
-                    {themeContent?.cart?.continueShopping}
+                  <Link to={'/'}>
+                    Return Home
                   </Link>
                 </Button>
               ) : (
