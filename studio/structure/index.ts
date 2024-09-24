@@ -44,7 +44,7 @@ export const structure: StructureResolver = (S, context) => {
                 .child(S.documentTypeList('collectionTemplate')),
             ]),
         ),
-      S.documentTypeListItem('colorScheme').showIcon(true),
+      // S.documentTypeListItem('colorScheme').showIcon(true),
       singleton(S, SINGLETONS.themeContent),
     ]);
 };
