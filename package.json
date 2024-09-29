@@ -15,7 +15,7 @@
     "format:check": "prettier --check --ignore-unknown .",
     "typecheck": "tsc --noEmit",
     "deploy:studio": "cd ./studio && run-s deploy",
-    "deploy:app": "shopify hydrogen deploy"
+    "deploy:app": "shopify hydrogen deploy --force"
   },
   "browserslist": [
     "defaults"
