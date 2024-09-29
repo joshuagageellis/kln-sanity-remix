@@ -50,6 +50,7 @@ export function PageTopperSection(
 	const {bgColor, deck, displayButton, link, subtitle, title} = data;
 	useHeaderColors(bgColor);
 	const useBgColor = bgColor || 'citrus';
+	console.log('useBgColor', useBgColor);
 	return (
 		<div className={
 			cn(
