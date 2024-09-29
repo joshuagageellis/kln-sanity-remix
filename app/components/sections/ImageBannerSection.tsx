@@ -26,6 +26,7 @@ export function ImageBannerSection(
   let {aspectRatioValues, contentAlignment} = data;
   aspectRatioValues = aspectRatioValues || '4/3';
   contentAlignment = contentAlignment || 'left';
+  const contentAlignmentClass = contentAlignment === 'left' ? 'md:pr-6 lg:pr-11' : 'md:col-start-7 lg:col-start-8 md:row-span-1 md:pl-6 lg:pl-11';
 
   // Todo: add encodeDataAttribute to SanityImage
   return (
@@ -38,7 +39,7 @@ export function ImageBannerSection(
         cn(
           'flex flex-col justify-end',
           'col-span-full md:col-span-5 lg:col-span-4',
-          contentAlignment === 'left' ? 'md:pr-6 lg:pr-11' : 'md:col-start-7 lg:col-start-8 md:row-span-1 md:pl-6 lg:pl-11',
+          contentAlignmentClass,
         )
       }>
         <BannerRichtext value={data.content as PortableTextBlock[]} />

@@ -64,7 +64,7 @@ export function PageTopperSection(
 				</div>
 				{displayButton && link && (
 					<div className="col-span-full mt-8 md:mt-0">
-						<Button asChild variant="default">
+						<Button asChild variant="outlineDark">
 							<StructuredLink
 								className="min-w-[180px] lg:min-w-[220px]"
 								{...link}
