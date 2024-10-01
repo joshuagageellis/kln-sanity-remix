@@ -19,6 +19,11 @@ import {
   useNavigate,
   useRouteError,
 } from '@remix-run/react';
+/**
+ * @todo
+ * Upgrade the meta handling to use getSeoMeta:
+ * https://shopify.dev/docs/api/hydrogen/2024-04/utilities/getseometa
+ */
 import {Seo, useNonce} from '@shopify/hydrogen';
 import {defer} from '@shopify/remix-oxygen';
 import {DEFAULT_LOCALE} from 'countries';
@@ -195,7 +200,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta content="width=device-width,initial-scale=1" name="viewport" />
         <Meta />
-        <Seo />
+        {/* <Seo /> */}
         <Links />
       </head>
       <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">

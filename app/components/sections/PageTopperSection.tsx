@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import type {SectionDefaultProps} from '~/lib/type';
 import type {PAGE_TOPPER_SECTION_FRAGMENT} from '~/qroq/sections';
 
+import { cleanString } from '~/components/sanity/CleanString';
 import {cn} from '~/lib/utils';
 
 import { StructuredLink } from '../sanity/link/StructuredLink';
@@ -48,9 +49,8 @@ export function PageTopperSection(
 ) {
 	const {data} = props;
 	const {bgColor, deck, displayButton, link, subtitle, title} = data;
-	useHeaderColors(bgColor);
-	const useBgColor = bgColor || 'citrus';
-	console.log('useBgColor', useBgColor);
+	const useBgColor = cleanString(bgColor) || 'citrus';
+	useHeaderColors(useBgColor);
 	return (
 		<div className={
 			cn(
@@ -64,8 +64,8 @@ export function PageTopperSection(
 					{deck && <p className='order-3 mt-2 md:mt-4 max-w-[480px] lg:max-w-[640px]'>{deck}</p>}
 				</div>
 				{displayButton && link && (
-					<div className="col-span-full mt-8 md:mt-0">
-						<Button asChild variant="outlineDark">
+					<div className="col-span-full mt-8">
+						<Button asChild variant={useBgColor === 'charcoal' ? 'outlineDark' : 'outline'}>
 							<StructuredLink
 								className="min-w-[180px] lg:min-w-[220px]"
 								{...link}

@@ -16,3 +16,9 @@ export default function CleanString({value}: {value?: null | string}) {
     cleaned
   );
 }
+
+export const cleanString = (value: null|string) => {
+  if (!value) return null;
+  const {cleaned} = vercelStegaSplit(value);
+  return cleaned;
+}
