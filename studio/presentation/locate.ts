@@ -15,7 +15,8 @@ export const locate: DocumentLocationResolver = (params, context) => {
     params.type === 'collection' ||
     params.type === 'home' ||
     params.type === 'page' ||
-    params.type === 'product'
+    params.type === 'product' ||
+    params.type === 'caseStudy'
   ) {
     /* 
       Listen to all changes in the selected document 
@@ -80,6 +81,35 @@ export const locate: DocumentLocationResolver = (params, context) => {
                 title: pageTitle
                   ? `${pageTitle} (${lang.title})`
                   : `Page (${lang.title})`,
+              });
+            }
+
+            return locations;
+          })
+          .flat();
+
+        /**
+         * Case Studies
+         */
+        const caseStudies = docs.filter(({_type, slug}) => _type === 'caseStudy' && slug);
+        const caseStudiesLocations = caseStudies
+          .map(({slug, title}) => {
+            const locations: Array<{
+              href: string;
+              title: string;
+            }> = [];
+
+            for (const lang of languages) {
+              const isDefaultLanguage = lang.id === defaultLanguage.id;
+              const pageTitle = title?.find((t) => t._key === lang.id)?.value;
+
+              locations.push({
+                href: isDefaultLanguage
+                  ? sanityPreviewPath(`case-study/${slug?.current}`)
+                  : sanityPreviewPath(`${lang.id}/case-study/${slug?.current}`),
+                title: pageTitle
+                  ? `${pageTitle} (${lang.title})`
+                  : `Case Study (${lang.title})`,
               });
             }
 
@@ -157,6 +187,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
             ...pagesLocations,
             ...productsLocations,
             ...homeLocations,
+            ...caseStudiesLocations,
           ].filter(Boolean),
         } satisfies DocumentLocationsState;
       }),
