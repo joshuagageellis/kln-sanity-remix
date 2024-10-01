@@ -35,7 +35,9 @@ export function AnnouncementBar() {
   return (
     <section id="announcement-bar">
       <m.div
-        animate={{opacity: [0, 1]}}
+        animate={{opacity: 1}}
+        exit={{opacity: 0}}
+        initial={{opacity: 0}}
         transition={{delay: 0.3, duration: 0.5, ease: 'easeOut'}}
       >
         <div className="group transition-all duration-300 bg-citrus text-charcoal relative flex justify-center p-3 pr-6 pl-6 has-[a:hover]:bg-amethyst has-[a:focus]:bg-amethyst">
