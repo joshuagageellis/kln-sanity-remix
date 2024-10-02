@@ -40,6 +40,8 @@ export function SanityInternalLink(props: {
         return locale.pathPrefix || '/';
       case 'blogPost':
         return `${locale.pathPrefix}/blog/${slug}`;
+      case 'caseStudy':
+        return `${locale.pathPrefix}/case-studies/${slug}`;
       default:
         return '';
     }

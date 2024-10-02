@@ -11,7 +11,7 @@ export function HomepageLargeText(
 	props: SectionDefaultProps & {data: HomepageLargeTextProps},
 ) {
 	return (
-		<div className="homepage-large-text mb-12 md:mb-16">
+		<div className="homepage-large-text mt-12 mt:mb-16 mb-12 md:mb-16">
 			<div className="site-grid container-w-padding">
 				<div className="col-span-full md:col-span-10 xl:col-span-8">
 					{props.data.content && (

@@ -9,6 +9,7 @@ import type {CASE_STUDY_TOPPER_SECTION_FRAGMENT} from '~/qroq/sections';
 
 import {cn} from '~/lib/utils';
 
+import { cleanString } from '../sanity/CleanString';
 import { SanityImage } from '../sanity/SanityImage';
 import { StructuredLink } from '../sanity/link/StructuredLink';
 import {
@@ -52,8 +53,8 @@ export function CaseStudyTopperSection(
 ) {
   const {data} = props;
   const {bgColor, collaborators, date, link, location, slides, title} = data;
-  useHeaderColors(bgColor);
-  const useBgColor = bgColor || 'citrus';
+  const useBgColor = cleanString(bgColor) || 'citrus';
+  useHeaderColors(useBgColor);
   return (
     <div data-color={useBgColor}>
 			<div

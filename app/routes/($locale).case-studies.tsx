@@ -12,7 +12,7 @@ import {useSanityData} from '~/hooks/useSanityData';
 import {resolveShopifyPromises} from '~/lib/resolveShopifyPromises';
 import {sanityPreviewPayload} from '~/lib/sanity/sanity.payload.server';
 import {seoPayload} from '~/lib/seo.server';
-import {CASE_STUDY_QUERY} from '~/qroq/queries';
+import {CASE_STUDY_INDEX_PAGE} from '~/qroq/queries';
 
 export async function loader({context, params, request}: LoaderFunctionArgs) {
   const {env, locale, sanity, storefront} = context;
@@ -24,12 +24,20 @@ export async function loader({context, params, request}: LoaderFunctionArgs) {
     defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
     handle,
     language,
+		offset: 0,
   };
 
-	console.log(queryParams);
-
+	let pageParam: null|number|string = new URL(request.url).searchParams.get('page');
+	if (pageParam) {
+		pageParam = parseInt(pageParam);
+	} else {
+		pageParam = 1;
+	}
+	const offsetX = 8;
+	const offset: [number, number] = [--pageParam * offsetX, pageParam * offsetX];
+	const query = CASE_STUDY_INDEX_PAGE(offset);
   const page = await sanity.query({
-    groqdQuery: CASE_STUDY_QUERY,
+    groqdQuery: query,
     params: queryParams,
   });
 
@@ -50,7 +58,7 @@ export async function loader({context, params, request}: LoaderFunctionArgs) {
     });
   }
 
-  const seo = seoPayload.caseStudy({
+  const seo = seoPayload.home({
     page: page.data,
     sanity: {
       dataset: env.SANITY_STUDIO_DATASET,
@@ -70,7 +78,7 @@ export async function loader({context, params, request}: LoaderFunctionArgs) {
     ...sanityPreviewPayload({
       context,
       params: queryParams,
-      query: CASE_STUDY_QUERY.query,
+      query: query.query,
     }),
   });
 }
@@ -81,15 +89,20 @@ export default function PageRoute() {
     initial: page,
   });
 
-  return data?.sections && data.sections.length > 0
-    ? data.sections.map((section) => (
-        <CmsSection
-          data={section}
-          encodeDataAttribute={encodeDataAttribute}
-          key={section._key}
-        />
-      ))
-    : null;
+	console.log('data', data);
+
+	<>
+	{data?.sections && data.sections.length > 0
+		? data.sections.map((section) => (
+		<CmsSection
+			data={section}
+			encodeDataAttribute={encodeDataAttribute}
+			key={section._key}
+		/>
+	)): null}
+	{/* Index */}
+	{/* <CaseStudyIndex caseStudies={data?.caseStudies} /> */}
+</>
 }
 
 function getPageHandle(args: {
@@ -100,6 +113,6 @@ function getPageHandle(args: {
   const {locale, pathname} = args;
 	return pathname
 		.replace(`${locale?.pathPrefix}`, '')
-		.replace('case-study/', '')
 		.replace(/^\/+/g, '');
 }
+

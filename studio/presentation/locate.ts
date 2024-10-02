@@ -105,8 +105,8 @@ export const locate: DocumentLocationResolver = (params, context) => {
 
               locations.push({
                 href: isDefaultLanguage
-                  ? sanityPreviewPath(`case-study/${slug?.current}`)
-                  : sanityPreviewPath(`${lang.id}/case-study/${slug?.current}`),
+                  ? sanityPreviewPath(`case-studies/${slug?.current}`)
+                  : sanityPreviewPath(`${lang.id}/case-studies/${slug?.current}`),
                 title: pageTitle
                   ? `${pageTitle} (${lang.title})`
                   : `Case Study (${lang.title})`,

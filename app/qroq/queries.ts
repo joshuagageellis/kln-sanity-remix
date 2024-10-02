@@ -75,6 +75,44 @@ export const PAGE_QUERY = q('*')
 
 /*
 |--------------------------------------------------------------------------
+| Case Study Index — Page Query
+|--------------------------------------------------------------------------
+*/
+export const CASE_STUDY_INDEX_PAGE = (offset: [number, number] = [0, 10]) => q('*')
+  .filter(
+    `(
+      _type == "page" &&
+      slug.current == $handle
+    )
+    `,
+  )
+  .grab({
+    _type: q.literal('page'),
+    caseStudies: q('*')
+      .filter('_type == "caseStudy"')
+      .slice(offset[0], offset[1])
+      .grab({
+        _id: q.string(),
+        _type: q.literal('caseStudy'),
+        slug: q('slug').grab({
+          current: q.string(),
+        }),
+        title: q.string(),
+      }),
+    sections: SECTIONS_FRAGMENT,
+    seo: q('seo')
+      .grab({
+        description: [getIntValue('description'), q.string().nullable()],
+        image: q('image').grab(SIMPLE_IMAGE_FRAGMENT).nullable(),
+        title: [getIntValue('title'), q.string().nullable()],
+      })
+      .nullable(),
+  })
+  .slice(0)
+  .nullable();
+
+/*
+|--------------------------------------------------------------------------
 | Case Study Query
 |--------------------------------------------------------------------------
 */
