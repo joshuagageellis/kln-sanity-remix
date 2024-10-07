@@ -21,7 +21,7 @@ export default defineField({
 			title: 'Link',
 			type: 'reference',
 			weak: true,
-			to: [{type: 'page'}, {type: 'product'}, {type: 'blogPost'}, {type: 'collection'}, ],
+			to: [{type: 'page'}, {type: 'product'}, {type: 'blogPost'}, {type: 'collection'}, {type: 'caseStudy'}],
 			hidden: ({parent}) => parent?.externalLink,
 		}),
 		defineField({
