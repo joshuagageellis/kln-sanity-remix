@@ -228,9 +228,8 @@ html {
   .body-20,
   p {
     font-family: var(--body-font-family);
-    font-size: typeScale(16, 20);
-    font-variation-settings: 'wght' 450, 'wdth' 105;
-    letter-spacing: 0.2px;
+    font-size: typeScale(16, 18);
+    font-variation-settings: 'wght' 400, 'wdth' 105;
     line-height: 1.4;
   }
 
