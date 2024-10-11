@@ -56,7 +56,7 @@ export function CaseStudyTopperSection(
   const useBgColor = cleanString(bgColor) || 'citrus';
   useHeaderColors(useBgColor);
   return (
-    <div data-color={useBgColor}>
+    <div className='bg-cream' data-color={useBgColor}>
 			<div
 				className={cn(
 					topperVariants({
