@@ -1,5 +1,7 @@
 import {q, z} from 'groqd';
 
+import { sections } from '~/lib/sectionRelsolver';
+
 import {FOOTERS_FRAGMENT} from './footers';
 import {
   ANNOUCEMENT_BAR_ARRAY_FRAGMENT,
@@ -14,6 +16,7 @@ import {
   COLLECTION_SECTIONS_FRAGMENT,
   PRODUCT_SECTIONS_FRAGMENT,
   SECTIONS_FRAGMENT,
+  SECTIONS_FRAGMENT_CASE_STUDY_TOPPER,
 } from './sections';
 import {THEME_CONTENT_FRAGMENT} from './themeContent';
 import {getIntValue} from './utils';
@@ -78,7 +81,7 @@ export const PAGE_QUERY = q('*')
 | Case Study Index — Page Query
 |--------------------------------------------------------------------------
 */
-export const CASE_STUDY_INDEX_PAGE = (offset: [number, number] = [0, 10]) => q('*')
+export const CASE_STUDY_INDEX_PAGE = q('*')
   .filter(
     `(
       _type == "page" &&
@@ -88,17 +91,17 @@ export const CASE_STUDY_INDEX_PAGE = (offset: [number, number] = [0, 10]) => q('
   )
   .grab({
     _type: q.literal('page'),
-    caseStudies: q('*')
-      .filter('_type == "caseStudy"')
-      .slice(offset[0], offset[1])
+    caseStudies: q('*[_type == "caseStudy"][$first..$last]', {isArray: true})
       .grab({
         _id: q.string(),
         _type: q.literal('caseStudy'),
+        sections: SECTIONS_FRAGMENT_CASE_STUDY_TOPPER,
         slug: q('slug').grab({
           current: q.string(),
         }),
-        title: q.string(),
+        title: [getIntValue('title'), q.string().nullable()],
       }),
+    caseStudiesTotal: q('count(*[_type == "caseStudy"])'),
     sections: SECTIONS_FRAGMENT,
     seo: q('seo')
       .grab({
@@ -107,6 +110,7 @@ export const CASE_STUDY_INDEX_PAGE = (offset: [number, number] = [0, 10]) => q('
         title: [getIntValue('title'), q.string().nullable()],
       })
       .nullable(),
+    title: [getIntValue('title'), q.string().nullable()],
   })
   .slice(0)
   .nullable();

@@ -217,6 +217,11 @@ html {
     --highlight-color: var(--color-charcoal);
   }
 
+  .highlight-hover--amethyst {
+    --highlight-bg: var(--color-amethyst );
+    --highlight-color: var(--color-charcoal);
+  }
+
   /**
   General text styles.
   */
@@ -227,6 +232,15 @@ html {
     font-variation-settings: 'wght' 450, 'wdth' 105;
     letter-spacing: 0.2px;
     line-height: 1.4;
+  }
+
+  .body-link {
+    font-family: var(--body-font-family);
+    font-size: typeScale(16, 20);
+    font-variation-settings: 'wght' 450, 'wdth' 105;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+    text-decoration: underline;
   }
 
   .info-16 {

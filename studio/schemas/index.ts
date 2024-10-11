@@ -12,6 +12,7 @@ import blogPost from './documents/blogPost';
 import sectionsList, {
   productSections,
   collectionSections,
+  homepageSections,
 } from './objects/global/sectionsList';
 import seo from './objects/global/seo';
 import sectionSettings from './objects/global/sectionSettings';
@@ -90,6 +91,7 @@ const footers = [socialLinksOnly, primaryFooter];
 const objects = [
   footersList,
   sectionsList,
+  homepageSections,
   productSections,
   collectionSections,
   productRichtext,

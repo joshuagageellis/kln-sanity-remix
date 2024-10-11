@@ -431,6 +431,14 @@ export const SECTIONS_FRAGMENT = q('sections[]', {isArray: true})
   .select(SECTIONS_LIST_SELECTION)
   .nullable();
 
+/**
+ * Used to grab only the case study toppers when displaying in feeds.
+ */
+export const SECTIONS_FRAGMENT_CASE_STUDY_TOPPER = q('sections[]', {isArray: true})
+  .select({"_type == 'caseStudyTopperSection'": SECTIONS_LIST_SELECTION["_type == 'caseStudyTopperSection'"]})
+  .nullable();
+
+
 /*
 |--------------------------------------------------------------------------
 | Product Sections Fragment

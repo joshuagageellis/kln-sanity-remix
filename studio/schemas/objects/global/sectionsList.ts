@@ -22,15 +22,6 @@ const globalSections = [
     type: 'richtextSection',
   },
   {
-    type: 'homepageCarouselSection'
-  },
-  {
-    type: 'homepageLargeText'
-  },
-  {
-    type: 'featuredWorkSection'
-  },
-  {
     type: 'twoColumnAccordionSection'
   },
   {
@@ -39,6 +30,19 @@ const globalSections = [
   {
     type: 'caseStudyTopperSection'
   }
+];
+
+const homepageSectionList = [
+  ...globalSections,
+  {
+    type: 'homepageCarouselSection'
+  },
+  {
+    type: 'homepageLargeText'
+  },
+  {
+    type: 'featuredWorkSection'
+  },
 ];
 
 const pdpSections = [
@@ -67,6 +71,18 @@ export default defineField({
   type: 'array',
   group: 'pagebuilder',
   of: globalSections,
+  components: {
+    input: (props: ArrayOfObjectsInputProps) =>
+      SectionsListInput({type: 'section', ...props}),
+  },
+});
+
+export const homepageSections = defineField({
+  title: 'Sections',
+  name: 'homepageSections',
+  type: 'array',
+  group: 'pagebuilder',
+  of: homepageSectionList,
   components: {
     input: (props: ArrayOfObjectsInputProps) =>
       SectionsListInput({type: 'section', ...props}),

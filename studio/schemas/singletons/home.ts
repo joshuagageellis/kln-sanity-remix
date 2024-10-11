@@ -7,7 +7,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'sections',
-      type: 'sections',
+      type: 'homepageSections',
     }),
     defineField({
       name: 'seo',

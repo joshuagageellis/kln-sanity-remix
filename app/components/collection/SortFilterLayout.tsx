@@ -105,7 +105,7 @@ export function SortFilter({
             )}
           </AnimatePresence>
         </div>
-        <DesktopSort sectionSettings={sectionSettings} />
+        <DesktopSort />
       </div>
       <div className="relative lg:flex lg:flex-row lg:flex-wrap">
         <div className="mt-6">

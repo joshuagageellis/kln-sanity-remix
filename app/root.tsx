@@ -222,7 +222,6 @@ export function ErrorBoundary() {
   const isRouteError = isRouteErrorResponse(routeError);
   const {themeContent} = useSanityThemeContent();
   const errorStatus = isRouteError ? routeError.status : 500;
-  const collectionsPath = useLocalePath({path: '/collections'});
   const navigate = useNavigate();
 
   let title = themeContent?.error?.serverError;

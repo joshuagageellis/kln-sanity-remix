@@ -26,6 +26,7 @@ import {type SeoConfig} from '@shopify/hydrogen';
 import type {SIMPLE_IMAGE_FRAGMENT} from '~/qroq/fragments';
 import type {CASE_STUDY_QUERY, PAGE_QUERY, ROOT_QUERY} from '~/qroq/queries';
 
+import {cleanString} from '~/components/sanity/CleanString';
 import {generateSanityImageUrl} from '~/components/sanity/SanityImage';
 
 type SanityConfig = {
@@ -94,13 +95,13 @@ function home({
 }: {
   page: InferType<typeof PAGE_QUERY>;
   sanity: SanityConfig;
-}): SeoConfig<WebPage> {
+}): SeoConfig {
   const media = generateOGImageData({
     image: page?.seo?.image,
     sanity,
   });
   return {
-    description: page?.seo?.description ?? '',
+    description: cleanString(page?.seo?.description ?? ''),
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
@@ -111,7 +112,7 @@ function home({
       noFollow: false,
       noIndex: false,
     },
-    title: page?.seo?.title ?? '',
+    title: cleanString(page?.seo?.title ?? ''),
   };
 }
 
@@ -436,7 +437,7 @@ function page({
       '@type': 'WebPage',
       name: page.title,
     },
-    title: page?.seo?.title ?? page?.title,
+    title: cleanString(page?.seo?.title ?? page?.title),
     titleTemplate: '%s | Page',
     url,
   };

@@ -94,7 +94,7 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
             <p className="h5 highlight-hover highlight-hover--citrus">
               <span>{title}</span>  
             </p>
-            {slide.structuredLink?.reference?.product && (
+            {slide.structuredLink?.reference?.product?.firstVariant && (
               <p className="mr-[0.5rem]">
                 Starting at $
                 {slide.structuredLink.reference.product.firstVariant?.store.price}
