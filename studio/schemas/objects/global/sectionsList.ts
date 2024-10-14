@@ -6,15 +6,19 @@ const globalSections = [
   {
     type: 'imageBannerSection',
   },
-  {
-    type: 'featuredCollectionSection',
-  },
-  {
-    type: 'featuredProductSection',
-  },
-  {
-    type: 'collectionListSection',
-  },
+  /**
+   * @todo Implement these sections as products are added to the site.
+   * Shopify sections.
+   */
+  // {
+  //   type: 'featuredCollectionSection',
+  // },
+  // {
+  //   type: 'featuredProductSection',
+  // },
+  // {
+  //   type: 'collectionListSection',
+  // },
   {
     type: 'carouselSection',
   },
