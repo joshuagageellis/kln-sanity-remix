@@ -165,6 +165,31 @@ export const HOMEPAGE_LARGE_TEXT_SECTION = {
 
 /*
 |--------------------------------------------------------------------------
+| Accordion Section
+|--------------------------------------------------------------------------
+*/
+export const ACCORDION_SECTION = {
+  _key: q.string().nullable(),
+  _type: q.literal('accordionSection'),
+  content: q(
+    `coalesce(
+      content[_key == $language][0].value[],
+      content[_key == $defaultLanguage][0].value[],
+    )[]`,
+    {isArray: true},
+  )
+    .filter()
+    .select(RICHTEXT_BLOCKS)
+    .nullable(),
+  image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+  imageStructuredLink: q('imageStructuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+  settings: SECTION_SETTINGS_FRAGMENT,
+  structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
+  title: q.string().nullable(),
+} satisfies Selection;
+
+/*
+|--------------------------------------------------------------------------
 | Image Banner Section
 |--------------------------------------------------------------------------
 */
@@ -413,6 +438,7 @@ export const COLLECTION_PRODUCT_GRID_SECTION_FRAGMENT = {
 |--------------------------------------------------------------------------
 */
 export const SECTIONS_LIST_SELECTION = {
+  "_type == 'accordionSection'": ACCORDION_SECTION,
   "_type == 'carouselSection'": CAROUSEL_SECTION_FRAGMENT,
   "_type == 'caseStudyTopperSection'": CASE_STUDY_TOPPER_SECTION_FRAGMENT,
   "_type == 'collectionListSection'": COLLECTION_LIST_SECTION_FRAGMENT,

@@ -23,8 +23,8 @@ html {
 
   /* Fluid type size variables. */
   --fluid-fs-h1-super: typeScale(48, 96);
-  --fluid-fs-h1: typeScale(48, 64);
-  --fluid-fs-h2-super: typeScale(64, 86);
+  --fluid-fs-h1: typeScale(36, 64);
+  --fluid-fs-h2-super: typeScale(48, 86);
   --fluid-fs-h2: typeScale(36, 48);
   --fluid-fs-h3: typeScale(24, 36);
   --fluid-fs-h4: typeScale(20, 24);
@@ -178,6 +178,10 @@ html {
     padding: 0.2em 0.25em 0.1em;
     background: var(--highlight-bg); 
     box-decoration-break: clone;
+  }
+
+  .highlight--wide > span {
+    padding: 0.5em 0.5em;
   }
 
   .highlight--amethyst {
@@ -347,5 +351,14 @@ html {
   .default-input::placeholder {
     color: var(--color-cream);
     opacity: 0.5;
+  }
+
+  .overlay-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
   }
 }

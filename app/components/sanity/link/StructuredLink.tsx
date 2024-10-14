@@ -9,12 +9,18 @@ import {SanityInternalLink} from './SanityInternalLink';
 
 export type StructuredLinkProps = TypeFromSelection<typeof STRUCTURED_LINK_FRAGMENT>;
 
+export const hasLink = (props: StructuredLinkProps|null|undefined) => {
+  if (!props) return false;
+  return props?.manualLink || props?.reference;
+};
+
 export function StructuredLink(
   props: StructuredLinkProps & {
     children?: React.ReactNode;
     className?: string;
-  },
+  }|null|undefined,
 ) {
+  if (!props) return null;
   const isExternal = props.externalLink;
 
   // Valid check.

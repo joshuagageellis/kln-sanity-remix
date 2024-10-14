@@ -1,4 +1,7 @@
+import type {VariantProps} from 'class-variance-authority';
+
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { cva} from 'class-variance-authority';
 import {forwardRef} from 'react';
 
 import {cn} from '~/lib/utils';
@@ -17,6 +20,21 @@ const AccordionItem = forwardRef<
 ));
 AccordionItem.displayName = 'AccordionItem';
 
+const triggerVariants = cva(
+  [],
+  {
+    defaultVariants: {
+      size: 'small',
+    },
+    variants: {
+      size: {
+        large: 'w-14 h-14 md:w-24 md:h-24',
+        small: 'w-9 h-9 md:w-[50px] md:h-[50px]',
+      },
+    },
+  }
+);
+
 /**
  * Accordion Trigger
  * 
@@ -25,18 +43,13 @@ AccordionItem.displayName = 'AccordionItem';
  */
 const AccordionTrigger = forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {hoverEffect?: boolean, triggerSize?: 'large' | 'small'} 
->(({children, className, hoverEffect = false, triggerSize, ...props}, ref) => {
-  // Trigger Size.
-  const triggerSizeClass = triggerSize ? (
-    triggerSize === 'large' ? 'w-6 h-6' : 'w-9 h-9 w-[50px] h-[50px]'
-  ) : '';
-
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {hoverColor?: 'amethyst' | 'citrus', hoverEffect?: boolean, triggerSize: VariantProps<typeof triggerVariants>['size']} 
+>(({children, className, hoverColor = 'citrus', hoverEffect = false, triggerSize, ...props}, ref) => {
   return (
     <AccordionPrimitive.Header asChild className="flex">
       <div className={cn([
         className,
-        hoverEffect ? 'highlight-hover-action highlight-hover--citrus' : '',
+        hoverEffect ? `highlight-hover-action highlight-hover--${hoverColor}` : '',
       ])}>
         <span>
           {children}
@@ -49,7 +62,7 @@ const AccordionTrigger = forwardRef<
           {...props}
         >
           <AccordionIcon
-            className={triggerSizeClass}
+            className={cn(triggerVariants({size: triggerSize}))}
           />
         </AccordionPrimitive.Trigger>
       </div>

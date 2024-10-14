@@ -1,5 +1,6 @@
 import {FooterSocialLinksOnly} from '~/components/footers/FooterSocialLinksOnly';
 import {PrimaryFooter} from '~/components/footers/PrimaryFooter';
+import {AccordionSection} from '~/components/sections/AccordionSection';
 import {CarouselSection} from '~/components/sections/CarouselSection';
 import {CaseStudyTopperSection} from '~/components/sections/CaseStudyTopperSection';
 import {CollectionBannerSection} from '~/components/sections/CollectionBannerSection';
@@ -20,6 +21,7 @@ import {TwoColumnAccordionSection} from '~/components/sections/TwoColumnAccordio
 export const sections: {
   [key: string]: React.FC<any>;
 } = {
+  accordionSection: AccordionSection,
   carouselSection: CarouselSection,
   caseStudyTopperSection: CaseStudyTopperSection,
   collectionBannerSection: CollectionBannerSection,

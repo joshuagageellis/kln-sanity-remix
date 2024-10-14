@@ -19,6 +19,9 @@ const globalSections = [
     type: 'carouselSection',
   },
   {
+    type: 'accordionSection',
+  },
+  {
     type: 'richtextSection',
   },
   {

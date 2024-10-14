@@ -56,6 +56,7 @@ import primaryFooter from './objects/footers/primaryFooter';
 import pageTopperSection from './objects/sections/pageTopperSection';
 import caseStudy from './documents/caseStudy';
 import caseStudyTopperSection from './objects/sections/caseStudyTopperSection';
+import accordionSection from './objects/sections/accordionSection';
 
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
@@ -86,6 +87,7 @@ const sections = [
   twoColumnAccordionSection,
   pageTopperSection,
   caseStudyTopperSection,
+  accordionSection,
 ];
 const footers = [socialLinksOnly, primaryFooter];
 const objects = [

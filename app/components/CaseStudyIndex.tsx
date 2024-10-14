@@ -39,7 +39,7 @@ const CaseStudyCard = (
       {caseStudy.title && (
         <StructuredLink
           _type="structuredLink"
-          className="absolute top-0 left-0 w-full h-full z-10 overlay-link"
+          className="overlay-link"
           externalLink={false}
           manualLink={null}
           reference={{

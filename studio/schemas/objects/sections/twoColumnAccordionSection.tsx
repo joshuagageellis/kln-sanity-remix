@@ -28,6 +28,7 @@ export default defineField({
 			type: 'text',
 		}),
 		defineField({
+			title: 'Button Link',
 			name: 'structuredLink',
 			type: 'structuredLink',
 		}),
