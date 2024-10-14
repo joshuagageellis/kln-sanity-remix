@@ -122,7 +122,7 @@ export function CarouselSection(
   } else if ('tablet' === device) {
     slidesPerViewDesktop = 2;
   }
-
+  const useIntroLinks = introLinks || [];
   return (
     <div className="pt-6 pb-6 md:pt-16 md:pb-16" ref={ref}>
       {slides && slides?.length > 0 && (
@@ -141,17 +141,17 @@ export function CarouselSection(
             className={cx(
               'container-w-padding',
               'flex',
-              introLinks.length > 1 ? 'flex-col md:flex-row gap-4 md:items-end md:justify-between' : 'flex-row gap-4 justify-between items-center mb-4',
+              useIntroLinks.length > 1 ? 'flex-col md:flex-row gap-4 md:items-end md:justify-between' : 'flex-row gap-4 justify-between items-center mb-4',
             )}
           >
-            {introLinks.length && (
+            {useIntroLinks.length && (
               <ul
                 className={cx(
                   'flex flex-col gap-2 text-left md:gap-4',
                   introLinks.length > 1 ? 'md:mb-8 md:order-2' : 'order-1',
                 )}
               >
-                {introLinks
+                {useIntroLinks
                   .filter((l) => l.structuredLink)
                   .map((introLink) => (
                     <li key={introLink._key}>
@@ -174,7 +174,7 @@ export function CarouselSection(
             <div
               className={cx(
                 'text-marble',
-                introLinks.length > 1 ? 'order-1 mb-4 ml-[-11px]' : 'order-2 mr-[-11px] sm:mr-0',
+                useIntroLinks.length > 1 ? 'order-1 mb-4 ml-[-11px]' : 'order-2 mr-[-11px] sm:mr-0',
               )}
             >
               <CarouselPrevious />

@@ -31,6 +31,7 @@ export default defineField({
 		}),
 		defineField({
 			title: 'Read More Link',
+			description: 'If an image is provided this link will wrap the image.',
 			name: 'structuredLink',
 			type: 'structuredLink',
 		}),
@@ -38,11 +39,6 @@ export default defineField({
 			title: 'Image',
 			name: 'image',
 			type: 'image',
-		}),
-		defineField({
-			title: 'Image Link',
-			name: 'imageStructuredLink',
-			type: 'structuredLink',
 		}),
 		defineField({
       type: 'sectionSettings',
