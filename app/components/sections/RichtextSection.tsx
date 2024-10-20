@@ -23,11 +23,18 @@ import {InternalLinkAnnotation} from '../sanity/richtext/components/InternalLink
 
 type RichtextSectionProps = TypeFromSelection<typeof RICHTEXT_SECTION_FRAGMENT>;
 
+/**
+ * Rich Text Section.
+ * The alignment and content position attributes ar  disbled to enforce center alignment.
+ * The commentted out code can be used to enable these attributes.
+ * (See Sanity schema)
+ */
 export function RichtextSection(
   props: SectionDefaultProps & {data: RichtextSectionProps},
 ) {
   const {data} = props;
-  const containerMaxWidth = data.maxWidth;
+  const {darkMode} = data;
+  const containerMaxWidth = 882;
 
   const components = useMemo(
     () => ({
@@ -66,16 +73,21 @@ export function RichtextSection(
   );
 
   return (
-    <div className="py-12 md:py-14 lg:py-16 container-w-padding site-grid bg-light">
+    <div 
+      className="container-w-padding site-grid data-bg data-text [&[data-section-bg='dark']]:py-[var(--section-margin-half)]"
+      data-section-bg={darkMode ? 'dark' : 'light'}
+    >
       <div className={cn(
-        "text-on-light col-span-full md:col-span-9 lg:col-span-7",
-        props.data.desktopContentPosition === 'center' && 'md:col-start-2 lg:col-start-3 flex justify-center',
-        props.data.desktopContentPosition === 'left' && '',
-        props.data.desktopContentPosition === 'right' && 'md:col-start-3 lg:col-start-5 flex justify-end flex-row',
+        "col-span-full md:col-span-9 lg:col-span-7",
+        'md:col-start-2 lg:col-start-3 flex justify-center',
+        // props.data.desktopContentPosition === 'center' && 'md:col-start-2 lg:col-start-3 flex justify-center',
+        // props.data.desktopContentPosition === 'left' && '',
+        // props.data.desktopContentPosition === 'right' && 'md:col-start-3 lg:col-start-5 flex justify-end flex-row',
       )}>
         <RichtextLayout
-          contentAligment={props.data.contentAlignment}
-          maxWidth={882}
+          contentAligment={'left'}
+          // contentAligment={props.data.contentAlignment}
+          maxWidth={containerMaxWidth}
         >
           {data.richtext && (
             <PortableText

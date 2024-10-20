@@ -98,7 +98,7 @@ const Pagination = ({
   const previousLink = `/case-studies?page=${page - 1}`;
   const nextLink = `/case-studies?page=${page + 1}`;
   return (
-    <div className="flex flex-row gap-4 mt-4 justify-end">
+    <div className="flex flex-row gap-4 mt-4 items-baseline">
       {page > 1 && <Link className="body-link" to={previousLink}>Previous</Link>}
       <span className="body-20">{page}&nbsp;/&nbsp;{totalPages}</span>
       {page < totalPages && <Link className="body-link" to={nextLink}>Next</Link>}
@@ -123,7 +123,7 @@ export function CaseStudyIndex({
   });
 
 	return (
-		<section className="container-w-padding text-on-dark mb-12">
+		<section className="container-w-padding pb-12 bg-dark text-on-dark">
 			<div>
 				<ul
           className={cn(

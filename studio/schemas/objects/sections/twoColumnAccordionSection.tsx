@@ -71,6 +71,12 @@ export default defineField({
       type: 'sectionSettings',
       name: 'settings',
     }),
+		defineField({
+      type: 'boolean',
+      name: 'darkMode',
+      title: 'Dark Mode',
+      description: 'Use dark background and light text for this section.',
+    }),
 	],
 	initialValue: {
 		title: 'Our Process',

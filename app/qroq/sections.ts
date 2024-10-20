@@ -103,6 +103,7 @@ export const TWO_COLUMN_ACCORDION_SECTION_FRAGMENT = {
       title: q.string().nullable(),
     })
     .nullable(),
+  darkMode: q.boolean().nullable(),
   deck: q.string().nullable(),
   settings: SECTION_SETTINGS_FRAGMENT,
   structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
@@ -160,6 +161,7 @@ export const HOMEPAGE_LARGE_TEXT_SECTION = {
   _key: q.string().nullable(),
   _type: q.literal('homepageLargeText'),
   content: q.string().nullable(),
+  darkMode: q.boolean().nullable(),
   settings: SECTION_SETTINGS_FRAGMENT,
 } satisfies Selection;
 
@@ -357,6 +359,7 @@ export const COLLECTION_LIST_SECTION_FRAGMENT = {
 export const CAROUSEL_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('carouselSection'),
+  darkMode: q.boolean().nullable(),
   introLinks: q('introLinks[]', {isArray: true}).grab({
     _key: q.string(),
     structuredLink: q('structuredLink')
@@ -383,8 +386,9 @@ export const CAROUSEL_SECTION_FRAGMENT = {
 export const RICHTEXT_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('richtextSection'),
-  contentAlignment: z.enum(contentAlignmentValues).nullable(),
-  desktopContentPosition: z.enum(contentAlignmentValues).nullable(),
+  // contentAlignment: z.enum(contentAlignmentValues).nullable(),
+  darkMode: q.boolean().nullable(),
+  // desktopContentPosition: z.enum(contentAlignmentValues).nullable(),
   richtext: q(
     `coalesce(
       richtext[_key == $language][0].value[],

@@ -10,13 +10,15 @@ type HomepageLargeTextProps = TypeFromSelection<
 export function HomepageLargeText(
 	props: SectionDefaultProps & {data: HomepageLargeTextProps},
 ) {
+	const {data} = props;
+	const {content, darkMode} = data;
 	return (
-		<div className="homepage-large-text mt-12 mt:mb-16 mb-12 md:mb-16">
-			<div className="site-grid container-w-padding">
-				<div className="col-span-full md:col-span-10 xl:col-span-8">
-					{props.data.content && (
-						<h2 className="text-marble text-pretty leading-snug">
-							{props.data.content}
+		<div className="homepage-large-text data-bg data-text [&[data-section-bg='dark']]:py-[var(--section-margin-half)]" data-section-bg={darkMode ? 'dark' : 'light'}>
+			<div className="site-grid container-w-padding py-12 md:py-16 lg:py-20">
+				<div className="col-span-full md:col-span-10 xl:col-span-8 max-w-[970px]">
+					{content && (
+						<h2 className="text-pretty leading-snug">
+							{content}
 						</h2>
 					)}			
 				</div>

@@ -1,5 +1,6 @@
+import {useLocation} from '@remix-run/react';
 import {ShopifyProvider} from '@shopify/hydrogen-react';
-import { Suspense, lazy } from 'react';
+import {Suspense, lazy} from 'react';
 
 import {useRootLoaderData} from '~/root';
 
@@ -34,9 +35,7 @@ export function Layout({children = null}: LayoutProps) {
       <FramerMotion>
         <AnnouncementBar />
         <Header />
-        <main className="flex flex-col flex-grow">
-          {children}
-        </main>
+          <main className="flex flex-grow flex-col">{children}</main>
         <Footer />
         <TailwindIndicator />
         {sanityPreviewMode ? (

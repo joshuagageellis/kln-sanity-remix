@@ -1,0 +1,73 @@
+/**
+Handle CMS Sections.
+Particularly the BG context.
+**/
+:root {
+	--section-margin-full: clamp(48px, vw(144), 144px);
+	--section-margin-half: clamp(36px, vw(72), 72px);
+	--section-margin: var(--section-margin-full);
+}
+
+.cms-section {
+	margin: var(--section-margin) 0 0 0;
+}
+
+.cms-section:has([data-section-bg="dark"]) {
+	--section-margin: var(--section-margin-half);
+}
+
+.cms-section:first-child {
+	--section-margin: 0;
+}
+
+.cms-section:last-child > * {
+	padding-bottom: var(--section-margin-full);
+}
+
+main {
+	background-color: var(--color-cream);
+}
+
+.cms-section:has([data-section-bg="dark"]) + .cms-section:has([data-section-bg="dark"]) {
+	margin-top: 0;
+	position: relative;
+
+	/**
+	Prevent possible bg leak between sections.
+	*/
+	&::after {
+		position: absolute;
+		top: -1px;
+		left: 0;
+		width: 100%;
+		content: "";
+		display: block;
+		height: 1px;
+		background-color: var(--color-charcoal);
+	}
+}
+
+/**
+Variable colors.
+**/
+[data-section-bg="light"] {
+	--section-bg: var(--color-cream);
+	--section-text: var(--color-charcoal);
+}
+
+[data-section-bg="dark"] {
+	--section-bg: var(--color-charcoal);
+	--section-text: var(--color-cream);
+}
+
+.data-text {
+	color: var(--section-text);
+}
+
+.data-bg {
+	background-color: var(--section-bg);
+}
+
+[data-section-type="accordionSection"] + [data-section-type="accordionSection"] {
+	--section-margin: 12px;
+}

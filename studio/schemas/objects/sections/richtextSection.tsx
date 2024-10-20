@@ -10,55 +10,61 @@ export default defineField({
       name: 'richtext',
       type: 'internationalizedArrayRichtext',
     }),
-    defineField({
-      name: 'desktopContentPosition',
-      description: 'Position is automatically optimized for mobile.',
-      type: 'string',
-      options: {
-        list: [
-          {
-            title: 'Left',
-            value: 'left',
-          },
-          {
-            title: 'Center',
-            value: 'center',
-          },
-          {
-            title: 'Right',
-            value: 'right',
-          },
-        ],
-      },
-    }),
-    defineField({
-      name: 'contentAlignment',
-      type: 'string',
-      options: {
-        list: [
-          {
-            title: 'Left',
-            value: 'left',
-          },
-          {
-            title: 'Center',
-            value: 'center',
-          },
-          {
-            title: 'Right',
-            value: 'right',
-          },
-        ],
-      },
-    }),
+    // defineField({
+    //   name: 'desktopContentPosition',
+    //   description: 'Position is automatically optimized for mobile.',
+    //   type: 'string',
+    //   options: {
+    //     list: [
+    //       {
+    //         title: 'Left',
+    //         value: 'left',
+    //       },
+    //       {
+    //         title: 'Center',
+    //         value: 'center',
+    //       },
+    //       {
+    //         title: 'Right',
+    //         value: 'right',
+    //       },
+    //     ],
+    //   },
+    // }),
+    // defineField({
+    //   name: 'contentAlignment',
+    //   type: 'string',
+    //   options: {
+    //     list: [
+    //       {
+    //         title: 'Left',
+    //         value: 'left',
+    //       },
+    //       {
+    //         title: 'Center',
+    //         value: 'center',
+    //       },
+    //       {
+    //         title: 'Right',
+    //         value: 'right',
+    //       },
+    //     ],
+    //   },
+    // }),
     defineField({
       type: 'sectionSettings',
       name: 'settings',
     }),
+    defineField({
+      type: 'boolean',
+      name: 'darkMode',
+      title: 'Dark Mode',
+      description: 'Use dark background and light text for this section.',
+    }),
   ],
   initialValue: {
-    desktopContentPosition: 'center',
-    contentAlignment: 'left',
+    // desktopContentPosition: 'center',
+    // contentAlignment: 'left',
   },
   preview: {
     select: {

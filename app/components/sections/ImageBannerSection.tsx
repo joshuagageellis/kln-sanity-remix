@@ -32,7 +32,7 @@ export function ImageBannerSection(
   return (
     <div
       className={cn(
-        'site-grid container-w-padding text-on-light bg-light py-8 md:py-16 lg:py-24',
+        'site-grid container-w-padding text-on-light bg-light',
       )}
     >
       <div className={

@@ -59,14 +59,15 @@ export function CaseStudyTopperSection(
     <div className='bg-cream' data-color={useBgColor}>
 			<div
 				className={cn(
+          'pt-12 lg:pt-16 pb-14 md:pb-24',
 					topperVariants({
 						bgColor: useBgColor as VariantProps<typeof topperVariants>['bgColor'],
 					}),
 				)}
 			>
-				<div className="container-w-padding site-grid md:text-right pb-14 md:pb-24">
+				<div className="container-w-padding site-grid md:text-right">
 					{title && <div className="col-span-10 md:col-span-9 lg:col-span-8 md:col-start-3 lg:col-start-4 flex flex-row md:justify-end">
-						<h1 className="h1-super">{title}</h1>
+						<h1 className="h1-super text-balance">{title}</h1>
 						</div>
 					}
 					{(link || location || collaborators || date) && (
@@ -87,54 +88,76 @@ export function CaseStudyTopperSection(
 					)}
 				</div>
 			</div>
-			{slides && slides.length > 0 && (
-				<div className="container-w-padding">
-					<Carousel
-          className="-mt-7 md:-mt-16 [--slide-spacing:2rem] md:[--slide-spacing:1rem]"
-          opts={{
-            loop: true,
-          }}
-          style={
-            {
-              '--slides-per-view': 1,
-            } as React.CSSProperties
-          }
-        >
-          <div className="relative gird">
-            <CarouselContent className="w-100">
-              {slides.map((slide, i) => (
-                <CarouselItem className="[&>span]:h-full" key={slide._key}>
-                  <div>
-                    {/* image */}
-                    <SanityImage
-                      aspectRatio='16/9'
-                      className="size-full object-cover"
-                      data={slide.image}
-                      loading={i == 0 ? 'eager' : 'lazy'}
-                      showBorder={false}
-                      showShadow={false}
-                    />
-                    {/* desc */}
-                    {slide.description && (
-                      <div className="text-on-dark mt-4 md:mt-7 max-w-[640px]">
-                        <p className="body-20 mt-0">{slide.description}</p>
+			{slides && slides.length ? (
+        <div className="container-w-padding -mt-7 md:-mt-16">
+        {slides.length > 1 ? (
+            <Carousel
+              className="[--slide-spacing:2rem] md:[--slide-spacing:1rem]"
+              opts={{
+                loop: true,
+              }}
+              style={
+                {
+                  '--slides-per-view': 1,
+                } as React.CSSProperties
+              }
+            >
+              <div className="relative">
+                <CarouselContent className="w-100">
+                  {slides.map((slide, i) => (
+                    <CarouselItem className="[&>span]:h-full" key={slide._key}>
+                      <div>
+                        {/* image */}
+                        <SanityImage
+                          aspectRatio='16/9'
+                          className="size-full object-cover"
+                          data={slide.image}
+                          loading={i == 0 ? 'eager' : 'lazy'}
+                          showBorder={false}
+                          showShadow={false}
+                        />
+                        {/* desc */}
+                        {slide.description && (
+                          <div className="text-on-light mt-4 max-w-[640px]">
+                            <p className="body-20 mt-0">{slide.description}</p>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {slides.length > 1 ? (
+                  <div className="text-marble absolute right-0 w-full top-0">
+                    <span className="w-full aspect-video block"></span>
+                    <div className="mt-4 md:mt-7 flex flex-row justify-end relative z-20">
+                      <CarouselPrevious />
+                      <CarouselNext />
+                    </div>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="text-marble absolute right-0 w-full top-0">
-              <span className="w-full aspect-video block"></span>
-              <div className="mt-4 md:mt-7 flex flex-row justify-end relative z-20">
-                <CarouselPrevious />
-                <CarouselNext />
+                ) : null}
               </div>
+            </Carousel>
+        ) : (
+            <div className="w-100">
+              {/* image */}
+              <SanityImage
+                aspectRatio='16/9'
+                className="size-full object-cover"
+                data={slides[0].image}
+                loading='eager'
+                showBorder={false}
+                showShadow={false}
+              />
+              {/* desc */}
+              {slides[0].description && (
+                <div className="text-on-light mt-4 max-w-[640px]">
+                  <p className="body-20 mt-0">{slides[0].description}</p>
+                </div>
+              )}
             </div>
-          </div>
-        </Carousel>
-				</div>
-			)}
+        )}
+        </div>
+			) : null}
     </div>
   );
 }

@@ -63,7 +63,7 @@ export function FeaturedWorkSection(props: SectionDefaultProps & {data: Featured
 	const {deck, title, workSamples} = data;
 
 	return (
-		<div className="relative flex flex-col w-full pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20">
+		<div className="relative flex flex-col w-full pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20 bg-dark" data-section-bg="dark">
 			<div className="container-w-padding site-grid">
 				<div className="col-span-full lg:col-span-5 lg:row-start-1 lg:row-end-3 lg:pt-12">
 					<div className="mb-8 md:mb-12 lg:mb-20 text-on-dark pr-0 md:pr-6 max-w-[640px] lg:min-h-[200px] lg:flex-col lg:flex justify-end">

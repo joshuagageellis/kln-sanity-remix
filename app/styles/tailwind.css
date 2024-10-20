@@ -158,12 +158,12 @@ html {
     color: var(--color-text-on-light);
   }
 
-  .bg-light {
-    background-color: var(--color-bg-light);
-  }
-
   .text-on-dark {
     color: var(--color-text-on-dark);
+  }
+
+  .bg-light {
+    background-color: var(--color-bg-light);
   }
 
   .bg-dark {
@@ -244,6 +244,29 @@ html {
     letter-spacing: 0.2px;
     line-height: 1.4;
     text-decoration: underline;
+  }
+
+  .rich-text {
+    p,
+    ul,
+    ol {
+      font-family: var(--body-font-family);
+      font-size: typeScale(16, 18);
+      font-variation-settings: 'wght' 400, 'wdth' 105;
+      line-height: 1.4;
+    }
+
+    ul,
+    ol {
+      list-style-type: disc;
+      padding-left: 1em;
+
+      li > ul,
+      li > ol,
+      li + li {
+        margin-top: 0.5em;
+      }
+    }
   }
 
   .info-16 {

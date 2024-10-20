@@ -39,7 +39,7 @@ export function PrimaryFooter({data}: SectionDefaultProps & {data: PrimaryFooter
   return (
     <footer className="text-on-dark">
       {structuredLink && !hideTopCTA && (
-        <div className="border-b-[2px] border-panther">
+        <div className="border-y-[2px] border-panther">
           <StructuredLink
             className="transition-all duration-300 block hover:bg-citrus focus-visible:bg-citrus hover:text-charcoal focus-visible:text-charcoal"
             {...(structuredLink as StructuredLinkProps)}

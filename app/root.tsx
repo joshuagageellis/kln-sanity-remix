@@ -43,6 +43,7 @@ import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
 import {seoPayload} from './lib/seo.server';
 import {ROOT_QUERY} from './qroq/queries';
 import headerCss from './styles/header.css';
+import sectionCss from './styles/sections.css';
 import tailwindCss from './styles/tailwind.css';
 
 // This is important to avoid re-fetching root queries on sub-navigations
@@ -76,6 +77,7 @@ export function links() {
     },
     {href: tailwindCss, rel: 'stylesheet'},
     {href: headerCss, rel: 'stylesheet'},
+    {href: sectionCss, rel: 'stylesheet'},
     {href:"https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap", rel: 'stylesheet'},
   ];
 }

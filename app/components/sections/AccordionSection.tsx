@@ -76,17 +76,19 @@ export function AccordionSection(
   // Essentially no render, satisfies type checker since _key is nullable.
   if (!data._key) return null;
   return (
-    <div className="text-on-light accordion-section-stack bg-cream py-4 sm:py-6 lg:py-8">
+    <div className="text-on-light accordion-section-stack bg-light">
       <div className="container-w-padding">
         <Accordion type="multiple">
           <AccordionItem value={data._key}>
             <AccordionTrigger
-              className="ml-[-0.5rem] flex flex-row-reverse items-center justify-end gap-4 md:gap-10 lg:ml-0"
+              className="flex flex-row-reverse items-center justify-end gap-4 md:gap-10"
               hoverColor="amethyst"
               hoverEffect
               triggerSize="large"
             >
-              <h2 className="h2-super left-[-0.5rem]">{data.title}</h2>
+              {data.title && (
+                <h2 className="h2-super left-[-0.5rem]">{data.title}</h2>
+              )}
             </AccordionTrigger>
             <AccordionContent>
               <div className="site-grid mt-6 gap-6 md:mt-9 md:gap-12">

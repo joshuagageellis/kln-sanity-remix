@@ -36,6 +36,9 @@ const globalSections = [
   },
   {
     type: 'caseStudyTopperSection'
+  },
+  {
+    type: 'homepageLargeText'
   }
 ];
 
@@ -43,9 +46,6 @@ const homepageSectionList = [
   ...globalSections,
   {
     type: 'homepageCarouselSection'
-  },
-  {
-    type: 'homepageLargeText'
   },
   {
     type: 'featuredWorkSection'

@@ -35,7 +35,7 @@ export function TwoColumnAccordionSection(
   props: SectionDefaultProps & {data: TwoColumnAccordionSectionProps},
 ) {
   const {data} = props;
-  const {accordions, deck, structuredLink, title} = data;
+  const {accordions, darkMode, deck, structuredLink, title} = data;
 
   const components = useMemo(
     () => ({
@@ -74,14 +74,17 @@ export function TwoColumnAccordionSection(
   );
 
   return (
-    <div className="text-on-dark py-12 lg:py-20">
-      <div className="container-w-padding site-grid">
+    <div className="data-bg data-text [&[data-section-bg='dark']]:py-[var(--section-margin-half)]"  data-section-bg={darkMode ? 'dark' : 'light'}>
+      <div className="container-w-padding site-grid py-6 md:py-8 lg:py-10">
         <div className="mb-8 lg:mb-0 col-span-full lg:col-span-5 lg:pr-6 lg:py-8 lg:mt-9">
           <h2>{title}</h2>
           {deck && <p className="body-20 mt-3 md:mt-4 max-w-[480px]">{deck}</p>}
           {structuredLink && (
             <div className="mt-6 md:mt-8 lg:mt-12">
-              <Button asChild variant="outlineDark">
+              <Button
+                asChild
+                variant={darkMode ? 'outlineDark' : 'outline'}
+              >
                 <StructuredLink
                   className="min-w-[180px] lg:min-w-[220px]"
                   {...structuredLink}
@@ -93,7 +96,7 @@ export function TwoColumnAccordionSection(
           )}
         </div>
         <div className="col-span-full lg:col-span-6 lg:col-start-6">
-          <Accordion className="flex flex-col gap-4 md:gap-6 lg:gap-8" type="multiple">
+          <Accordion className="flex flex-col gap-2 md:gap-6 lg:gap-8" type="multiple">
             {accordions &&
               accordions.map((accordion) => (
                 <AccordionItem key={accordion._key} value={accordion._key}>

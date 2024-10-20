@@ -58,7 +58,7 @@ function SectionWrapper(props: {
 
   return props.type === 'footer' ? (
     <footer
-      className="section-padding relative bg-background text-foreground [content-visibility:auto]"
+      className="relative bg-background text-foreground [content-visibility:auto]"
       data-footer-type={isDev ? sectionType : null}
     >
       {children}
@@ -68,8 +68,8 @@ function SectionWrapper(props: {
       value={{encodeDataAttribute: props.encodeDataAttribute, id: data._key}}
     >
       <section
-        className="section-padding relative bg-background text-foreground [content-visibility:auto]"
-        data-section-type={isDev ? sectionType : null}
+        className="cms-section section-padding relative [content-visibility:auto]"
+        data-section-type={sectionType}
         id={`section-${data._key}`}
       >
         {children}

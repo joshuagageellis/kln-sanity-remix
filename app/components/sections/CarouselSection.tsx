@@ -8,6 +8,7 @@ import type {ArrayMember, SectionDefaultProps} from '~/lib/type';
 import type {CAROUSEL_SECTION_FRAGMENT} from '~/qroq/sections';
 
 import {useDevice} from '~/hooks/useDevice';
+import {cn} from '~/lib/utils';
 
 import type {StructuredLinkProps} from '../sanity/link/StructuredLink';
 
@@ -33,10 +34,10 @@ const PageCard = ({inView, slide}: CarouselCardProps) => {
   const title = slide.structuredLink?.title;
 
   return (
-    <div className="relative group">
+    <div className="group relative">
       {slide.structuredLink && title && (
         <StructuredLink
-          className="absolute top-0 left-0 w-full h-full z-10 overlay-link"
+          className="overlay-link absolute left-0 top-0 z-10 h-full w-full"
           {...(slide.structuredLink as StructuredLinkProps)}
         >
           <span className="sr-only">{title}</span>
@@ -45,7 +46,7 @@ const PageCard = ({inView, slide}: CarouselCardProps) => {
       <div className="">
         <div className="aspect-[5/4]">
           <SanityImage
-            aspectRatio='5/4'
+            aspectRatio="5/4"
             className="size-full object-cover"
             data={slide.image}
             loading={inView ? 'eager' : 'lazy'}
@@ -54,25 +55,28 @@ const PageCard = ({inView, slide}: CarouselCardProps) => {
           />
         </div>
         {title && (
-          <div className="text-on-dark flex flex-row gap-2 w-full items-center justify-between mt-3">
+          <div className="data-text mt-3 flex w-full flex-row items-center justify-between gap-2">
             <p className="h5 highlight-hover highlight-hover--citrus">
-              <span>{title}</span>  
+              <span>{title}</span>
             </p>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 };
 
 const ProductCard = ({inView, slide}: CarouselCardProps) => {
-  const title = slide.structuredLink?.title || slide.structuredLink?.reference?.product?.title || '';
+  const title =
+    slide.structuredLink?.title ||
+    slide.structuredLink?.reference?.product?.title ||
+    '';
 
   return (
-    <div className="relative group">
+    <div className="group relative">
       {slide.structuredLink && (
         <StructuredLink
-          className="absolute top-0 left-0 w-full h-full z-10 overlay-link"
+          className="overlay-link absolute left-0 top-0 z-10 h-full w-full"
           {...(slide.structuredLink as StructuredLinkProps)}
         >
           <span className="sr-only">{title}</span>
@@ -81,7 +85,7 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
       <div className="">
         <div className="aspect-[5/4]">
           <SanityImage
-            aspectRatio='5/4'
+            aspectRatio="5/4"
             className="size-full object-cover"
             data={slide.image}
             loading={inView ? 'eager' : 'lazy'}
@@ -90,31 +94,34 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
           />
         </div>
         {slide.structuredLink?.reference && (
-          <div className="text-on-dark flex flex-row gap-2 w-full items-center justify-between mt-3">
+          <div className="data-text mt-3 flex w-full flex-row items-center justify-between gap-2">
             <p className="h5 highlight-hover highlight-hover--citrus">
-              <span>{title}</span>  
+              <span>{title}</span>
             </p>
             {slide.structuredLink?.reference?.product?.firstVariant && (
               <p className="mr-[0.5rem]">
                 Starting at $
-                {slide.structuredLink.reference.product.firstVariant?.store.price}
+                {
+                  slide.structuredLink.reference.product.firstVariant?.store
+                    .price
+                }
               </p>
             )}
           </div>
         )}
       </div>
     </div>
-  )
+  );
 };
 
 export function CarouselSection(
   props: SectionDefaultProps & {data: CarouselSectionProps},
 ) {
   const {data} = props;
-  const {introLinks, slides} = data;
+  const {darkMode, introLinks, slides} = data;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
-  
+
   let slidesPerViewDesktop = 3;
   const device = useDevice();
   if ('mobile' === device) {
@@ -124,10 +131,10 @@ export function CarouselSection(
   }
   const useIntroLinks = introLinks || [];
   return (
-    <div className="pt-6 pb-6 md:pt-16 md:pb-16" ref={ref}>
-      {slides && slides?.length > 0 && (
+    <div className="data-bg py-6 md:py-8 lg:py-12 [&[data-section-bg='dark']]:py-[var(--section-margin-half)]" data-section-bg={darkMode ? 'dark' : 'light'} ref={ref}>
+      {slides && slides?.length > 0 ? (
         <Carousel
-          className="mt-4 [--slide-spacing:2rem] md:[--slide-spacing:1rem]"
+          className="[--slide-spacing:2rem] md:[--slide-spacing:1rem]"
           opts={{
             loop: device === 'mobile',
           }}
@@ -141,14 +148,16 @@ export function CarouselSection(
             className={cx(
               'container-w-padding',
               'flex',
-              useIntroLinks.length > 1 ? 'flex-col md:flex-row gap-4 md:items-end md:justify-between' : 'flex-row gap-4 justify-between items-center mb-4',
+              useIntroLinks.length > 1
+                ? 'flex-col gap-4 md:flex-row md:items-end md:justify-between'
+                : 'mb-4 flex-col md:flex-row md:items-center justify-between gap-4',
             )}
           >
-            {useIntroLinks.length && (
+            {(useIntroLinks && useIntroLinks.length) ? (
               <ul
                 className={cx(
                   'flex flex-col gap-2 text-left md:gap-4',
-                  introLinks.length > 1 ? 'md:mb-8 md:order-2' : 'order-1',
+                  introLinks.length > 1 ? 'md:order-2 md:mb-4' : 'order-1',
                 )}
               >
                 {useIntroLinks
@@ -156,7 +165,7 @@ export function CarouselSection(
                   .map((introLink) => (
                     <li key={introLink._key}>
                       <StructuredLink
-                        className={cx('text-on-dark', 'flex md:justify-end')}
+                        className={cx('data-text', 'flex md:justify-end')}
                         key={introLink._key}
                         {...(introLink.structuredLink as StructuredLinkProps)}
                       >
@@ -170,11 +179,13 @@ export function CarouselSection(
                     </li>
                   ))}
               </ul>
-            )}
+            ) : null}
             <div
               className={cx(
-                'text-marble',
-                useIntroLinks.length > 1 ? 'order-1 mb-4 ml-[-11px]' : 'order-2 mr-[-11px] sm:mr-0',
+                'data-text',
+                useIntroLinks.length > 1
+                  ? 'order-1 mb-4 ml-[-11px]'
+                  : 'order-2 ml-[-11px] md:ml-0 md:mr-[-11px] sm:mr-0',
               )}
             >
               <CarouselPrevious />
@@ -182,26 +193,31 @@ export function CarouselSection(
             </div>
           </div>
           <div className="relative overflow-hidden">
-            <span className="bg-gradient-to-l from-charcoal via-charcoal via-10% to-transparent absolute md:block hidden top-0 right-[-1px] h-full w-16 z-10"></span>
-            <CarouselContent
-              className='md:ml-[calc(var(--container-padding)-var(--slide-spacing))] md:pl-0 md:pr-0 pl-[--container-padding] pr-[--container-padding]'
-            >
+            <span
+              className={cn(
+                'absolute right-[-1px] top-0 z-10 hidden h-full w-16 md:block',
+                'to-transparent  bg-gradient-to-l via-10%',
+                darkMode
+                  ? 'from-charcoal via-charcoal'
+                  : 'from-cream via-cream',
+              )}
+            ></span>
+            <CarouselContent className="pl-[--container-padding] pr-[--container-padding] md:ml-[calc(var(--container-padding)-var(--slide-spacing))] md:pl-0 md:pr-0">
               {slides.map((slide) => (
                 <CarouselItem className="[&>span]:h-full" key={slide._key}>
-                  {slide?.structuredLink?.reference?.documentType === 'product' ? (
-                    <ProductCard inView={inView} slide={slide} /> 
+                  {slide?.structuredLink?.reference?.documentType ===
+                  'product' ? (
+                    <ProductCard inView={inView} slide={slide} />
                   ) : (
                     <PageCard inView={inView} slide={slide} />
                   )}
                 </CarouselItem>
               ))}
-              {device !== 'mobile' && (
-                <CarouselItem></CarouselItem>
-              )}
+              {device !== 'mobile' && <CarouselItem></CarouselItem>}
             </CarouselContent>
           </div>
         </Carousel>
-      )}
+      ) : null}
     </div>
   );
 }
