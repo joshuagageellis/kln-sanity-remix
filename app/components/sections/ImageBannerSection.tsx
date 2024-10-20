@@ -44,11 +44,11 @@ export function ImageBannerSection(
       >
         {data.content ? (
           <m.div
-            initial={{opacity: 0, x: contentAlignment === 'left' ? -25 : 25, y: 10}}
-            transition={{amount: 1, delay: 0.2, duration: 0.4}}
-            whileInView={{opacity: 1, x: 0, y: 0}}
+          initial={{opacity: 0, x: contentAlignment === 'left' ? -15 : 15}}
+          transition={{amount: 1, delay: 0.2, duration: 0.4, ease: 'easeOut'}}
+          whileInView={{opacity: 1, x: 0}}
           >
-            <span className="mb-4 h-1 w-12 bg-panther md:hidden"></span>
+            <span className="block mb-4 h-1 w-12 bg-panther md:hidden"></span>
             <BannerRichtext value={data.content as PortableTextBlock[]} />
           </m.div>
         ) : null}
