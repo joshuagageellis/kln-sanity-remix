@@ -2,6 +2,7 @@ import type {VariantProps} from 'class-variance-authority';
 import type {TypeFromSelection} from 'groqd';
 
 import {cva} from 'class-variance-authority';
+import {m} from 'framer-motion';
 import {useEffect} from 'react';
 
 import type {SectionDefaultProps} from '~/lib/type';
@@ -66,12 +67,20 @@ export function CaseStudyTopperSection(
 				)}
 			>
 				<div className="container-w-padding site-grid md:text-right">
-					{title && <div className="col-span-10 md:col-span-9 lg:col-span-8 md:col-start-3 lg:col-start-4 flex flex-row md:justify-end">
+					{title && <m.div
+            animate={{opacity: 1}}
+            className="col-span-10 md:col-span-9 lg:col-span-8 md:col-start-3 lg:col-start-4 flex flex-row md:justify-end"
+            initial={{opacity: 0}}
+          transition={{delay: 0.2, duration: 0.4}}>
 						<h1 className="h1-super text-balance">{title}</h1>
-						</div>
+						</m.div>
 					}
 					{(link || location || collaborators || date) && (
-						<ul className="col-span-full flex-wrap md:justify-end row-start-2 info-16 flex flex-col gap-2 md:flex-row md:gap-x-4 lg:gap-x-7">
+						<m.ul
+            animate={{opacity: 1, y: 0}}
+            className="col-span-full flex-wrap md:justify-end row-start-2 info-16 flex flex-col gap-2 md:flex-row md:gap-x-4 lg:gap-x-7"
+            initial={{opacity: 0, y: 15}}
+            transition={{delay: 0.4, duration: 0.4}}>
 							{link && (
 								<li>
 									<StructuredLink className="info-16-link" {...link}>{link.title}</StructuredLink>
@@ -84,12 +93,16 @@ export function CaseStudyTopperSection(
 								year: 'numeric',
 							})}</li>}
 							{collaborators && <li className="md:basis-full">{collaborators}</li>}
-						</ul>
+						</m.ul>
 					)}
 				</div>
 			</div>
 			{slides && slides.length ? (
-        <div className="container-w-padding -mt-7 md:-mt-16">
+        <m.div
+        animate={{opacity: 1, y: 0}}
+        className="container-w-padding -mt-7 md:-mt-16"
+        initial={{opacity: 0, y: 25}}
+        transition={{delay: 0.6, duration: 0.4, ease: 'easeOut'}}>
         {slides.length > 1 ? (
             <Carousel
               className="[--slide-spacing:2rem] md:[--slide-spacing:1rem]"
@@ -118,8 +131,8 @@ export function CaseStudyTopperSection(
                         />
                         {/* desc */}
                         {slide.description && (
-                          <div className="text-on-light mt-4 max-w-[640px]">
-                            <p className="body-20 mt-0">{slide.description}</p>
+                          <div className="text-panther mt-2 max-w-[640px]">
+                            <p className="info-16 mt-0">{slide.description}</p>
                           </div>
                         )}
                       </div>
@@ -150,13 +163,13 @@ export function CaseStudyTopperSection(
               />
               {/* desc */}
               {slides[0].description && (
-                <div className="text-on-light mt-4 max-w-[640px]">
-                  <p className="body-20 mt-0">{slides[0].description}</p>
+                <div className="text-panther mt-2 max-w-[640px]">
+                  <p className="info-16 mt-0">{slides[0].description}</p>
                 </div>
               )}
             </div>
         )}
-        </div>
+        </m.div>
 			) : null}
     </div>
   );

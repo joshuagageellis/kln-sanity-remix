@@ -3,7 +3,7 @@ Handle CMS Sections.
 Particularly the BG context.
 **/
 :root {
-	--section-margin-full: clamp(48px, vw(144), 144px);
+	--section-margin-full: clamp(48px, vw(120), 120px);
 	--section-margin-half: clamp(36px, vw(72), 72px);
 	--section-margin: var(--section-margin-full);
 }

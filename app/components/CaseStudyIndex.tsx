@@ -1,6 +1,7 @@
 import type { InferType } from "groqd";
 
 import { Link } from "@remix-run/react";
+import {m} from 'framer-motion';
 
 import type {ArrayMember} from '~/lib/type';
 import type {CASE_STUDY_INDEX_PAGE} from '~/qroq/queries';
@@ -28,14 +29,21 @@ const pluckTopperImages = (caseStudy: CaseStudyCardProps) => {
 
 const CaseStudyCard = (
 	{
-		caseStudy
+		caseStudy,
+    index,
 	} : {
 		caseStudy: CaseStudyCardProps;
+    index: number;
 	}
 ) => {
   const images = pluckTopperImages(caseStudy);
   return (
-    <div className="relative group overflow-hidden sm:h-full">
+    <m.div
+      animate={{opacity: 1, y: 0}}
+      className="relative group overflow-hidden sm:h-full"
+      initial={{opacity: 0, y: 20}}
+      transition={{delay: 0.4 + index * 0.1, duration: 0.6, ease: 'easeOut'}}
+    >
       {caseStudy.title && (
         <StructuredLink
           _type="structuredLink"
@@ -81,7 +89,7 @@ const CaseStudyCard = (
           </>
         )}
       </div>
-    </div>
+    </m.div>
   )
 };
 
@@ -148,10 +156,10 @@ export function CaseStudyIndex({
             '[&>*:nth-child(5)]:lg:col-span-4',
           )}
         >
-					{caseStudies.map((caseStudy) => {
+					{caseStudies.map((caseStudy, i) => {
 						return (
 							<li key={caseStudy._id}>
-								<CaseStudyCard caseStudy={caseStudy} />
+								<CaseStudyCard caseStudy={caseStudy} index={i} />
 							</li>
 						);
 					})}

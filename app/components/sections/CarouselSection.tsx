@@ -1,7 +1,7 @@
 import type {TypeFromSelection} from 'groqd';
 
 import {cx} from 'class-variance-authority';
-import {useInView} from 'framer-motion';
+import {m, useInView} from 'framer-motion';
 import {useRef} from 'react';
 
 import type {ArrayMember, SectionDefaultProps} from '~/lib/type';
@@ -131,7 +131,11 @@ export function CarouselSection(
   }
   const useIntroLinks = introLinks || [];
   return (
-    <div className="data-bg py-6 md:py-8 lg:py-12 [&[data-section-bg='dark']]:py-[var(--section-margin-half)]" data-section-bg={darkMode ? 'dark' : 'light'} ref={ref}>
+    <div
+      className="data-bg py-6 md:py-8 lg:py-12 [&[data-section-bg='dark']]:py-[var(--section-margin-half)]"
+      data-section-bg={darkMode ? 'dark' : 'light'}
+      ref={ref}
+    >
       {slides && slides?.length > 0 ? (
         <Carousel
           className="[--slide-spacing:2rem] md:[--slide-spacing:1rem]"
@@ -150,10 +154,10 @@ export function CarouselSection(
               'flex',
               useIntroLinks.length > 1
                 ? 'flex-col gap-4 md:flex-row md:items-end md:justify-between'
-                : 'mb-4 flex-col md:flex-row md:items-center justify-between gap-4',
+                : 'mb-4 flex-col justify-between gap-4 md:flex-row md:items-center',
             )}
           >
-            {(useIntroLinks && useIntroLinks.length) ? (
+            {useIntroLinks && useIntroLinks.length ? (
               <ul
                 className={cx(
                   'flex flex-col gap-2 text-left md:gap-4',
@@ -162,8 +166,13 @@ export function CarouselSection(
               >
                 {useIntroLinks
                   .filter((l) => l.structuredLink)
-                  .map((introLink) => (
-                    <li key={introLink._key}>
+                  .map((introLink, i) => (
+                    <m.li
+                      initial={{opacity: 0, y: 15}}
+                      key={introLink._key}
+                      transition={{delay: i * 0.1, duration: 0.4}}
+                      whileInView={{opacity: 1, y: 0}}
+                    >
                       <StructuredLink
                         className={cx('data-text', 'flex md:justify-end')}
                         key={introLink._key}
@@ -176,7 +185,7 @@ export function CarouselSection(
                           {introLink.structuredLink?.title}
                         </ArrowLink>
                       </StructuredLink>
-                    </li>
+                    </m.li>
                   ))}
               </ul>
             ) : null}
@@ -185,14 +194,19 @@ export function CarouselSection(
                 'data-text',
                 useIntroLinks.length > 1
                   ? 'order-1 mb-4 ml-[-11px]'
-                  : 'order-2 ml-[-11px] md:ml-0 md:mr-[-11px] sm:mr-0',
+                  : 'order-2 ml-[-11px] sm:mr-0 md:ml-0 md:mr-[-11px]',
               )}
             >
               <CarouselPrevious />
               <CarouselNext />
             </div>
           </div>
-          <div className="relative overflow-hidden">
+          <m.div
+            className="relative overflow-hidden"
+            initial={{opacity: 0}}
+            transition={{delay: 0.2, duration: 0.6}}
+            whileInView={{opacity: 1}}
+          >
             <span
               className={cn(
                 'absolute right-[-1px] top-0 z-10 hidden h-full w-16 md:block',
@@ -215,7 +229,7 @@ export function CarouselSection(
               ))}
               {device !== 'mobile' && <CarouselItem></CarouselItem>}
             </CarouselContent>
-          </div>
+          </m.div>
         </Carousel>
       ) : null}
     </div>
