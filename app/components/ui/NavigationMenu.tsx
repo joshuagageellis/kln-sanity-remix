@@ -42,11 +42,11 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex items-center gap-1 primary-nav-link text-[--header-color] hover:[--header-hover-color] focus:[--header-hover-color] transition-all duration-200',
+  'group inline-flex items-center gap-1 primary-nav-link text-[--header-color] hover:[--header-hover-color] focus:[--header-hover-color] transition-all duration-300',
 );
 
 const navigationMenuSubTriggerStyle = cva(
-  'group inline-flex items-center gap-1 primary-nav-sub-link text-cream hover:text-amethyst focus:text-amethyst transition-all duration-200',
+  'group inline-flex items-center gap-1 primary-nav-sub-link text-cream hover:text-amethyst focus:text-amethyst transition-all duration-300',
 );
 
 const NavigationMenuTrigger = forwardRef<

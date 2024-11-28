@@ -3,13 +3,14 @@ import type {TypeFromSelection} from 'groqd';
 
 import {cva} from 'class-variance-authority';
 import {m} from 'framer-motion';
-import {useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 
 import type {SectionDefaultProps} from '~/lib/type';
 import type {PAGE_TOPPER_SECTION_FRAGMENT} from '~/qroq/sections';
 
 import {cleanString} from '~/components/sanity/CleanString';
 import {cn} from '~/lib/utils';
+import { ThemeContext, ThemeContextActionType } from '~/root';
 
 import {StructuredLink} from '../sanity/link/StructuredLink';
 import {Button} from '../ui/Button';
@@ -17,17 +18,6 @@ import {Button} from '../ui/Button';
 type PageTopperSectionProps = TypeFromSelection<
   typeof PAGE_TOPPER_SECTION_FRAGMENT
 >;
-
-const useHeaderColors = (color: null | string) => {
-  useEffect(() => {
-    const colors = ['charcoal', 'citrus', 'salsa'];
-    if (!color || !colors.includes(color)) return;
-    document.documentElement.setAttribute('data-topper-color', color);
-    return () => {
-      document.documentElement.removeAttribute('data-topper-color');
-    };
-  }, [color]);
-};
 
 const topperVariants = cva([], {
   defaultVariants: {
@@ -45,10 +35,19 @@ const topperVariants = cva([], {
 export function PageTopperSection(
   props: SectionDefaultProps & {data: PageTopperSectionProps},
 ) {
+  const {setTheme} = useContext(ThemeContext);
   const {data} = props;
   const {bgColor, deck, displayButton, link, subtitle, title} = data;
   const useBgColor = cleanString(bgColor) || 'citrus';
-  useHeaderColors(useBgColor);
+
+  useEffect(() => {
+    setTheme({payload: useBgColor, type: ThemeContextActionType.SET_TOPPER});
+
+    return () => {
+      setTheme({type: ThemeContextActionType.RESET_TOPPER});
+    };
+  }, [useBgColor, setTheme]);
+
   return (
     <div
       className={cn(

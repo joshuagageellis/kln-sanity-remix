@@ -1,4 +1,3 @@
-import {useLocation} from '@remix-run/react';
 import {ShopifyProvider} from '@shopify/hydrogen-react';
 import {Suspense, lazy} from 'react';
 
@@ -23,7 +22,6 @@ export type LayoutProps = {
 
 export function Layout({children = null}: LayoutProps) {
   const {env, locale, sanityPreviewMode} = useRootLoaderData();
-
   return (
     <ShopifyProvider
       countryIsoCode={locale.country || 'US'}

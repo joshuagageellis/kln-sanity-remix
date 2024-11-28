@@ -9,11 +9,12 @@ import {DesktopNavigation} from '~/components/navigation/DesktopNavigation';
 import {MobileNavigation} from '~/components/navigation/MobileNavigation';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 
+
 export const Header = () => {
   const {data} = useSanityRoot();
   const {scrollY} = useScroll();
   const headerData = data?.header;
-
+  
   /**
    * Match the header background color to the theme color.
    * Only applies to page & case study routes.
@@ -29,7 +30,7 @@ export const Header = () => {
     'main-header', // Used in stylesheet.
     'text-[--header-color]',
     'bg-[--header-bg]',
-    'sticky top-0 z-[88] group lg:mb-[40px] lg:h-[86px] transition-all',
+    'sticky top-0 z-[88] group lg:mb-[40px] lg:h-[86px]',
     scrollPos > 126 ? 'scrolled' : '',
   ]);
 
@@ -45,7 +46,7 @@ export const Header = () => {
           ])}
       >
         <Link
-          className="flex origin-left flex-col content-center justify-center transition-all duration-500"
+          className="flex origin-left flex-col content-center justify-center transition-all duration-300"
           // Used in mobile menu.
           id="main-logo-link"
           to="/"

@@ -69,12 +69,12 @@ function Badge(props: {cart?: CartApiQueryFragment; count: number}) {
     () => (
       <span className="relative">
         <span className="sr-only">{themeContent?.cart?.heading}</span>
-        <IconBag className="size-6 transition-none" />
+        <IconBag className="size-6 transition-none duration-0" />
         {count > 0 && (
           <div
             className={cx([
               'absolute right-[-12px] top-[-4px] flex items-center justify-center',
-              'bg-foreground text-background transition-colors',
+              'bg-foreground text-background',
               'group-active:bg-accent-foreground group-active:text-accent',
               'notouch:group-hover:bg-accent-foreground notouch:group-hover:text-accent',
               'aspect-square h-auto min-w-[1.35rem] rounded-full p-1',

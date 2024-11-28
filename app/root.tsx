@@ -27,6 +27,7 @@ import {
 import {Seo, useNonce} from '@shopify/hydrogen';
 import {defer} from '@shopify/remix-oxygen';
 import {DEFAULT_LOCALE} from 'countries';
+import {createContext, useReducer} from 'react';
 
 import {Layout} from '~/components/layout/Layout';
 
@@ -36,7 +37,6 @@ import faviconAsset from '../public/favicon.ico';
 import {generateSanityImageUrl} from './components/sanity/SanityImage';
 import {Button} from './components/ui/Button';
 import {useAnalytics} from './hooks/useAnalytics';
-import {useLocalePath} from './hooks/useLocalePath';
 import {useSanityThemeContent} from './hooks/useSanityThemeContent';
 import {resolveShopifyPromises} from './lib/resolveShopifyPromises';
 import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
@@ -189,31 +189,88 @@ export async function loader({context, request}: LoaderFunctionArgs) {
   );
 }
 
+/**
+ * Theme context provider.
+ * Used for setting the theme color of the topper.
+ * Good place to add additional color/themematic changes that rely on route data.
+ */
+export enum ThemeContextActionType {
+  RESET_TOPPER = 'RESET_TOPPER',
+  SET_TOPPER = 'SET_TOPPER',
+}
+
+interface ThemeContextAction {
+  payload?: string;
+  type: ThemeContextActionType;
+}
+
+interface ThemeContextState {
+  dataTopperColor: string;
+}
+
+export const themeContextDefault: ThemeContextState = {
+  dataTopperColor: 'charcoal',
+}
+
+const themeReducer = (state: ThemeContextState, action: ThemeContextAction): ThemeContextState => {
+  switch (action.type) {
+    case ThemeContextActionType.SET_TOPPER:
+      if (!action.payload) {
+        return state;
+      }
+      return {
+        ...state,
+        dataTopperColor: action.payload,
+      };
+    case ThemeContextActionType.RESET_TOPPER:
+      return {
+        ...state,
+        dataTopperColor: themeContextDefault.dataTopperColor,
+      };
+    default:
+      return state;
+  }
+};
+
+export const ThemeContext = createContext<{
+  setTheme: (action: ThemeContextAction) => void;
+  theme: ThemeContextState;
+}>({
+  setTheme: () => {},
+  theme: themeContextDefault,
+});
+
 export default function App() {
   const nonce = useNonce();
   const {locale} = useRootLoaderData();
   const hasUserConsent = true;
+  const [theme, setTheme] = useReducer<React.Reducer<ThemeContextState, ThemeContextAction>>(themeReducer, themeContextDefault);
 
   useAnalytics(hasUserConsent);
 
   return (
-    <html lang={locale.language.toLowerCase()}>
-      <head>
-        <meta charSet="utf-8" />
-        <meta content="width=device-width,initial-scale=1" name="viewport" />
-        <Meta />
-        {/* <Seo /> */}
-        <Links />
-      </head>
-      <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
-        <Layout>
-          <Outlet />
-        </Layout>
-        <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
-      </body>
-    </html>
+    <ThemeContext.Provider value={{
+      setTheme,
+      theme,
+    }}>
+      <html data-topper-color={theme.dataTopperColor} lang={locale.language.toLowerCase()}>
+        <head>
+          <meta charSet="utf-8" />
+          <meta content="width=device-width,initial-scale=1" name="viewport" />
+          <Meta />
+          {/* <Seo /> */}
+          <Links />
+        </head>
+        <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
+          <Layout>
+            <Outlet />
+          </Layout>
+          <ScrollRestoration nonce={nonce} />
+          <Scripts nonce={nonce} />
+          <LiveReload nonce={nonce} />
+        </body>
+      </html>
+    </ThemeContext.Provider>
   );
 }
 
