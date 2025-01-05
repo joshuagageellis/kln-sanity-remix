@@ -2,26 +2,41 @@ import type {ActionFunctionArgs} from '@shopify/remix-oxygen';
 import type { InferType } from 'yup';
 
 import {json} from '@shopify/remix-oxygen';
-import {ValidationError, array, number, object, string, tuple } from 'yup';
+import {ValidationError, number, object, string, tuple } from 'yup';
 
 export const serviceTypes = {
-	'cnc': 'CNC',
-	'design_fabrication': 'Design & Fabrication',
-	'get_our_products': 'Get our Products',
-	'other': 'Other (I don’t know)',
+	cnc: 'CNC',
+	design_fabrication: 'Design & Fabrication',
+	get_our_products: 'Get our Products',
+	other: 'Other (I don’t know)',
 }
 
 export const serviceTypesValues = Object.values(serviceTypes)
 
+export const deliveryOptions = {
+	inperson: 'Delivery/Installation',
+	pickup: 'Pickup',
+}
+
+export const deliveryOptionsValues = Object.values(deliveryOptions)
+
 export const contactForminitialValues = {
+	addressLine1: '',
+	addressLine2: '',
 	budget: [15000, 30000],
+	city: '',
+	country: 'United States',
+	delivery: '',
 	email: '',
 	firstName: '',
 	lastName: '',
+	links: '',
 	phoneNumber: '',
 	projectBrief: '',
 	serviceType: '',
+	state: '',
 	timeline: [1, 3],
+	zip: '',
 }
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -40,10 +55,24 @@ const submissionEmailFormat = (data: ContactForm) => {
 }
 
 export const contactFormSchema = object({
+	addressLine1: string().when('delivery', {
+		is: deliveryOptions.inperson,
+		then: (schema) => schema.required('Primary address is required')
+	}),
+	addressLine2: string(),
 	budget: tuple([
 		number(),
 		number()
 	]),
+	city: string().when('delivery', {
+		is: deliveryOptions.inperson,
+		then: (schema) => schema.required('City is required')
+	}),
+	country: string().when('delivery', {
+		is: deliveryOptions.inperson,
+		then: (schema) => schema.required('Country is required')
+	}),
+	delivery: string().oneOf(deliveryOptionsValues).required('Delivery option is required'),
 	email: string().email().required(
 		'Email is required'
 	),
@@ -53,6 +82,13 @@ export const contactFormSchema = object({
 	lastName: string().required(
 		'Last name is required'
 	),
+	links: string().when('serviceType', {
+		is: serviceTypes.cnc,
+		then: (schema) => schema.required('Please provide links to your files')
+	}).when('serviceType', {
+		is: serviceTypes.design_fabrication,
+		then: (schema) => schema.required('Please provide links to your files')
+	}),
 	phoneNumber: string().matches(phoneRegExp, 'Phone number is not valid'),
 	projectBrief: string().required(
 		'Project brief is required'
@@ -60,10 +96,18 @@ export const contactFormSchema = object({
 	serviceType: string().oneOf(serviceTypesValues).required(
 		'Service type is required'
 	),
+	state: string().when('delivery', {
+		is: deliveryOptions.inperson,
+		then: (schema) => schema.required('State is required')
+	}),
 	timeline: tuple([
 		number(),
 		number()
-	])
+	]),
+	zip: string().when('delivery', {
+		is: deliveryOptions.inperson,
+		then: (schema) => schema.required('Zip is required')
+	})
 });
 
 export interface ContactForm extends InferType<typeof contactFormSchema>{}

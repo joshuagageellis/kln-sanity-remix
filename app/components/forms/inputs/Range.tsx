@@ -38,7 +38,7 @@ export function SliderField({currency, label, max, min, postFix = '', unlimited,
 		<>
 			<div className='grow basis-1/2'>
 				<label className={cn(labelClass)} htmlFor={field?.name}>{label}</label>
-				<div className="relative h-20 mt-4">
+				<div className="relative h-16 mt-6">
 					<input className={cn([
 						'thumb',
 					])} max={max}

@@ -279,6 +279,17 @@ html {
     }
   }
 
+  .info-14 {
+    font-family: var(--body-font-family);
+    font-size: calcRem(14);
+    font-style: normal;
+    font-variation-settings:
+      'wght' 450,
+      'wdth' 105;
+    line-height: 1.25;
+    letter-spacing: 0.16px;
+  }
+
   .info-16 {
     font-family: var(--body-font-family);
     font-size: calcRem(16);
@@ -387,15 +398,28 @@ html {
     padding: 0.2em 1em;
     width: 100%;
     border-radius: 0;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .default-input:focus,
+  .default-input:focus-visible {
+    outline: none;
+    border-color: var(--color-amethyst);
   }
 
   /* Has error. */
-  .default-input:has(+ span.error) {
+  .default-input:not(:focus-visible):not(:focus):has(+ span.error) {
     border-color: var(--color-salsa);
   }
 
   .default-input--dark {
     border: 2px solid var(--color-charcoal);
+  }
+
+  .default-input--dark:focus,
+  .default-input--dark:focus-visible {
+    outline: none;
+    border-color: var(--color-panther);
   }
 
   @media (min-width: 768px) {
@@ -416,15 +440,6 @@ html {
     width: 100%;
     height: 100%;
     z-index: 10;
-  }
-
-  /**
-  Add to form wrapper.
-  */
-  .has-required-form-fields label:has(~ *[required])::after {
-    content: '*';
-    color: var(--color-salsa);
-    margin-left: 0.05em;
   }
 
   /********** Range Input Styles **********/
@@ -466,7 +481,7 @@ html {
 
     &:hover {
       background-color: var(--color-citrus);
-      transform: scale(1.1);
+      transform: translateY(-0.2rem);
     }
   }
 
