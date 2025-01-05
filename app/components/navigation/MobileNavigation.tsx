@@ -164,9 +164,8 @@ function MobileMenuModal(props: {
   return (
     <m.div
       animate={{
-        // opacity: open ? 1 : 0,
         transition: {duration: 0.2},
-        x: open ? 0 : '100%',
+        x: open ? '0%' : '100%',
       }}
       className="fixed top-[var(--mobile-menu-offset)] z-50 h-[calc(100vh-var(--mobile-menu-offset))] w-[100vw] bg-charcoal"
       id="mobile-menu"
@@ -274,7 +273,7 @@ function MobileNavigationNested(props: {
   return (
     <Accordion collapsible type="single">
       <AccordionItem value={uuid}>
-        <AccordionTrigger className="mobile-nav-accordion flex w-full flex-row items-center justify-between text-cream">
+        <AccordionTrigger className="mobile-nav-accordion flex w-full flex-row items-center justify-between text-cream" triggerSize="small">
           <SanityInternalLink
             className={mobileMenuLinkClass}
             data={{
