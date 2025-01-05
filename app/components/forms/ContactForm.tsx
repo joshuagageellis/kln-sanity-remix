@@ -1,4 +1,4 @@
-import type {ErrorMessageProps, FieldAttributes} from 'formik';
+import type {ErrorMessageProps, FieldAttributes, FieldHookConfig} from 'formik';
 
 import {useFetcher, useSubmit} from '@remix-run/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -6,13 +6,14 @@ import {useState} from 'react';
 import { object, string } from 'yup';
 
 import {cn} from '~/lib/utils';
-import {contactFormSchema, contactForminitialValues, serviceTypes} from '~/routes/contact.send';
+import {contactFormSchema, contactForminitialValues, serviceTypes, serviceTypesValues} from '~/routes/contact.send';
 
 import { Button } from '../ui/Button';
+import {SliderField} from './inputs/Range';
 
-const labelClass = 'info-16';
-const inputRowClass = 'flex gap-2 flex-row mb-2';
-const ErrorMessageWrapper = (props: ErrorMessageProps) => <ErrorMessage {...props} render={(msg) => <span className="mt-2 info-16 text-salsa">{msg}</span>} />
+export const labelClass = 'info-16';
+export const inputRowClass = 'flex gap-2 flex-row mb-2';
+export const ErrorMessageWrapper = (props: ErrorMessageProps) => <ErrorMessage {...props} render={(msg) => <span className="sr-only error">{msg}</span>} />
 
 /**
  * @todo
@@ -44,7 +45,7 @@ export function ContactForm() {
 				>
 					{(props) => {
 						return (
-							<Form action='/contact' className='w-full mt-12 md:mt-20 mb-14 md:mb-24'>
+							<Form action='/contact' className='w-full mt-12 md:mt-20 mb-14 md:mb-24 has-required-form-fields'>
 								{props.status === 'success' && (<h2 className="mb-6">Thank you for signing up!</h2>)}
 								<fieldset disabled={props.status === 'success'}>
 									<div className={cn(inputRowClass)}>
@@ -68,28 +69,26 @@ export function ContactForm() {
 									</div>
 									<div className={cn(inputRowClass)}>
 										<div className='grow'>
-											<label className={cn(labelClass)} htmlFor="phoneNumber">Phone</label>
+											<label className={cn(labelClass)} htmlFor="phoneNumber">Phone Number</label>
 											<Field className="default-input default-input--dark" name="phoneNumber" type="text" />
 											<ErrorMessageWrapper name="phoneNumber" />
 										</div>
 									</div>
 									<div className={cn(inputRowClass)}>
 										<div className='grow'>
-											<label className={cn(labelClass)} htmlFor="projectBrief">Project Brief</label>
+											<label className={cn(labelClass)} htmlFor="projectBrief">Project Description</label>
 											<Field as="textarea" className="default-input default-input--dark" name="projectBrief" required rows="4" type="text" />
 											<ErrorMessageWrapper name="projectBrief" />
 										</div>
 									</div>
 									<div className={cn(inputRowClass)}>
-										<div className='grow basis-1/2'>
-											<label className={cn(labelClass)} htmlFor="timeline">Timeline</label>
-											<Field className="default-input default-input--dark" name="timeline" type="text" />
-											<ErrorMessageWrapper name="timeline" />
+										<div className='grow'>
+											<SliderField label="Timeline" max={6} min={1} name="timeline" postFix='Months' step={1} unlimited />
 										</div>
-										<div className='grow basis-1/2'>
-											<label className={cn(labelClass)} htmlFor="budget">Budget</label>
-											<Field className="default-input default-input--dark" name="budget" type="text" />
-											<ErrorMessageWrapper name="budget" />
+									</div>
+									<div className={cn(inputRowClass)}>
+										<div className='grow'>
+											<SliderField currency label="Budget" max={100000} min={5000} name="budget" step={5000} unlimited />
 										</div>
 									</div>
 									<div className={cn(inputRowClass)}>
@@ -97,7 +96,7 @@ export function ContactForm() {
 											<label className={cn(labelClass)} htmlFor="serviceType">Type of Service</label>
 											<Field as="select" className="default-input default-input--dark" name="serviceType">
 												<option value="">Select a service type</option>
-												{serviceTypes.map((type) => (
+												{serviceTypesValues.map((type) => (
 													<option key={type} value={type}>{type}</option>
 												))}
 											</Field>

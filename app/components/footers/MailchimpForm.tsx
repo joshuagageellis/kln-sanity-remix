@@ -74,23 +74,23 @@ export function MailchimpForm({
 								<div className="flex gap-2 flex-row mb-2">
 									<div className="grow">
 										<Field className="default-input" name="FNAME" placeholder="First Name" type="text" />
+										<ErrorMessage name="FNAME" render={msg => <span className="error sr-only">{msg.replaceAll('FNAME', 'First Name')}</span>} />
 									</div>
 									<div className="grow">
 										<Field className="default-input" name="LNAME" placeholder="Last Name" type="text" />
+										<ErrorMessage name="LNAME" render={msg => <span className="error sr-only">{msg.replaceAll('LNAME', 'Last Name')}</span>} />
 									</div>
 								</div>
 								<div className="flex flex-col md:flex-row gap-2">
 									<div className="md:basis-2/3">
 										<Field className="default-input" name="EMAIL" placeholder="Email" type="email"/>
+										<ErrorMessage name="EMAIL" render={msg => <span className="error sr-only">{msg.replaceAll('EMAIL', 'Email')}</span>} />
 									</div>
 									<div className="grow">
 										<Button className="w-full h-[48px] md:h-[60px]" size="lg" type="submit" variant="default">Submit</Button>
 									</div>
 								</div>
 								<div className="flex flex-col gap-2 mt-2 info-16 text-salsa">
-									<ErrorMessage name="FNAME" render={msg => <span>{msg.replaceAll('FNAME', 'First Name')}</span>} />
-									<ErrorMessage name="LNAME" render={msg => <span>{msg.replaceAll('LNAME', 'Last Name')}</span>} />
-									<ErrorMessage name="EMAIL" render={msg => <span>{msg.replaceAll('EMAIL', 'Email')}</span>} />
 									{status !== 'success' && submitted && (
 										<span>
 											{status === 'duplicate'

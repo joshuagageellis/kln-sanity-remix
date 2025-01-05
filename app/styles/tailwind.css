@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  background-color: #1E1F20; /* Prevent nav flash. */
+  background-color: #1e1f20; /* Prevent nav flash. */
 }
 
 :root {
@@ -34,18 +34,18 @@ html {
   /**
   Color vars.
   */
-  --color-panther: #3E4041;
-  --color-yosemite: #49A0C4;
-  --color-citrus: #92D67A;
-  --color-amethyst: #C0AED8;
-  --color-salsa: #CC5242;
-  --color-marble: #F0EBD9;
-  --color-peachy: #F3A985;
-  --color-yellow: #FFDE42;
-  --color-cream: #EBE8DE;
-  --color-charcoal: #1E1F20;
+  --color-panther: #3e4041;
+  --color-yosemite: #49a0c4;
+  --color-citrus: #92d67a;
+  --color-amethyst: #c0aed8;
+  --color-salsa: #cc5242;
+  --color-marble: #f0ebd9;
+  --color-peachy: #f3a985;
+  --color-yellow: #ffde42;
+  --color-cream: #ebe8de;
+  --color-charcoal: #1e1f20;
   --color-black: #000000;
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
 
   /**
   Colors that change.
@@ -103,7 +103,9 @@ html {
     margin-bottom: var(--fluid-headline-mb-default);
     font-size: var(--fluid-headline-fs);
     line-height: var(--fluid-headline-lh, 1.1);
-    font-variation-settings: 'wght' var(--fluid-headline-fw, 400), 'wdth' var(--fluid-headline-wdth, 110);
+    font-variation-settings:
+      'wght' var(--fluid-headline-fw, 400),
+      'wdth' var(--fluid-headline-wdth, 110);
   }
 
   .h1-super {
@@ -176,7 +178,7 @@ html {
 
   .highlight > span {
     padding: 0.2em 0.25em 0.1em;
-    background: var(--highlight-bg); 
+    background: var(--highlight-bg);
     box-decoration-break: clone;
   }
 
@@ -204,7 +206,9 @@ html {
     padding: 0.5em 0.5em;
     line-height: 2;
     background: transparent;
-    transition: all 0.3s ease-in-out, color 0.1s ease-in;
+    transition:
+      all 0.3s ease-in-out,
+      color 0.1s ease-in;
   }
 
   .overlay-link:hover ~ * .highlight-hover > span,
@@ -222,7 +226,7 @@ html {
   }
 
   .highlight-hover--amethyst {
-    --highlight-bg: var(--color-amethyst );
+    --highlight-bg: var(--color-amethyst);
     --highlight-color: var(--color-charcoal);
   }
 
@@ -233,14 +237,18 @@ html {
   p {
     font-family: var(--body-font-family);
     font-size: typeScale(16, 18);
-    font-variation-settings: 'wght' 400, 'wdth' 105;
+    font-variation-settings:
+      'wght' 400,
+      'wdth' 105;
     line-height: 1.4;
   }
 
   .body-link {
     font-family: var(--body-font-family);
     font-size: typeScale(16, 20);
-    font-variation-settings: 'wght' 450, 'wdth' 105;
+    font-variation-settings:
+      'wght' 450,
+      'wdth' 105;
     letter-spacing: 0.2px;
     line-height: 1.4;
     text-decoration: underline;
@@ -252,7 +260,9 @@ html {
     ol {
       font-family: var(--body-font-family);
       font-size: typeScale(16, 18);
-      font-variation-settings: 'wght' 400, 'wdth' 105;
+      font-variation-settings:
+        'wght' 400,
+        'wdth' 105;
       line-height: 1.4;
     }
 
@@ -273,7 +283,9 @@ html {
     font-family: var(--body-font-family);
     font-size: calcRem(16);
     font-style: normal;
-    font-variation-settings: 'wght' 450, 'wdth' 105;
+    font-variation-settings:
+      'wght' 450,
+      'wdth' 105;
     line-height: 1.25;
     letter-spacing: 0.16px;
   }
@@ -282,7 +294,9 @@ html {
     font-family: var(--body-font-family);
     font-size: calcRem(16);
     font-style: normal;
-    font-variation-settings: 'wght' 450, 'wdth' 105;
+    font-variation-settings:
+      'wght' 450,
+      'wdth' 105;
     line-height: 1.25;
     letter-spacing: 0.16px;
     text-decoration: underline;
@@ -291,7 +305,9 @@ html {
   .mobile-nav-link {
     font-family: var(--body-font-family);
     font-size: calcRem(52);
-    font-variation-settings: 'wght' 450, 'wdth' 105;
+    font-variation-settings:
+      'wght' 450,
+      'wdth' 105;
     line-height: 1.2;
     letter-spacing: 0.52px;
   }
@@ -301,7 +317,9 @@ html {
     font-size: calcRem(20);
     line-height: 1.2;
     letter-spacing: 0.52px;
-    font-variation-settings: 'wght' 500, 'wdth' 105;
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 105;
   }
 
   .mobile-nav-accordion svg,
@@ -316,7 +334,9 @@ html {
     font-family: var(--body-font-family);
     font-size: calcRem(20);
     font-style: normal;
-    font-variation-settings: 'wght' 500, 'wdth' 105;
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 105;
     line-height: 1.8;
     letter-spacing: 0.2px;
   }
@@ -324,7 +344,9 @@ html {
   .primary-nav-sub-link {
     font-family: var(--body-font-family);
     font-size: typeScale(16, 20);
-    font-variation-settings: 'wght' 450, 'wdth' 105;
+    font-variation-settings:
+      'wght' 450,
+      'wdth' 105;
     letter-spacing: 0.2px;
     line-height: 1.4;
   }
@@ -333,7 +355,9 @@ html {
     font-family: var(--body-font-family);
     font-size: typeScale(16, 20);
     font-style: normal;
-    font-variation-settings: 'wght' 500, 'wdth' 105;
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 105;
     line-height: 1.4;
     letter-spacing: 0.2px;
   }
@@ -342,7 +366,9 @@ html {
     font-size: calcRem(16);
     font-family: var(--body-font-family);
     font-style: normal;
-    font-variation-settings: 'wght' 500, 'wdth' 105;
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 105;
     line-height: 1.4;
     letter-spacing: 0.2px;
   }
@@ -354,11 +380,18 @@ html {
     background: transparent;
     border: 2px solid var(--color-cream);
     min-height: 48px;
-    font-variation-settings: 'wght' 500, 'wdth' 110;
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 110;
     font-size: typeScale(16, 20);
     padding: 0.2em 1em;
     width: 100%;
     border-radius: 0;
+  }
+
+  /* Has error. */
+  .default-input:has(+ span.error) {
+    border-color: var(--color-salsa);
   }
 
   .default-input--dark {
@@ -383,5 +416,80 @@ html {
     width: 100%;
     height: 100%;
     z-index: 10;
+  }
+
+  /**
+  Add to form wrapper.
+  */
+  .has-required-form-fields label:has(~ *[required])::after {
+    content: '*';
+    color: var(--color-salsa);
+    margin-left: 0.05em;
+  }
+
+  /********** Range Input Styles **********/
+  .thumb,
+  .thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .thumb {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    width: 100%;
+    outline: none;
+  }
+
+  .thumb:nth-child(1) {
+    z-index: 30;
+  }
+
+  .thumb:nth-child(2) {
+    z-index: 40;
+  }
+
+  /* For Chrome browsers */
+  .thumb::-webkit-slider-thumb {
+    background-color: var(--color-amethyst);
+    border: 2px solid var(--color-charcoal);
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    margin-top: 0.75rem;
+    pointer-events: all;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: var(--color-citrus);
+      transform: scale(1.1);
+    }
+  }
+
+  /* For Firefox browsers */
+  .thumb::-moz-range-thumb {
+    background-color: var(--color-amethyst);
+    border: 2px solid var(--color-charcoal);
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+    height: 2rem;
+    width: 1rem;
+    margin-top: 0.5rem;
+    pointer-events: all;
+    position: relative;
+  }
+
+  /********** Select Input Styles **********/
+  select.default-input {
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.999999 1.33342L7 6.66675L13 1.33341' stroke='%231e1f20' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-position: right 0.5em top 50%;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    padding-right: 2em;
   }
 }

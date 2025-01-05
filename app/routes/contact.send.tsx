@@ -2,24 +2,26 @@ import type {ActionFunctionArgs} from '@shopify/remix-oxygen';
 import type { InferType } from 'yup';
 
 import {json} from '@shopify/remix-oxygen';
-import {ValidationError, object, string } from 'yup';
+import {ValidationError, array, number, object, string, tuple } from 'yup';
 
-export const serviceTypes = [
-	'Design & Fabrication',
-	'CNC Machining',
-	'Marketing',
-	'Other'
-];
+export const serviceTypes = {
+	'cnc': 'CNC',
+	'design_fabrication': 'Design & Fabrication',
+	'get_our_products': 'Get our Products',
+	'other': 'Other (I don’t know)',
+}
+
+export const serviceTypesValues = Object.values(serviceTypes)
 
 export const contactForminitialValues = {
-	budget: '',
+	budget: [15000, 30000],
 	email: '',
 	firstName: '',
 	lastName: '',
 	phoneNumber: '',
 	projectBrief: '',
 	serviceType: '',
-	timeline: ''
+	timeline: [1, 3],
 }
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -38,7 +40,10 @@ const submissionEmailFormat = (data: ContactForm) => {
 }
 
 export const contactFormSchema = object({
-	budget: string(),
+	budget: tuple([
+		number(),
+		number()
+	]),
 	email: string().email().required(
 		'Email is required'
 	),
@@ -52,10 +57,13 @@ export const contactFormSchema = object({
 	projectBrief: string().required(
 		'Project brief is required'
 	),
-	serviceType: string().oneOf(serviceTypes).required(
+	serviceType: string().oneOf(serviceTypesValues).required(
 		'Service type is required'
 	),
-	timeline: string(),
+	timeline: tuple([
+		number(),
+		number()
+	])
 });
 
 export interface ContactForm extends InferType<typeof contactFormSchema>{}
