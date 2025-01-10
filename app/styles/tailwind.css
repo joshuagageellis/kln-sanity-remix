@@ -447,6 +447,12 @@ html {
 		background-repeat: no-repeat;
 		background-size: 1em;
 		padding-right: 2em;
+    cursor: pointer;
+
+    &:hover {
+      outline: none;
+      border-color: var(--color-charcoal);
+    }
 	}
 
   /********** Range Input Styles **********/
