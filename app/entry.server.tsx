@@ -53,7 +53,7 @@ export const createCspHeaders = () => {
   const defaultsCSPHeaders = {
     connectSrc: ['*', "'self'"],
     fontSrc: ['*.sanity.io', "'self'", 'localhost:*', 'https://fonts.googleapis.com', 'https://fonts.gstatic.com'],
-    // frameAncestors: ['localhost:*', '*.sanity.studio'],
+    frameAncestors: ['localhost:*', '*.sanity.studio', '*.shopify.com', '*.shopifycdn.com', '*.myshopify.dev'],
     frameSrc: ["'self'"],
     imgSrc: ['*.sanity.io', 'https://cdn.shopify.com', "'self'", 'localhost:*', 'data:'],
     scriptSrc: ["'self'", 'localhost:*', 'https://cdn.shopify.com', 'https://fonts.googleapis.com', 'https://nyc.us22.list-manage.com'],
