@@ -167,7 +167,7 @@ function MobileMenuModal(props: {
         transition: {duration: 0.2},
         x: open ? '0%' : '100%',
       }}
-      className="fixed top-[var(--mobile-menu-offset)] z-50 h-[calc(100vh-var(--mobile-menu-offset))] w-[100vw] bg-charcoal"
+      className="fixed top-[var(--mobile-menu-offset)] z-50 h-[calc(var(--mobile-menu-height-px)-var(--mobile-menu-offset))] w-[100vw] bg-charcoal"
       id="mobile-menu"
       initial={false}
     >
@@ -194,10 +194,20 @@ function MobileMenuModal(props: {
                         />
                       )}
                       {item._type === 'nestedNavigation' && (
-                        <MobileNavigationNested
-                          data={item}
-                          handleOpen={handleOpen}
-                        />
+                        <>
+                          {item.childLinks && item.childLinks.length > 0 ? (
+                            <MobileNavigationNested
+                              data={item}
+                              handleOpen={handleOpen}
+                            />
+                          ) : (
+                            <SanityInternalLink
+                              className={mobileMenuLinkClass}
+                              data={item}
+                              onClick={() => handleOpen(false)}
+                            />
+                          )}
+                        </>
                       )}
                     </li>
                   ))}
@@ -266,10 +276,8 @@ function MobileNavigationNested(props: {
   handleOpen: (action: boolean) => void;
 }) {
   const {data, handleOpen} = props;
-
   const uuid = data._key;
   if (!uuid) return null;
-
   return (
     <Accordion collapsible type="single">
       <AccordionItem value={uuid}>
@@ -317,9 +325,14 @@ const useMobileMenuOffset = () => {
   const calcOffset = useCallback(() => {
     const header = document.getElementById('main-header');
     const hHeight = header?.offsetHeight || 0;
+    const vHeight = window.innerHeight;
     document.documentElement.style.setProperty(
       '--mobile-menu-offset',
       `${hHeight}px`,
+    );
+    document.documentElement.style.setProperty(
+      '--mobile-menu-height-px',
+      `${vHeight}px`,
     );
   }, []);
 
