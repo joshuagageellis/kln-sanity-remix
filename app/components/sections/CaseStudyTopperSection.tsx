@@ -126,8 +126,6 @@ export function CaseStudyTopperSection(
                           className="size-full object-cover"
                           data={slide.image}
                           loading={i == 0 ? 'eager' : 'lazy'}
-                          showBorder={false}
-                          showShadow={false}
                         />
                         {/* desc */}
                         {slide.description && (
@@ -158,8 +156,6 @@ export function CaseStudyTopperSection(
                 className="size-full object-cover"
                 data={slides[0].image}
                 loading='eager'
-                showBorder={false}
-                showShadow={false}
               />
               {/* desc */}
               {slides[0].description && (

@@ -87,8 +87,6 @@ export function CollectionCard(props: {
               )}
               crop="center"
               data={collection.image}
-              showBorder={false}
-              showShadow={false}
               sizes={sizes}
             />
           </CardMedia>

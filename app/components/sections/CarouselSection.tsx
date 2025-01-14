@@ -50,8 +50,6 @@ const PageCard = ({inView, slide}: CarouselCardProps) => {
             className="size-full object-cover"
             data={slide.image}
             loading={inView ? 'eager' : 'lazy'}
-            showBorder={false}
-            showShadow={false}
           />
         </div>
         {title && (
@@ -89,8 +87,6 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
             className="size-full object-cover"
             data={slide.image}
             loading={inView ? 'eager' : 'lazy'}
-            showBorder={false}
-            showShadow={false}
           />
         </div>
         {slide.structuredLink?.reference && (

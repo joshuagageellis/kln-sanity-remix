@@ -30,8 +30,6 @@ export function SanityImage({
   fetchpriority?: 'auto' | 'high' | 'low';
   loading?: 'eager' | 'lazy';
   loadingBefore?: boolean;
-  showBorder?: boolean;
-  showShadow?: boolean;
   sizes?: null | string;
   style?: React.CSSProperties;
 }) {

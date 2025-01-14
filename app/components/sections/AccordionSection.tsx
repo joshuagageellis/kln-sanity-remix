@@ -128,8 +128,6 @@ export function AccordionSection(
                           className="size-full object-cover"
                           data={data.image}
                           loading={'lazy'}
-                          showBorder={false}
-                          showShadow={false}
                         />
                       </div>
                     )}

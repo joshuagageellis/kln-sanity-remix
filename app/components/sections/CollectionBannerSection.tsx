@@ -37,8 +37,6 @@ export function CollectionBannerSection(
             decoding="sync"
             fetchpriority="high"
             loading="eager"
-            showBorder={false}
-            showShadow={false}
             sizes="100vw"
           />
         )}

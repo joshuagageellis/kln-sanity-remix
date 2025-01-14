@@ -16,8 +16,6 @@ export function ShopifyImage({
 }: {
   className?: string;
   data: ImageFragmentFragment;
-  showBorder?: boolean;
-  showShadow?: boolean;
 } & HydrogenImageProps) {
   const id = parseGid(data.id || undefined).id;
   // No padding should be applied to the wrapper <span/> or the <img/> tag to avoid blurry LQIP becoming visible

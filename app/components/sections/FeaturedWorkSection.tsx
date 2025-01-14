@@ -31,8 +31,6 @@ const WorkSample = ({workSample}: {workSample: WorkSampleProps}) => {
 						className="size-full object-cover"
 						data={workSample.image}
 						loading={'lazy'}
-						showBorder={false}
-						showShadow={false}
 					/>
 				</div>
 				{sampleTitle && (

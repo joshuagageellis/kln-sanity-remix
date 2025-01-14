@@ -96,8 +96,6 @@ export function ProductCard(props: {
                   )}
                   crop="center"
                   data={firstVariant.image}
-                  showBorder={false}
-                  showShadow={false}
                   sizes={sizes}
                 />
                 <ProductBadges

@@ -69,8 +69,6 @@ export function ImageBannerSection(
           data={data.backgroundImage}
           decoding="sync"
           draggable={false}
-          showBorder={false}
-          showShadow={false}
           sizes="100vw"
         />
       </m.div>

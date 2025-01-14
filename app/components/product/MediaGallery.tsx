@@ -207,8 +207,6 @@ function ThumbnailCarousel({
                         data={media.image}
                         draggable="false"
                         loading="eager"
-                        showBorder={false}
-                        showShadow={false}
                         sizes="96px"
                       />
                     </button>

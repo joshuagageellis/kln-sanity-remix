@@ -67,8 +67,6 @@ const CaseStudyCard = (
               className="size-full object-cover"
               data={images[0]}
               loading={'lazy'}
-              showBorder={false}
-              showShadow={false}
             />
           )}
         </div>
