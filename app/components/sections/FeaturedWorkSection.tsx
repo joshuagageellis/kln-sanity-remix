@@ -36,7 +36,7 @@ const WorkSample = ({workSample}: {workSample: WorkSampleProps}) => {
 					/>
 				</div>
 				{sampleTitle && (
-					<div className="text-on-dark flex flex-row gap-2 w-full items-center justify-between mt-3">
+					<div className="text-on-dark flex flex-row gap-2 w-full items-center justify-between mt-1 sm:mt-2">
 						{workSample.structuredLink ? (
 							<span className="highlight-hover highlight-hover--citrus">
 								<ArrowLink
