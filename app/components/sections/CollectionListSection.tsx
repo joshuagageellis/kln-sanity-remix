@@ -29,7 +29,7 @@ export function CollectionListSection(
     <AwaitCollectionList
       error={
         <Skeleton isError>
-          <div className="container">
+          <div className="container-w-padding">
             <CollectionListGrid
               columns={props.data.collections?.length || 2}
               skeleton={{
@@ -41,7 +41,7 @@ export function CollectionListSection(
       }
       fallback={
         <Skeleton>
-          <div className="container">
+          <div className="container-w-padding">
             <CollectionListGrid
               columns={props.data.collections?.length || 2}
               skeleton={{
@@ -54,7 +54,7 @@ export function CollectionListSection(
       sanityData={props.data}
     >
       {(collections) => (
-        <div className="container">
+        <div className="container-w-padding">
           <CollectionListGrid
             collections={collections}
             columns={props.data.desktopColumns}

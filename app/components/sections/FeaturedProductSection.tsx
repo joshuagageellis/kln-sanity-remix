@@ -41,7 +41,7 @@ export function FeaturedProductSection(
 ) {
   const aspectRatio = getAspectRatioData(props.data.mediaAspectRatio);
   return (
-    <div className="container">
+    <div className="container-w-padding">
       <AwaitFeaturedProduct
         error={
           <FeaturedProductSkeleton

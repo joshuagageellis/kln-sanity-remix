@@ -102,7 +102,7 @@ export function VariantSelector(props: {
 
   return options?.map((option) => (
     <div key={option.name}>
-      <div>{option.name}</div>
+      <div className="info-16">{option.name}</div>
       <Pills handle={selectedVariant?.product?.handle} option={option} />
     </div>
   ));
@@ -201,14 +201,11 @@ function Pill(props: {
   const layoutId = handle! + option.name + section?.id;
 
   const buttonClass = cx([
-    'select-none rounded-full py-[.375rem] text-sm font-medium disabled:cursor-pointer',
-    'focus-visible:outline-none focus-visible:outline-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-  ]);
-  const bubbleClass = cx(['absolute inset-0 z-0 bg-accent']);
-  const foregroundClass = cx([
-    'inline-flex items-center relative z-[2] justify-center whitespace-nowrap px-3 py-1.5 transition-colors notouch:hover:text-accent-foreground',
-    isActive && 'text-accent-foreground',
-    !isAvailable && 'opacity-50',
+    'border-[2px] border-charcoal bg-transparent text-charcoal hover:bg-charcoal focus:bg-charcoal focus:text-marble hover:text-marble',
+    'btn-text-sm min-h-[48px] px-3 py-1',
+    'transition-colors duration-200 ease-in-out',
+    isActive && 'pointer-events-none bg-charcoal text-marble',
+    !isAvailable && 'opacity-50 pointer-events-none',
   ]);
 
   // Animated tabs implementation inspired by the fantastic Build UI recipes
@@ -221,37 +218,15 @@ function Pill(props: {
       layout
       layoutRoot
       onClick={() => onSelectVariant(value, search)}
-      style={{
-        WebkitTapHighlightColor: 'transparent',
-      }}
     >
-      <span className="relative block h-8">
-        {isActive && (
-          <m.span
-            className={bubbleClass}
-            layoutId={layoutId}
-            style={{borderRadius: 9999}}
-            transition={{bounce: 0.2, duration: 0.5, type: 'spring'}}
-          />
-        )}
-        <m.span
-          className={foregroundClass}
-          tabIndex={-1}
-          whileTap={{scale: 0.9}}
-        >
-          {value}
-        </m.span>
+      <span className="relative">
+        {value}
       </span>
     </m.button>
   ) : (
     <Link className={buttonClass} to={search}>
-      <span className="relative block h-8">
-        {isActive && (
-          <span className={bubbleClass} style={{borderRadius: 9999}} />
-        )}
-        <span className={foregroundClass} tabIndex={-1}>
-          {value}
-        </span>
+      <span className="relative">
+        {value}
       </span>
     </Link>
   );

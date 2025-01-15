@@ -24,7 +24,7 @@ export function RelatedProductsSection(
 
   // Todo => Add carousel
   return (
-    <div className="container">
+    <div className="container-w-padding">
       <Suspense
         fallback={
           <Skeleton>

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import type {ProductRecommendationsQuery} from 'storefrontapi.generated';
 
 import {ProductCardGrid} from './ProductCardGrid';
@@ -17,8 +18,13 @@ export function RelatedProducts(props: {
   if (products.length === 0) return null;
 
   return (
-    <>
-      {props.heading && <h2>{props.heading}</h2>}
+    <div
+      style={{
+        '--grid-horizontal-space': '0.5rem',
+        '--grid-vertical-space': '1rem',
+      } as CSSProperties}
+    >
+      {props.heading && <h2 className="h3">{props.heading}</h2>}
       <div className="mt-4">
         <ProductCardGrid
           columns={{
@@ -27,7 +33,7 @@ export function RelatedProducts(props: {
           products={products}
         />
       </div>
-    </>
+    </div>
   );
 }
 

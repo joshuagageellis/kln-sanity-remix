@@ -22,7 +22,6 @@ import {PreviewIcon} from './components/icons/Preview';
 
 const isDev = process.env.MODE === 'development';
 const {projectId, dataset, apiVersion, previewUrl} = projectDetails;
-console.log('projectDetails', JSON.stringify(projectDetails, null, 2));
 const FE_PREVIEW = previewUrl && isDev ? previewUrl : 'https://kln-73b18c45cdf29e90ae6b.o2.myshopify.dev'
 
 const languages = getAllLanguages();
@@ -33,8 +32,6 @@ const devOnlyPlugins = [
   }),
   groqdPlaygroundTool(),
 ];
-
-console.log('FE_PREVIEW', FE_PREVIEW);
 
 export default defineConfig({
   name: 'default',

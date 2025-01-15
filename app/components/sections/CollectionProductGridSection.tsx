@@ -65,7 +65,7 @@ export function CollectionProductGridSection(
 
   const CollectionProductGridSkeleton = useMemo(() => {
     return (
-      <div className="container">
+      <div className="container-w-padding">
         <SortFilter
           filters={[]}
           onClearAllFilters={handleClearFilters}
@@ -117,7 +117,7 @@ export function CollectionProductGridSection(
 
           // Todo => add enableFiltering and enableSorting settings
           return (
-            <div className="container">
+            <div className="container-w-padding">
               <SortFilter
                 appliedFilters={appliedFilters}
                 filters={collection?.products.filters as Filter[]}
