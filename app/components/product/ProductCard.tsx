@@ -14,6 +14,51 @@ import {ShopifyMoney} from '../ShopifyMoney';
 import {ProductBadges} from '../blocks/PriceBlock';
 import {Card, CardContent, CardMedia} from '../ui/Card';
 
+const InnerProductCard = ({
+  ImageComponent,
+  PriceComponent,
+  path,
+  skeleton = false,
+  title,
+}: {
+  ImageComponent: any
+  PriceComponent: any
+  path: null|string|undefined
+  skeleton?: boolean
+  title: string
+}) => {
+
+  return (
+    <div className={cn(
+      'group relative',
+      skeleton ? 'animate-pulse' : '',
+    )}>
+      {!skeleton && path && title && (
+        <Link
+          className="overlay-link absolute left-0 top-0 z-10 h-full w-full"
+          prefetch='intent'
+          to={path}
+        >
+          <span className="sr-only">{title}</span>
+        </Link>
+      )}
+      <div className="">
+        <div className="aspect-[5/4] relative">
+          <ImageComponent />
+        </div>
+        <div className="data-text mt-3 flex w-full flex-row items-center justify-between gap-2">
+          <p className={cn("h5", ! skeleton && 'highlight-hover highlight-hover--citrus')}>
+            <span>{title}</span>
+          </p>
+          <p className="mr-[0.5rem]">
+            <PriceComponent />
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export function ProductCard(props: {
   className?: string;
   columns?: {
@@ -26,10 +71,6 @@ export function ProductCard(props: {
   };
 }) {
   const {columns, product, skeleton} = props;
-  const {data} = vercelStegaCleanAll(useSanityRoot());
-  const style = data?.settings?.productCards?.style;
-  const textAlignment = data?.settings?.productCards?.textAlignment || 'left';
-  const aspectRatio = data?.settings?.productCards?.imageAspectRatio || 'video';
   const variants = product?.variants?.nodes.length
     ? flattenConnection(product?.variants)
     : null;
@@ -42,110 +83,59 @@ export function ProductCard(props: {
 
   const path = useLocalePath({path: `/products/${product?.handle}`});
 
-  const cardClass = cn(
-    style === 'card'
-      ? 'overflow-hidden rounded-[--product-card-border-corner-radius]'
-      : 'rounded-t-[calc(var(--product-card-border-corner-radius)*1.2)]',
-    style === 'card'
-      ? 'border-[rgb(var(--border)_/_var(--product-card-border-opacity))] [border-width:--product-card-border-thickness]'
-      : 'border-0',
-    style === 'card'
-      ? '[box-shadow:rgb(var(--shadow)_/_var(--product-card-shadow-opacity))_var(--product-card-shadow-horizontal-offset)_var(--product-card-shadow-vertical-offset)_var(--product-card-shadow-blur-radius)_0px]'
-      : 'shadow-none',
-    style === 'standard' && 'bg-transparent',
-    textAlignment === 'center'
-      ? 'text-center'
-      : textAlignment === 'right'
-        ? 'text-right'
-        : 'text-left',
-  );
-
-  const priceClass = cn(
-    'mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 md:gap-3 [&>*]:overflow-hidden [&>*]:text-ellipsis [&>*]:whitespace-nowrap',
-    textAlignment === 'center'
-      ? 'justify-center'
-      : textAlignment === 'right'
-        ? 'justify-end'
-        : 'justify-start',
-  );
-
   return (
     <>
       {!skeleton && product && firstVariant ? (
-        <Link prefetch="intent" to={path}>
-          <Card className={cardClass}>
+        <InnerProductCard
+          ImageComponent={() => <>
             {firstVariant?.image && (
-              <CardMedia
-                aspectRatio={aspectRatio}
-                className={cn(
-                  'relative',
-                  style === 'standard' &&
-                    'rounded-[--product-card-border-corner-radius]',
-                  style === 'standard' &&
-                    'border-[rgb(var(--border)_/_var(--product-card-border-opacity))] [border-width:--product-card-border-thickness]',
-                  style === 'standard' &&
-                    '[box-shadow:rgb(var(--shadow)_/_var(--product-card-shadow-opacity))_var(--product-card-shadow-horizontal-offset)_var(--product-card-shadow-vertical-offset)_var(--product-card-shadow-blur-radius)_0px]',
-                )}
-              >
-                <ShopifyImage
-                  aspectRatio={cn(
-                    aspectRatio === 'square' && '1/1',
-                    aspectRatio === 'video' && '16/9',
-                    aspectRatio === 'auto' &&
-                      `${firstVariant.image.width}/${firstVariant.image.height}`,
-                  )}
-                  crop="center"
-                  data={firstVariant.image}
-                  sizes={sizes}
-                />
-                <ProductBadges
-                  layout="card"
-                  variants={product?.variants.nodes}
-                />
-              </CardMedia>
+              <ShopifyImage
+                aspectRatio="5/4"
+                className="size-full object-cover"
+                crop="center"
+                data={firstVariant.image}
+                loading="lazy"
+                sizes={sizes}
+              />
             )}
-            <CardContent className="p-3 md:px-6 md:py-4">
-              <div className="overflow-hidden text-ellipsis whitespace-nowrap underline-offset-4 group-hover/card:underline md:text-lg">
-                {product.title}
-              </div>
-              <div className={priceClass}>
-                {firstVariant.compareAtPrice && (
-                  <ShopifyMoney
-                    className="text-xs text-muted-foreground line-through md:text-sm"
-                    data={firstVariant.compareAtPrice}
-                  />
-                )}
-                <ShopifyMoney
-                  className="text-sm md:text-base"
-                  data={firstVariant.price}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
+            <ProductBadges
+              layout="card"
+              variants={product?.variants.nodes}
+            />
+          </>}
+          PriceComponent={() => <>
+            {firstVariant.compareAtPrice && (
+              <ShopifyMoney
+                className=""
+                data={firstVariant.compareAtPrice}
+              />
+            )}
+            <ShopifyMoney
+              className=""
+              data={firstVariant.price}
+            />
+          </>}
+          path={path}
+          title={product.title}
+        />
       ) : skeleton ? (
-        <Card className={cn('animate-pulse', cardClass)}>
-          <CardMedia aspectRatio={aspectRatio}>
+        <InnerProductCard
+          ImageComponent={() => <>
             <div
               className={cn(
                 'w-full bg-muted',
-                aspectRatio === 'square' && 'aspect-square',
-                aspectRatio === 'video' && 'aspect-video',
-                aspectRatio === 'auto' && 'aspect-none',
               )}
             />
-          </CardMedia>
-          <CardContent className="p-3 text-muted-foreground/0 md:px-6 md:py-4">
-            <div className="text-lg">
-              <span className="rounded">Skeleton product title</span>
-            </div>
-            <div className={priceClass}>
-              <span className="rounded text-sm md:text-base">
-                Skeleton price
-              </span>
-            </div>
-          </CardContent>
-        </Card>
+          </>}
+          PriceComponent={() => <>
+            <span className="rounded text-sm md:text-base">
+              Skeleton price
+            </span>
+          </>}
+          path={null}
+          skeleton
+          title="Skeleton product title"
+        />
       ) : null}
     </>
   );

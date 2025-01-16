@@ -185,12 +185,12 @@ function ThumbnailCarousel({
           } as React.CSSProperties
         }
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mr-[-2px] ml-[calc(-2px-var(--slide-spacing))]">
           <CarouselContent className="ml-0 py-1">
             {medias.map((media, index) => {
               return (
                 <CarouselItem
-                  className="px-0 mr-[calc(var(--slide-spacing)/2)] last:mr-0"
+                  className=""
                   key={media.id}
                 >
                   {media.__typename === 'MediaImage' && media.image && (

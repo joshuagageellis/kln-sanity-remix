@@ -12,10 +12,12 @@ import {cn} from '~/lib/utils';
 export function ShopifyImage({
   className,
   data,
+  parentClass,
   ...props
 }: {
   className?: string;
   data: ImageFragmentFragment;
+  parentClass?: string;
 } & HydrogenImageProps) {
   const id = parseGid(data.id || undefined).id;
   // No padding should be applied to the wrapper <span/> or the <img/> tag to avoid blurry LQIP becoming visible
@@ -23,6 +25,7 @@ export function ShopifyImage({
     <span
       className={cn(
         'relative block overflow-hidden !p-0',
+        parentClass,
       )}
       id={id ? `img-${id}` : undefined}
     >
