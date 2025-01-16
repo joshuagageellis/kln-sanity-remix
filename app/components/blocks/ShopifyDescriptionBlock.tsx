@@ -15,7 +15,7 @@ export function ShopifyDescriptionBlock(props: ShopifyDescriptionBlockProps) {
 
   return (
     <div
-      className="rich-text space-y-4 mt-4 sm:mt-6"
+      className="rich-text space-y-4 mt-4 sm:mt-6 lg:max-w-[640px]"
       dangerouslySetInnerHTML={{
         __html: product.descriptionHtml,
       }}

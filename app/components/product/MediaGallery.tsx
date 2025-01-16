@@ -57,6 +57,9 @@ export function MediaGallery(props: {aspectRatio?: AspectRatioData}) {
   );
 }
 
+/**
+ * @todo Add loader when the image swaps.
+ */
 function MainMedia({
   aspectRatio,
   media,
@@ -106,7 +109,7 @@ function MobileCarousel({
       }}
     >
       <div className="relative">
-        <CarouselContent className="px-[--slide-spacing]">
+        <CarouselContent className="">
           {medias.map((media, index) => {
             return (
               <CarouselItem
@@ -167,7 +170,7 @@ function ThumbnailCarousel({
   if (medias.length <= 1) return null;
 
   return (
-    <div className="mt-3 hidden lg:block">
+    <div className="mt-2 hidden lg:block">
       <Carousel
         className="[--slide-spacing:.5rem]"
         opts={{
@@ -187,14 +190,16 @@ function ThumbnailCarousel({
             {medias.map((media, index) => {
               return (
                 <CarouselItem
-                  className="px-[calc(var(--slide-spacing)/2)]"
+                  className="px-0 mr-[calc(var(--slide-spacing)/2)] last:mr-0"
                   key={media.id}
                 >
                   {media.__typename === 'MediaImage' && media.image && (
                     <button
                       className={cn(
-                        'overflow-hidden rounded-[--media-border-corner-radius] border-2 border-primary border-opacity-0 transition-opacity notouch:hover:border-opacity-100',
-                        'ring-offset-background transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                        'w-full aspect-square',
+                        'transition-all duration-200',
+                        'border-2 border-charcoal border-opacity-0',
+                        'hover:border-opacity-100 focus:border-opacity-100 focus-visible:border-opacity-100',
                         media.id === selectedImage.id && 'border-opacity-100',
                       )}
                       key={media.id}

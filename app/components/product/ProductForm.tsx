@@ -20,7 +20,7 @@ export function ProductForm(
 
   if (variantsContextData?.variants) {
     return (
-      <div className="grid gap-4 mt-6">
+      <div className="grid gap-4 mt-6 lg:max-w-[680px]">
         <VariantSelector
           options={product.options}
           variants={variantsContextData?.variants}
@@ -39,7 +39,7 @@ export function ProductForm(
     : [];
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 lg:max-w-[680px]">
       <VariantSelector options={product.options} variants={variants} />
       <AddToCartForm
         showQuantitySelector={showQuantitySelector}

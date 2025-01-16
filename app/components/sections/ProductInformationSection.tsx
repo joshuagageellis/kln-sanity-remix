@@ -99,17 +99,12 @@ function ProductInformationGrid({
   mediaGallery: React.ReactNode;
   productDetails: React.ReactNode;
 }) {
-  const desktopMediaPosition = data?.desktopMediaPosition;
-  const desktopMediaWidth = data?.desktopMediaWidth;
   return (
     <div className="container-w-padding pt-6 md:pt-12">
       <div className={cn('grid gap-10 lg:grid-cols-12')}>
         <div
           className={cn(
             'lg:col-span-6',
-            desktopMediaPosition === 'right' && 'lg:order-last',
-            desktopMediaWidth === 'small' && 'lg:col-span-5',
-            desktopMediaWidth === 'large' && 'lg:col-span-7',
           )}
         >
           {mediaGallery}
@@ -117,8 +112,7 @@ function ProductInformationGrid({
         <div
           className={cn(
             'lg:col-span-6',
-            desktopMediaWidth === 'small' && 'lg:col-span-7',
-            desktopMediaWidth === 'large' && 'lg:col-span-5',
+            'flex flex-col justify-center'
           )}
         >
           {productDetails}

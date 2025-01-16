@@ -301,8 +301,6 @@ export const FEATURED_PRODUCT_SECTION_FRAGMENT = {
 export const PRODUCT_INFORMATION_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('productInformationSection'),
-  desktopMediaPosition: z.enum(['left', 'right']).nullable(),
-  desktopMediaWidth: z.enum(['small', 'medium', 'large']).nullable(),
   mediaAspectRatio: z.enum(aspectRatioValues).nullable(),
   richtext: q(
     `coalesce(

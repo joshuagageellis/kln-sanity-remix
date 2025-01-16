@@ -215,6 +215,7 @@ function Pill(props: {
     <m.button
       className={buttonClass}
       disabled={pending}
+      key={layoutId}
       layout
       layoutRoot
       onClick={() => onSelectVariant(value, search)}

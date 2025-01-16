@@ -59,7 +59,10 @@ const pdpSections = [
   {
     type: 'relatedProductsSection',
   },
-  ...globalSections,
+  /**
+   * @todo Implement these sections as products are added to the site.
+   */
+  // ...globalSections,
 ];
 
 const collectionSectionsList = [
