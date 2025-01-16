@@ -5,7 +5,7 @@ const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({className, ...props}, ref) => (
     <div
       className={cn(
-        'group/card rounded-lg border bg-card text-card-foreground shadow-sm shadow-foreground/10',
+        'group/card',
         className,
       )}
       data-type="card"
@@ -31,13 +31,14 @@ CardHeader.displayName = 'CardHeader';
 const CardMedia = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
-    aspectRatio?: 'auto' | 'square' | 'video';
+    aspectRatio?: 'auto' | 'picture' | 'square' | 'video';
   }
 >(({aspectRatio = 'video', className, ...props}, ref) => {
   const ratios = {
     auto: 'aspect-none',
+    picture: 'aspect-[5/4]',
     square: 'aspect-square',
-    video: 'aspect-video',
+    video: 'aspect-video'
   };
 
   return (
@@ -46,7 +47,7 @@ const CardMedia = forwardRef<
       ref={ref}
       {...props}
     >
-      <div className="origin-center [&_img]:size-full [&_img]:scale-[1.005] [&_img]:object-cover [&_img]:[transition:transform_0.5s_ease] group-hover/card:[&_img]:scale-[1.03]">
+      <div className="h-full w-full">
         {props.children}
       </div>
     </div>
@@ -60,7 +61,7 @@ const CardTitle = forwardRef<
 >(({className, ...props}, ref) => (
   <h3
     className={cn(
-      'text-2xl font-semibold leading-none tracking-tight',
+      '',
       className,
     )}
     ref={ref}
@@ -74,7 +75,7 @@ const CardDescription = forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({className, ...props}, ref) => (
   <p
-    className={cn('text-sm text-muted-foreground', className)}
+    className={cn('', className)}
     ref={ref}
     {...props}
   />
