@@ -60,6 +60,7 @@ export function SanityInternalLink(props: {
       onClick={props.onClick}
       prefetch="intent"
       to={url}
+      unstable_viewTransition
     >
       {children ? children : name}
     </Link>

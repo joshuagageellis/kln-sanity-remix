@@ -50,6 +50,7 @@ export const Header = () => {
           // Used in mobile menu.
           id="main-logo-link"
           to="/"
+          unstable_viewTransition
         >
           <span className="sr-only">Home</span>
           <Logo
