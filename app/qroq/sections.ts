@@ -408,13 +408,9 @@ export const RICHTEXT_SECTION_FRAGMENT = {
 export const COLLECTION_BANNER_SECTION_FRAGMENT = {
   _key: q.string().nullable(),
   _type: q.literal('collectionBannerSection'),
-  bannerHeight: q.number().nullable(),
-  contentAlignment: z.enum(contentAlignmentValues).nullable(),
-  contentPosition: z.enum(contentPositionValues).nullable(),
-  overlayOpacity: q.number().nullable(),
   settings: SECTION_SETTINGS_FRAGMENT,
   showDescription: q.boolean().nullable(),
-  showImage: q.boolean().nullable(),
+  // showImage: q.boolean().nullable(),
 } satisfies Selection;
 
 /*
