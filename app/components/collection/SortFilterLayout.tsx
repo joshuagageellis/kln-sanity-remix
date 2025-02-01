@@ -2,9 +2,10 @@ import type {
   Filter,
   ProductFilter,
 } from '@shopify/hydrogen/storefront-api-types';
+import type {CSSProperties} from 'react';
 
 import {AnimatePresence, m} from 'framer-motion';
-import {useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 
 import {useOptimisticNavigationData} from '~/hooks/useOptimisticNavigationData';
 import {useSanityThemeContent} from '~/hooks/useSanityThemeContent';
@@ -47,7 +48,6 @@ type Props = {
   filters: Filter[];
   onClearAllFilters: () => void;
   productsCount: number;
-  sectionSettings?: CmsSectionSettings;
 };
 
 export const FILTER_URL_PREFIX = 'filter.';
@@ -57,10 +57,10 @@ export function SortFilter({
   children,
   filters,
   onClearAllFilters,
-  productsCount,
-  sectionSettings,
+  productsCount
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const desktopFilterPanel = useRef<HTMLDivElement>(null);
   const {optimisticData, pending} =
     useOptimisticNavigationData<boolean>('clear-all-filters');
   const {themeContent} = useSanityThemeContent();
@@ -70,67 +70,105 @@ export function SortFilter({
     appliedFilters = [];
   }
 
+  const hideOnOuterClick = useMemo(() => (e: Event) => {
+    if (
+      isOpen && 
+      e.target instanceof Element && 
+      desktopFilterPanel.current &&
+      ! desktopFilterPanel.current.contains(e.target)
+    ) {
+      setIsOpen(false);
+    }
+  }, [desktopFilterPanel, isOpen]);
+
+  useEffect(() => {
+    document.addEventListener('click', hideOnOuterClick);
+    return () => {
+      document.removeEventListener('click', hideOnOuterClick);
+    };
+  }, [hideOnOuterClick]);
+
   return (
     <>
       {/* Desktop layout */}
       <div className="hidden w-full touch:hidden lg:flex lg:items-center lg:justify-between">
-        <div className="flex items-center gap-2">
-          <IconButton onClick={() => setIsOpen(!isOpen)}>
-            <span className="sr-only">
-              {themeContent?.collection?.filterAndSort}
-            </span>
-            <IconFilters className="size-4" />
-          </IconButton>
-          <AnimatePresence>
-            {appliedFilters.length > 0 && (
-              <m.div
-                animate={{opacity: 1}}
-                exit={{opacity: 0}}
-                initial={{opacity: 0}}
-              >
-                <Button
-                  className={cn([
-                    'flex items-center gap-1',
-                    pending && 'pointer-events-none animate-pulse delay-500',
-                  ])}
-                  onClick={onClearAllFilters}
-                  variant="ghost"
+        <div className="flex-auto">
+          <div className="flex items-center gap-2">
+            <IconButton onClick={() => setIsOpen(!isOpen)}>
+              <span className="sr-only">
+                {themeContent?.collection?.filterAndSort}
+              </span>
+              <IconFilters className="size-4" />
+            </IconButton>
+            <AnimatePresence>
+              {appliedFilters.length > 0 && (
+                <m.div
+                  animate={{opacity: 1}}
+                  exit={{opacity: 0}}
+                  initial={{opacity: 0}}
                 >
-                  <span>{themeContent?.collection?.clearFilters}</span>
-                  <span className="tabular-nums">
-                    ({appliedFilters.length})
-                  </span>
-                </Button>
+                  <Button
+                    className={cn([
+                      'flex items-center gap-1',
+                      pending && 'pointer-events-none animate-pulse delay-500',
+                    ])}
+                    onClick={onClearAllFilters}
+                    size="sm"
+                    variant="ghost"
+                  >
+                    <span>{themeContent?.collection?.clearFilters}</span>
+                    <span className="tabular-nums">
+                      ({appliedFilters.length})
+                    </span>
+                  </Button>
+                </m.div>
+              )}
+            </AnimatePresence>
+          </div>
+          <div className="relative w-full">
+            <AnimatePresence>
+              <m.div
+                animate={{height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0}}
+                className={cn([
+                  'hidden touch:hidden lg:block',
+                  'bg-cream border-charcoal border-2',
+                  'absolute top-0 left-0 right-0 z-20',
+                  'overflow-hidden',
+                  'w-[calc(100%-2rem)] max-w-96 shadow-panther shadow-sm',
+                ])}
+                exit={{height: 0, opacity: 0}}
+                initial={{height: 0, opacity: 0}}
+                key="drawer"
+                ref={desktopFilterPanel}
+              >
+                <DesktopFiltersDrawer
+                  appliedFilters={appliedFilters}
+                  filters={filters}
+                />
               </m.div>
-            )}
-          </AnimatePresence>
-        </div>
-        <DesktopSort />
-      </div>
-      <div className="relative lg:flex lg:flex-row lg:flex-wrap">
-        <div className="mt-6">
-          <div
-            className={cn([
-              'hidden touch:hidden lg:block',
-              'transition-all duration-200',
-              isOpen
-                ? 'sticky top-[calc(var(--header-height)_+_1rem)] opacity-100 md:w-[240px] md:min-w-[240px] md:pr-8'
-                : 'max-h-0 pr-0 opacity-0 md:max-h-full md:w-[0px] md:min-w-[0px]',
-            ])}
-          >
-            <DesktopFiltersDrawer
-              appliedFilters={appliedFilters}
-              filters={filters}
-            />
+            </AnimatePresence>
           </div>
         </div>
+        <div className="flex-auto flex flex-col items-end">
+          <DesktopSort />
+        </div>
+      </div>
+      <div className="relative lg:flex lg:flex-row lg:flex-wrap">
         <MobileDrawer
           appliedFilters={appliedFilters}
           filters={filters}
           onClearAllFilters={onClearAllFilters}
           productsCount={productsCount}
         />
-        <div className="lg:flex-1">{children}</div>
+      </div>
+      <div className="w-full">
+        {/* List */}
+        <div
+          style={{
+            '--grid-horizontal-space': '0.5rem',
+            '--grid-vertical-space': '1rem',
+          } as CSSProperties}
+        >{children}</div>
       </div>
     </>
   );
@@ -161,31 +199,35 @@ function MobileDrawer({
         </DrawerTrigger>
         <DrawerContent
           className={cn([
-            'h-[--dialog-content-height] max-h-screen w-screen bg-background p-0 text-foreground',
+            'h-[--dialog-content-height] max-h-screen w-screen bg-charcoal p-0 text-cream',
             '[--dialog-content-height:calc(100svh_*_.95)] [--dialog-content-max-width:calc(32rem)]',
             'lg:left-auto lg:right-0 lg:max-w-[--dialog-content-max-width] lg:[--dialog-content-height:100svh]',
           ])}
           onCloseAutoFocus={(e) => e.preventDefault()}
           onOpenAutoFocus={(e) => e.preventDefault()}
         >
-          <DrawerHeader className="flex items-center justify-center border-b text-xl font-medium">
+          <DrawerHeader className="flex items-center justify-center h4">
             {heading}
             <span>({productsCount})</span>
           </DrawerHeader>
           <div className="size-full overflow-hidden">
-            <ScrollArea className="size-full px-6">
+            <ScrollArea className="size-full px-6 pb-9">
               <div className="pt-6">
                 <MobileSort />
               </div>
               <div className="pr-1">
                 {filters.map((filter: Filter) => (
                   <div className="my-8 border-t pt-8" key={filter.id}>
-                    <div className="text-xl font-medium">{filter.label}</div>
+                    <div className="text-xl">
+                      <span className="h5">
+                        {filter.label}
+                      </span>
+                    </div>
                     <ul className="mt-3" key={filter.id}>
                       {filter.values?.map((option) => {
                         return (
                           <li className="[&_label]:py-3" key={option.id}>
-                            {filterMarkup(filter, option, appliedFilters)}
+                            {filterMarkup(filter, option, appliedFilters, 'mobile')}
                           </li>
                         );
                       })}
@@ -246,9 +288,7 @@ export function DesktopFiltersDrawer({
   return (
     <ScrollArea
       className={cn(
-        'h-[calc(100svh_-_var(--header-height)_-2rem)] w-full px-4 transition-all',
-        'rounded-[--product-card-border-corner-radius]',
-        'border border-[rgb(var(--border))]',
+        'px-3 py-3'
       )}
     >
       <nav>
@@ -259,16 +299,18 @@ export function DesktopFiltersDrawer({
         >
           {filters.map((filter: Filter) => (
             <AccordionItem
-              className="last:border-b-0"
+              className="last:border-b-0 mt-2 first:mt-0"
               key={filter.id}
               value={filter.id}
             >
-              <AccordionTrigger>{filter.label}</AccordionTrigger>
+              <AccordionTrigger className="flex-row justify-between items-center" triggerSize="tiny">
+                <span className="info-16">{filter.label}</span>
+              </AccordionTrigger>
               <AccordionContent>
-                <ul className="py-2" key={filter.id}>
+                <ul className="flex-col flex gap-y-2" key={filter.id}>
                   {filter.values?.map((option) => {
                     return (
-                      <li className="pb-4" key={option.id}>
+                      <li className="mt-2" key={option.id}>
                         {filterMarkup(filter, option, appliedFilters)}
                       </li>
                     );
@@ -287,10 +329,11 @@ const filterMarkup = (
   filter: Filter,
   option: Filter['values'][0],
   appliedFilters: AppliedFilter[],
+  layout: 'desktop' | 'mobile' = 'desktop',
 ) => {
   switch (filter.type) {
     case 'PRICE_RANGE':
-      return <PriceRangeFilter appliedFilters={appliedFilters} />;
+      return <PriceRangeFilter appliedFilters={appliedFilters} layout={layout} />;
 
     default:
       return <DefaultFilter appliedFilters={appliedFilters} option={option} />;

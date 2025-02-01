@@ -70,9 +70,8 @@ export function CollectionProductGridSection(
           filters={[]}
           onClearAllFilters={handleClearFilters}
           productsCount={0}
-          sectionSettings={props.data.settings}
         >
-          <div className="mt-6">
+          <div>
             <ProductCardGrid
               columns={{
                 desktop: columns,
@@ -90,8 +89,7 @@ export function CollectionProductGridSection(
     columns,
     handleClearFilters,
     mobileColumns,
-    props.data.productsPerPage,
-    props.data.settings,
+    props.data.productsPerPage
   ]);
 
   return (
@@ -123,7 +121,6 @@ export function CollectionProductGridSection(
                 filters={collection?.products.filters as Filter[]}
                 onClearAllFilters={handleClearFilters}
                 productsCount={collection?.products.nodes.length}
-                sectionSettings={props.data.settings}
               >
                 <Pagination connection={collection?.products}>
                   {({
@@ -222,7 +219,7 @@ function ProductsLoadedOnScroll({
               pending && 'pointer-events-none animate-pulse delay-500',
             ])}
             onClick={onClearAllFilters}
-            variant="secondary"
+            variant="outline"
           >
             <span>{themeContent?.collection?.clearFilters}</span>
           </Button>

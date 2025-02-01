@@ -6,7 +6,8 @@ import {
   useNavigate,
   useSearchParams,
 } from '@remix-run/react';
-import {useCallback, useMemo, useState} from 'react';
+import {AnimatePresence,m} from 'framer-motion';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {useOptimisticNavigationData} from '~/hooks/useOptimisticNavigationData';
 import {useSanityThemeContent} from '~/hooks/useSanityThemeContent';
@@ -15,14 +16,6 @@ import {cn} from '~/lib/utils';
 import type {SortParam} from './SortFilterLayout';
 
 import {IconSort} from '../icons/IconSort';
-import {iconButtonClass} from '../ui/Button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from '../ui/DropdownMenu';
 import {Label} from '../ui/Label';
 import {RadioGroup, RadioGroupItem} from '../ui/RadioGroup';
 
@@ -88,26 +81,70 @@ function useSortItems() {
 export function DesktopSort() {
   const {activeItem, items} = useSortItems();
   const {themeContent} = useSanityThemeContent();
+  const [isOpen, setIsOpen] = useState(false);
+  const sortPanel = useRef<HTMLDivElement>(null);
+
+  const hideOnOuterClick = useMemo(() => (e: Event) => {
+    if (
+      isOpen && 
+      e.target instanceof Element && 
+      sortPanel.current &&
+      ! sortPanel.current.contains(e.target)
+    ) {
+      setIsOpen(false);
+    }
+  }, [sortPanel, isOpen]);
+
+  useEffect(() => {
+    document.addEventListener('click', hideOnOuterClick);
+    return () => {
+      document.removeEventListener('click', hideOnOuterClick);
+    };
+  }, [hideOnOuterClick]);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className={cn(iconButtonClass, 'w-auto gap-1 px-2')}>
-        <IconSort strokeWidth={1} />
-        <span>
-          <span className="px-2 font-medium">
-            {themeContent?.collection?.sortBy}
+    <>
+      <div>
+        <button
+          className="flex items-center gap-3 h-11"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <IconSort strokeWidth={1} />
+          <span className="info-16">
+            <span className="px-2">
+              {themeContent?.collection?.sortBy}
+            </span>
+            <span>{(activeItem || items[0]).label}</span>
           </span>
-          <span>{(activeItem || items[0]).label}</span>
-        </span>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()}>
-        <SortRadioGroup layout="desktop">
-          {items.map((item) => (
-            <SortRadioItem item={item} key={item.label} layout="desktop" />
-          ))}
-        </SortRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </button>
+      </div>
+      <div className="relative w-full">
+        <AnimatePresence>
+          <m.div
+            animate={{height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0}}
+            className={cn([
+              'hidden touch:hidden lg:block',
+              'bg-cream border-charcoal border-2',
+              'absolute top-0 right-0 z-20',
+              'overflow-hidden',
+              'w-[calc(100%-2rem)] max-w-96 shadow-panther shadow-sm',
+            ])}
+            exit={{height: 0, opacity: 0}}
+            initial={{height: 0, opacity: 0}}
+            key="drawer"
+            ref={sortPanel}
+          >
+            <SortRadioGroup
+              className="px-3 py-3"
+            >
+              {items.map((item) => (
+                <SortRadioItem item={item} key={item.label} />
+              ))}
+              </SortRadioGroup>
+          </m.div>
+        </AnimatePresence>
+      </div>
+    </>
   );
 }
 
@@ -120,14 +157,14 @@ export function MobileSort() {
       <div className="flex items-center gap-3">
         <IconSort strokeWidth={1} />
         <span>
-          <span className="px-2 text-xl font-medium">
+          <span className="px-2 h5">
             {themeContent?.collection?.sortBy}
           </span>
         </span>
       </div>
-      <SortRadioGroup className="mt-3 flex flex-col gap-0" layout="mobile">
+      <SortRadioGroup className="mt-3 flex flex-col gap-0">
         {items.map((item) => (
-          <SortRadioItem item={item} key={item.key} layout="mobile" />
+          <SortRadioItem item={item} key={item.key} />
         ))}
       </SortRadioGroup>
     </div>
@@ -137,7 +174,6 @@ export function MobileSort() {
 function SortRadioGroup(props: {
   children: React.ReactNode;
   className?: string;
-  layout: 'desktop' | 'mobile';
 }) {
   const {activeItem, items} = useSortItems();
   const [params] = useSearchParams();
@@ -159,18 +195,6 @@ function SortRadioGroup(props: {
     [params, location, navigate],
   );
 
-  if (props.layout === 'desktop') {
-    return (
-      <DropdownMenuRadioGroup
-        className={cn([props.className])}
-        onValueChange={(value) => handleToggleSort(value as SortParam)}
-        value={activeItem?.key || items[0].key}
-      >
-        {props.children}
-      </DropdownMenuRadioGroup>
-    );
-  }
-
   return (
     <RadioGroup
       className={cn([props.className])}
@@ -185,9 +209,8 @@ function SortRadioGroup(props: {
 function SortRadioItem(props: {
   className?: string;
   item: SortItem;
-  layout: 'desktop' | 'mobile';
 }) {
-  const {item, layout} = props;
+  const {item} = props;
   const [prefetchPage, setPrefetchPage] = useState<null | string>(null);
   const location = useLocation();
   const [params] = useSearchParams();
@@ -198,27 +221,6 @@ function SortRadioItem(props: {
     const sortLink = getSortLink(item.key, params, location);
     setPrefetchPage(sortLink);
   }, [item.key, params, location]);
-
-  if (layout === 'desktop') {
-    return (
-      <>
-        <DropdownMenuRadioItem
-          className={cn([
-            // If the navigation is pending, animate after a delay
-            // to avoid flickering when navigation is fast
-            pending && 'pointer-events-none animate-pulse delay-500',
-            props.className,
-          ])}
-          onMouseEnter={handleSetPrefetch}
-          onTouchStart={handleSetPrefetch}
-          value={item.key}
-        >
-          {item.label}
-        </DropdownMenuRadioItem>
-        {prefetchPage && <PrefetchPageLinks page={prefetchPage} />}
-      </>
-    );
-  }
 
   return (
     <div
@@ -234,7 +236,7 @@ function SortRadioItem(props: {
       onTouchStart={handleSetPrefetch}
     >
       <RadioGroupItem id={item.key} value={item.key} />
-      <Label className="w-full font-medium" htmlFor={item.key}>
+      <Label className="w-full info-14" htmlFor={item.key}>
         {item.label}
       </Label>
       {prefetchPage && <PrefetchPageLinks page={prefetchPage} />}

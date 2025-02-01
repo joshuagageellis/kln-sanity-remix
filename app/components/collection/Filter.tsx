@@ -142,6 +142,7 @@ function FilterCheckbox({
       />
       <Label
         className={cn([
+          'info-14',
           'w-full cursor-pointer lg:transition-opacity lg:hover:opacity-70',
         ])}
         htmlFor={optionId}
@@ -156,8 +157,10 @@ const PRICE_RANGE_FILTER_DEBOUNCE = 500;
 
 export function PriceRangeFilter({
   appliedFilters,
+  layout,
 }: {
   appliedFilters: AppliedFilter[];
+  layout: 'desktop' | 'mobile';
 }) {
   const location = useLocation();
   const params = useMemo(
@@ -227,11 +230,14 @@ export function PriceRangeFilter({
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <label className="px-2">
-        <span>{themeContent?.collection?.from}</span>
-        <Input
-          className="mt-1"
+    <div className="flex flex-col gap-2">
+      <label className="">
+        <span className="info-14 mb-1 lg:mb-0 block">{themeContent?.collection?.from}</span>
+        <input
+          className={cn(
+            "default-input default-input--small",
+            layout !== 'mobile' && 'default-input--dark',
+          )}
           min={0}
           name="minPrice"
           onChange={onChangeMin}
@@ -240,10 +246,13 @@ export function PriceRangeFilter({
           value={minPrice ?? ''}
         />
       </label>
-      <label className="px-2">
-        <span>{themeContent?.collection?.to}</span>
-        <Input
-          className="mt-1"
+      <label className="">
+        <span className="info-14 mb-1 lg:mb-0 block">{themeContent?.collection?.to}</span>
+        <input
+          className={cn(
+            "default-input default-input--small",
+            layout !== 'mobile' && 'default-input--dark',
+          )}
           min={0}
           name="maxPrice"
           onChange={onChangeMax}

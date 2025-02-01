@@ -408,6 +408,23 @@ html {
     transition: all 0.2s ease-in-out;
   }
 
+  .default-input--small {
+    min-height: 36px;
+    font-size: typeScale(16, 18);
+    padding: 0.1em 0.5em;
+    border-width: 1px;
+  }
+
+  @media (min-width: 768px) {
+    .default-input {
+      min-height: 60px;
+    }
+
+    .default-input--small {
+      min-height: 36px;
+    }
+  }
+
   .default-input:focus,
   .default-input:focus-visible {
     outline: none;
@@ -420,19 +437,13 @@ html {
   }
 
   .default-input--dark {
-    border: 2px solid var(--color-charcoal);
+    border-color: var(--color-charcoal);
   }
 
   .default-input--dark:focus,
   .default-input--dark:focus-visible {
     outline: none;
     border-color: var(--color-panther);
-  }
-
-  @media (min-width: 768px) {
-    .default-input {
-      min-height: 60px;
-    }
   }
 
   .default-input::placeholder {
