@@ -74,7 +74,7 @@ export function PageTopperSection(
           {subtitle && (
             <m.h2
               animate={{opacity: 1}}
-              className="h6 order-1 mb-1 uppercase"
+              className="h6 order-1 mb-2 uppercase"
               initial={{opacity: 0}}
               transition={{delay: 0.6, duration: 0.6}}
             >
@@ -84,7 +84,7 @@ export function PageTopperSection(
           {deck && (
             <m.p
               animate={{opacity: 1}}
-              className="order-3 mt-2 max-w-[480px] md:mt-4 lg:max-w-[640px]"
+              className="order-3 mt-4 max-w-[480px] md:mt-4 lg:max-w-[640px]"
               initial={{opacity: 0}}
               transition={{delay: 0.6, duration: 0.6}}
             >
@@ -95,7 +95,7 @@ export function PageTopperSection(
         {displayButton && link && (
           <m.div
 						animate={{opacity: 1}}
-						className="col-span-full"
+						className="col-span-full mt-2 lg:mt-4"
 						initial={{opacity: 0}}
 						transition={{delay: 0.6, duration: 0.6}}>
             <Button
