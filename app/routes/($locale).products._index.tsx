@@ -1,10 +1,12 @@
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import type {CSSProperties} from 'react';
 
 import {useLoaderData} from '@remix-run/react';
 import {flattenConnection, getPaginationVariables} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 
 import {ProductCardGrid} from '~/components/product/ProductCardGrid';
+import {PageTopperSection} from '~/components/sections/PageTopperSection';
 import {ALL_PRODUCTS_QUERY} from '~/graphql/queries';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {seoPayload} from '~/lib/seo.server';
@@ -54,12 +56,35 @@ export default function AllProducts() {
     : [];
 
   return (
-    <div className="container py-20">
-      {products.length > 0 ? (
-        <ProductCardGrid products={products} />
-      ) : (
-        <p>{themeContent?.collection?.noProductFound}</p>
-      )}
-    </div>
+    <>
+      <div className="pb-20">
+        <PageTopperSection
+          data={{
+            _key: 'allProducts',
+            _type: 'pageTopperSection',
+            bgColor: 'charcoal',
+            deck: null,
+            displayButton: false,
+            link: null,
+            settings: {hide: false},
+            subtitle: '',
+            title: 'Available Products',
+          }}
+        />
+      </div>
+      <div
+        className="container-w-padding pb-20"
+        style={{
+          '--grid-horizontal-space': '0.5rem',
+          '--grid-vertical-space': '1rem',
+        } as CSSProperties}
+      >
+        {products.length > 0 ? (
+          <ProductCardGrid products={products} />
+        ) : (
+          <p>{themeContent?.collection?.noProductFound}</p>
+        )}
+      </div>
+    </>
   );
 }

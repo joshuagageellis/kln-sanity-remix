@@ -12,7 +12,6 @@ import {getIntValue} from './utils';
 |--------------------------------------------------------------------------
 */
 export const FOOTER_SETTINGS_FRAGMENT = q('settings').grab({
-  colorScheme: q('colorScheme').deref().grab(COLOR_SCHEME_FRAGMENT),
   customCss: q
     .object({
       code: q.string().optional(),

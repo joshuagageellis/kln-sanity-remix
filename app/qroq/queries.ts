@@ -242,7 +242,6 @@ export const THEME_CONTENT_QUERY = q('*')
 export const ROOT_QUERY = q('')
   .grab({
     _type: ['"root"', q.literal('root')],
-    defaultColorScheme: DEFAULT_COLOR_SCHEME_QUERY,
     fonts: FONTS_QUERY,
     footer: FOOTER_QUERY,
     header: HEADER_QUERY,

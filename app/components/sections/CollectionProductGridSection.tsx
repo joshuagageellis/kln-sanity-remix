@@ -113,6 +113,8 @@ export function CollectionProductGridSection(
             searchParams,
           });
 
+          console.log('appliedFilters', appliedFilters, collection);
+
           // Todo => add enableFiltering and enableSorting settings
           return (
             <div className="container-w-padding">

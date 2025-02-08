@@ -1,4 +1,3 @@
-import color from './documents/color';
 import footer from './singletons/footer';
 import header from './singletons/header';
 import page from './documents/page';
@@ -61,7 +60,6 @@ import accordionSection from './objects/sections/accordionSection';
 const singletons = [home, header, footer, settings, themeContent];
 const documents = [
   page,
-  color,
   collection,
   product,
   productTemplate,

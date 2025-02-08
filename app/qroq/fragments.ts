@@ -160,14 +160,6 @@ export const SETTINGS_FRAGMENT = {
   badgesPosition: z
     .enum(['bottom_left', 'bottom_right', 'top_left', 'top_right'])
     .nullable(),
-  badgesSaleColorScheme: q('badgesSaleColorScheme')
-    .deref()
-    .grab(COLOR_SCHEME_FRAGMENT)
-    .nullable(),
-  badgesSoldOutColorScheme: q('badgesSoldOutColorScheme')
-    .deref()
-    .grab(COLOR_SCHEME_FRAGMENT)
-    .nullable(),
   blogCards: q
     .object({
       border: q.object(BORDER_FRAGMENT).nullable(),
@@ -187,10 +179,6 @@ export const SETTINGS_FRAGMENT = {
         title: q.string(),
       }),
     })
-    .nullable(),
-  cartColorScheme: q('cartColorScheme')
-    .deref()
-    .grab(COLOR_SCHEME_FRAGMENT)
     .nullable(),
   collectionCards: q
     .object({

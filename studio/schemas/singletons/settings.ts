@@ -119,13 +119,6 @@ export default defineType({
       to: [{type: 'collection'}],
     }),
     defineField({
-      name: 'cartColorScheme',
-      description: 'Default color scheme is used if none is set.',
-      group: 'cart',
-      type: 'reference',
-      to: [{type: 'colorScheme'}],
-    }),
-    defineField({
       name: 'facebook',
       type: 'url',
       group: 'socialMedia',
