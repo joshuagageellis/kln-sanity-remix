@@ -5,7 +5,7 @@ import type {PartialDeep} from 'type-fest';
 import {useLocation} from '@remix-run/react';
 import {ErrorMessage, Field, Form, Formik} from 'formik';
 import {AnimatePresence, m} from 'framer-motion';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import {Button} from '~/components/ui/Button';
 
@@ -23,24 +23,34 @@ export function ProductInquiryForm({
 }: {
 	selectedVariant: PartialDeep<ProductVariant>,
 }) {
-	const location = useLocation();
 	const [isOpen, setIsOpen] = useState(false);
+	const [productLink, setProductLink] = useState('');
+
+	useEffect(() => {
+		if (window?.location) {
+			setProductLink(window.location.href);
+		}
+	}, []);
 
 	return (
 		<Formik
+			enableReinitialize
 			initialValues={{
 				email: '',
 				name: '',
 				note: '',
 				productId: selectedVariant.id,
-				productLink: location.pathname + location.search,
+				productLink,
 				productTitle: selectedVariant.product?.title,
 				variantTitle: selectedVariant.title,
 			}}
 			onSubmit={async (values, actions) => {
 				try {
 					const response = await fetch('/products/inquiry/send', {
-						body: JSON.stringify(values),
+						body: JSON.stringify({
+							...values,
+							productLink,
+						}),
 						headers: {
 							Accept: 'application/json',
 							'Content-Type': 'application/json',
