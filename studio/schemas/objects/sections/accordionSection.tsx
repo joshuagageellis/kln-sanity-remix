@@ -19,6 +19,20 @@ export default defineField({
 	},
 	fields: [
 		defineField({
+			name: 'sectionId',
+			title: 'Section ID',
+			description: 'Used for direct linking to this section (optional)',
+			type: 'string',
+			validation: Rule => Rule.custom((value) => {
+				if (!value) return true; // Allow empty values
+				const urlSafePattern = /^[a-zA-Z0-9-_]+$/;
+				if (!urlSafePattern.test(value)) {
+					return 'Section ID must contain only letters, numbers, hyphens and underscores';
+				}
+				return true;
+			}),
+		}),
+		defineField({
 			name: 'title',
 			type: 'string',
 			validation: Rule => Rule.required(),

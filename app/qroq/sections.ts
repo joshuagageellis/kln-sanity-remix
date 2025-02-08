@@ -184,6 +184,7 @@ export const ACCORDION_SECTION = {
     .select(RICHTEXT_BLOCKS)
     .nullable(),
   image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+  sectionId: q.string().nullable(),
   settings: SECTION_SETTINGS_FRAGMENT,
   structuredLink: q('structuredLink').grab(STRUCTURED_LINK_FRAGMENT).nullable(),
   title: q.string().nullable(),

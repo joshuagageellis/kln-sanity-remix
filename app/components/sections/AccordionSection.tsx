@@ -3,7 +3,8 @@ import type {PortableTextBlock} from '@portabletext/types';
 import type {TypeFromSelection} from 'groqd';
 
 import {PortableText} from '@portabletext/react';
-import {useMemo} from 'react';
+import {useLocation} from '@remix-run/react';
+import {useEffect, useMemo, useState} from 'react';
 
 import type {SectionDefaultProps} from '~/lib/type';
 import type {ACCORDION_SECTION} from '~/qroq/sections';
@@ -36,6 +37,23 @@ export function AccordionSection(
   props: SectionDefaultProps & {data: AccordionSectionProps},
 ) {
   const {data} = props;
+  const location = useLocation();
+  const [openSections, setOpenSections] = useState<string[]>([]);
+  
+  useEffect(() => {
+    // Delay to ensure the DOM is fully rendered and heights are set.
+    setTimeout(() => {  
+        // Check if hash matches section ID
+        if (data.sectionId && location.hash === `#${data.sectionId}`) {
+          setOpenSections([data._key || '']);
+          // Scroll to section
+          const element = document.getElementById(data.sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+    }, 500);
+  }, [data.sectionId, data._key, location.hash]);
 
   const components = useMemo(
     () => ({
@@ -76,9 +94,16 @@ export function AccordionSection(
   // Essentially no render, satisfies type checker since _key is nullable.
   if (!data._key) return null;
   return (
-    <div className="text-on-light accordion-section-stack bg-light">
+    <div 
+      className="text-on-light accordion-section-stack bg-light scroll-mt-36"
+      id={data.sectionId || undefined}
+    >
       <div className="container-w-padding">
-        <Accordion type="multiple">
+        <Accordion 
+          onValueChange={setOpenSections} 
+          type="multiple"
+          value={openSections}
+        >
           <AccordionItem value={data._key}>
             <AccordionTrigger
               className="flex flex-row-reverse items-center justify-end gap-4 md:gap-10"
