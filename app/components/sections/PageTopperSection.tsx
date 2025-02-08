@@ -95,7 +95,7 @@ export function PageTopperSection(
         {displayButton && link && (
           <m.div
 						animate={{opacity: 1}}
-						className="col-span-full mt-8"
+						className="col-span-full"
 						initial={{opacity: 0}}
 						transition={{delay: 0.6, duration: 0.6}}>
             <Button
