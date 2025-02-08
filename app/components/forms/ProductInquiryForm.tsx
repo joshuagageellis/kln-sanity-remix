@@ -71,7 +71,7 @@ export function ProductInquiryForm({
 								{isOpen && (
 									<m.div
 										animate={{height: 'auto', opacity: 1}}
-										className="grid gap-4"
+										className="grid gap-4 overflow-hidden"
 										exit={{height: 0, opacity: 0}}
 										initial={{height: 0, opacity: 0}}
 										transition={{duration: 0.3}}
