@@ -28,7 +28,7 @@ const triggerVariants = cva(
     },
     variants: {
       size: {
-        large: 'w-14 h-14 md:w-24 md:h-24',
+        large: 'w-12 h-12 md:w-24 md:h-24',
         small: 'w-9 h-9 md:w-[50px] md:h-[50px]',
         tiny: 'w-6 h-6 md:w-8 md:h-8',
       },
