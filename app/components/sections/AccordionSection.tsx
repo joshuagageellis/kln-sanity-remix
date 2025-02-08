@@ -106,7 +106,7 @@ export function AccordionSection(
         >
           <AccordionItem value={data._key}>
             <AccordionTrigger
-              className="flex flex-row-reverse items-center justify-end gap-4 md:gap-10"
+              className="flex flex-row-reverse items-center justify-end gap-1 md:gap-10"
               hoverColor="amethyst"
               hoverEffect
               triggerSize="large"

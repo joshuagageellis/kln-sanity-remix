@@ -69,5 +69,5 @@ Variable colors.
 }
 
 [data-section-type="accordionSection"] + [data-section-type="accordionSection"] {
-	--section-margin: 12px;
+	--section-margin: clamp(12px, 2.22vw, 32px);
 }
