@@ -13,7 +13,7 @@ import {
   useSearchParams,
 } from '@remix-run/react';
 import {Pagination} from '@shopify/hydrogen';
-import {Suspense, useCallback, useEffect, useMemo} from 'react';
+import {Suspense, useCallback, useEffect, useMemo, useRef} from 'react';
 
 import type {SectionDefaultProps} from '~/lib/type';
 import type {COLLECTION_PRODUCT_GRID_SECTION_FRAGMENT} from '~/qroq/sections';
@@ -31,6 +31,7 @@ import {Skeleton} from '../Skeleton';
 import {SortFilter} from '../collection/SortFilterLayout';
 import {ProductCardGrid} from '../product/ProductCardGrid';
 import {Button} from '../ui/Button';
+// import { useInView } from 'framer-motion';
 
 type CollectionProductGridSectionProps = TypeFromSelection<
   typeof COLLECTION_PRODUCT_GRID_SECTION_FRAGMENT
@@ -113,7 +114,7 @@ export function CollectionProductGridSection(
             searchParams,
           });
 
-          console.log('appliedFilters', appliedFilters, collection);
+          console.log('appliedFilters', appliedFilters, collection.products);
 
           // Todo => add enableFiltering and enableSorting settings
           return (
@@ -137,9 +138,11 @@ export function CollectionProductGridSection(
                     <>
                       <div className="mb-6 flex items-center justify-center">
                         <PreviousLink>
-                          {isLoading
-                            ? themeContent?.collection?.loading
-                            : themeContent?.collection?.loadPrevious}
+                          <Button size='sm' variant='outline'>
+                            {isLoading
+                              ? themeContent?.collection?.loading
+                              : themeContent?.collection?.loadPrevious}
+                          </Button>
                         </PreviousLink>
                       </div>
                       <ProductsLoadedOnScroll
@@ -149,7 +152,6 @@ export function CollectionProductGridSection(
                           mobile: mobileColumns,
                         }}
                         hasNextPage={hasNextPage}
-                        inView={true}
                         nextPageUrl={nextPageUrl}
                         nodes={nodes}
                         onClearAllFilters={handleClearFilters}
@@ -157,9 +159,11 @@ export function CollectionProductGridSection(
                       />
                       <div className="mt-6 flex items-center justify-center">
                         <NextLink>
-                          {isLoading
-                            ? themeContent?.collection?.loading
-                            : themeContent?.collection?.loadMoreProducts}
+                          <Button size='sm' variant='outline'>
+                            {isLoading
+                              ? themeContent?.collection?.loading
+                              : themeContent?.collection?.loadMoreProducts}
+                          </Button>
                         </NextLink>
                       </div>
                     </>
@@ -178,7 +182,6 @@ function ProductsLoadedOnScroll({
   appliedFilters,
   columns,
   hasNextPage,
-  inView,
   nextPageUrl,
   nodes,
   onClearAllFilters,
@@ -190,7 +193,6 @@ function ProductsLoadedOnScroll({
     mobile?: null | number;
   };
   hasNextPage: boolean;
-  inView: boolean;
   nextPageUrl: string;
   nodes: ProductCardFragment[];
   onClearAllFilters: () => void;
@@ -199,16 +201,24 @@ function ProductsLoadedOnScroll({
   const navigate = useNavigate();
   const {pending} = useOptimisticNavigationData<boolean>('clear-all-filters');
   const {themeContent} = useSanityThemeContent();
+  const ref = useRef(null)
 
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      navigate(nextPageUrl, {
-        preventScrollReset: true,
-        replace: true,
-        state,
-      });
-    }
-  }, [inView, navigate, state, nextPageUrl, hasNextPage]);
+  /**
+   * Disable this for now, it's not working as expected.
+   */
+  // const inView = useInView(ref, {
+  //   margin: '0px 0px 0px 0px',
+  // });
+
+  // useEffect(() => {
+  //   if (inView && hasNextPage) {      
+  //     navigate(nextPageUrl, {
+  //       preventScrollReset: true,
+  //       replace: true,
+  //       state,
+  //     });
+  //   }
+  // }, [inView, navigate, state, nextPageUrl, hasNextPage]);
 
   if (!nodes || nodes.length === 0) {
     return (
@@ -237,6 +247,7 @@ function ProductsLoadedOnScroll({
         mobile: columns?.mobile,
       }}
       products={nodes}
+      ref={ref}
     />
   );
 }

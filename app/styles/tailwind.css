@@ -203,8 +203,8 @@ html {
   .highlight-hover > span,
   .highlight-hover-action > span {
     box-decoration-break: clone;
-    padding: 0.5em 0.5em;
-    line-height: 2;
+    padding: 0.2em 0.5em;
+    line-height: 1.4;
     background: transparent;
     transition:
       all 0.3s ease-in-out,

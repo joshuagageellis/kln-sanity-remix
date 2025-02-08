@@ -2,10 +2,11 @@ import type {CSSProperties} from 'react';
 import type {ProductCardFragment} from 'storefrontapi.generated';
 
 import {cx} from 'class-variance-authority';
+import {forwardRef} from 'react';
 
 import {ProductCard} from './ProductCard';
 
-export function ProductCardGrid(props: {
+export const ProductCardGrid = forwardRef<HTMLUListElement, {
   columns?: {
     desktop?: null | number;
     mobile?: null | number;
@@ -14,7 +15,7 @@ export function ProductCardGrid(props: {
   skeleton?: {
     cardsNumber?: number;
   };
-}) {
+}>((props, ref) => {
   const {products, skeleton} = props;
   const columnsVar = {
     '--columns': props.columns?.desktop ?? 3,
@@ -29,6 +30,7 @@ export function ProductCardGrid(props: {
         'sm:grid-cols-2',
         'lg:grid-cols-[repeat(var(--columns),_minmax(0,_1fr))]',
       ])}
+      ref={ref}
       style={columnsVar}
     >
       {!skeleton && products && products.length > 0
@@ -60,4 +62,6 @@ export function ProductCardGrid(props: {
           : null}
     </ul>
   );
-}
+});
+
+ProductCardGrid.displayName = 'ProductCardGrid';
