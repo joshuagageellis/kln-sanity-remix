@@ -22,6 +22,7 @@ import {cn} from '~/lib/utils';
 import {useRootLoaderData} from '~/root';
 
 import {QuantitySelector} from '../QuantitySelector';
+import {ProductInquiryForm} from '../forms/ProductInquiryForm';
 import CleanString from '../sanity/CleanString';
 import {Button} from '../ui/Button';
 
@@ -42,96 +43,99 @@ export function AddToCartForm(props: {
   return (
     selectedVariant && (
       <>
-        {showQuantitySelector && (
-          <div className="flex">
-            <QuantitySelector>
-              <QuantitySelector.Button
-                disabled={isOutOfStock || quantity === 1}
-                onClick={() => setQuantity(quantity - 1)}
-                symbol="decrease"
-              />
-              <QuantitySelector.Value>{quantity}</QuantitySelector.Value>
-              <QuantitySelector.Button
-                disabled={isOutOfStock}
-                onClick={() => setQuantity(quantity + 1)}
-                symbol="increase"
-              />
-            </QuantitySelector>
-          </div>
-        )}
-        <CartForm
-          action={CartForm.ACTIONS.LinesAdd}
-          inputs={{
-            lines: [
-              {
-                merchandiseId: selectedVariant?.id!,
-                quantity,
-              },
-            ],
-          }}
-          route={cartPath}
-        >
-          {(fetcher) => {
-            const isLoading = fetcher.state !== 'idle' || navigationIsLoading;
-
-            // Button is disabled if the variant is out of stock or if fetcher is not idle.
-            // Button is also disabled if navigation is loading (new variant is being fetched)
-            // to prevent adding the wrong variant to the cart.
-            return (
-              <AddToCartAnalytics fetcher={fetcher}>
-                <div className="grid gap-3">
-                  <OptimisticInput
-                    data={{
-                      action: 'add',
-                      line: {
-                        cost: {
-                          amountPerQuantity: selectedVariant.price,
-                          totalAmount: selectedVariant.price,
-                        },
-                        id: selectedVariant.id,
-                        merchandise: {
-                          image: selectedVariant.image,
-                          product: {
-                            handle: selectedVariant.product?.handle,
-                            title: selectedVariant.product?.title,
-                          },
-                          selectedOptions: selectedVariant.selectedOptions,
-                        },
-                        quantity,
-                      },
-                    }}
-                    id="cart-line-item"
+        {isOutOfStock ? (
+          <ProductInquiryForm
+            selectedVariant={selectedVariant}
+          />
+        ) : (
+          <>
+            {showQuantitySelector && (
+              <div className="flex">
+                <QuantitySelector>
+                  <QuantitySelector.Button
+                    disabled={isOutOfStock || quantity === 1}
+                    onClick={() => setQuantity(quantity - 1)}
+                    symbol="decrease"
                   />
-                  <Button
-                    className={cn([
-                      isOutOfStock && 'opacity-50',
-                      // Opacity does not change when is loading to prevent flickering
-                      'data-[loading="true"]:disabled:opacity-100',
-                    ])}
-                    data-loading={isLoading}
-                    data-sanity-edit-target
-                    disabled={isOutOfStock || isLoading}
-                    type="submit"
-                  >
-                    {isOutOfStock ? (
-                      <CleanString value={themeContent?.product?.soldOut} />
-                    ) : (
-                      <CleanString value={themeContent?.product?.addToCart} />
-                    )}
-                  </Button>
-                  {showShopPay && selectedVariant.id && (
-                    <ShopPay
-                      isLoading={isLoading}
-                      isOutOfStock={isOutOfStock}
-                      quantity={quantity}
-                      variantId={selectedVariant.id}
-                    />
-                  )}
-                </div>
-              </AddToCartAnalytics>
-            );
-          }}
-        </CartForm>
+                  <QuantitySelector.Value>{quantity}</QuantitySelector.Value>
+                  <QuantitySelector.Button
+                    disabled={isOutOfStock}
+                    onClick={() => setQuantity(quantity + 1)}
+                    symbol="increase"
+                  />
+                </QuantitySelector>
+              </div>
+            )}
+            <CartForm
+              action={CartForm.ACTIONS.LinesAdd}
+              inputs={{
+                lines: [
+                  {
+                    merchandiseId: selectedVariant?.id!,
+                    quantity,
+                  },
+                ],
+              }}
+              route={cartPath}
+            >
+              {(fetcher) => {
+                const isLoading = fetcher.state !== 'idle' || navigationIsLoading;
+
+                // Button is disabled if the variant is out of stock or if fetcher is not idle.
+                // Button is also disabled if navigation is loading (new variant is being fetched)
+                // to prevent adding the wrong variant to the cart.
+                return (
+                  <AddToCartAnalytics fetcher={fetcher}>
+                    <div className="grid gap-3">
+                      <OptimisticInput
+                        data={{
+                          action: 'add',
+                          line: {
+                            cost: {
+                              amountPerQuantity: selectedVariant.price,
+                              totalAmount: selectedVariant.price,
+                            },
+                            id: selectedVariant.id,
+                            merchandise: {
+                              image: selectedVariant.image,
+                              product: {
+                                handle: selectedVariant.product?.handle,
+                                title: selectedVariant.product?.title,
+                              },
+                              selectedOptions: selectedVariant.selectedOptions,
+                            },
+                            quantity,
+                          },
+                        }}
+                        id="cart-line-item"
+                      />
+                        <Button
+                          className={cn([
+                            // Opacity does not change when is loading to prevent flickering
+                            'data-[loading="true"]:disabled:opacity-100',
+                          ])}
+                          data-loading={isLoading}
+                          data-sanity-edit-target
+                          disabled={isLoading}
+                          type="submit"
+                        >
+                          <CleanString value={themeContent?.product?.addToCart} />
+                        </Button>
+                        {showShopPay && selectedVariant.id && (
+                          <ShopPay
+                            isLoading={isLoading}
+                            isOutOfStock={isOutOfStock}
+                            quantity={quantity}
+                            variantId={selectedVariant.id}
+                          />
+                        )}
+                    </div>
+                  </AddToCartAnalytics>
+                );
+              }}
+            </CartForm>
+          </>
+        )}
       </>
     )
   );

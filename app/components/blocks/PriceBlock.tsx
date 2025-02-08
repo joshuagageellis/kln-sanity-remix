@@ -40,14 +40,13 @@ export function PriceBlock(props: PriceBlockProps) {
   return (
     <Layout>
       <VariantPrice variants={variants} />
-      test
       <ProductBadges variants={variants} />
     </Layout>
   );
 }
 
 function Layout({children}: {children: React.ReactNode}) {
-  return <div className="flex items-center gap-3">{children}</div>;
+  return <div className="mt-2 flex items-center gap-3">{children}</div>;
 }
 
 export function ProductBadges({
