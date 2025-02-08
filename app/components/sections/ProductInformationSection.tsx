@@ -112,7 +112,7 @@ function ProductInformationGrid({
         <div
           className={cn(
             'lg:col-span-6',
-            'flex flex-col justify-center'
+            'lg:mt-6'
           )}
         >
           {productDetails}
