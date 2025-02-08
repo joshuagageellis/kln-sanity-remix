@@ -59,7 +59,7 @@ export function ProductInquiryForm({
 			validationSchema={productInquirySchema}
 		>
 			{({isSubmitting, status, submitForm}) => (
-				<Form className="grid gap-4">
+				<Form className="grid gap-4 mt-4">
 					{status === 'success' ? (
 						<div className="text-charcoal py-6">
 							<h3 className="h5 mb-4">Thank you for your inquiry!</h3>
@@ -71,13 +71,13 @@ export function ProductInquiryForm({
 								{isOpen && (
 									<m.div
 										animate={{height: 'auto', opacity: 1}}
-										className="grid gap-4 overflow-hidden"
+										className="grid gap-3 overflow-hidden"
 										exit={{height: 0, opacity: 0}}
 										initial={{height: 0, opacity: 0}}
 										transition={{duration: 0.3}}
 									>
 										<div>
-											<label className="info-16 mb-2 block" htmlFor="name">
+											<label className="info-16 mb-1 block" htmlFor="name">
 												Name
 											</label>
 											<Field
@@ -89,7 +89,7 @@ export function ProductInquiryForm({
 										</div>
 
 										<div>
-											<label className="info-16 mb-2 block" htmlFor="email">
+											<label className="info-16 mb-1 block" htmlFor="email">
 												Email
 											</label>
 											<Field
@@ -101,7 +101,7 @@ export function ProductInquiryForm({
 										</div>
 
 										<div>
-											<label className="info-16 mb-2 block" htmlFor="note">
+											<label className="info-16 mb-1 block" htmlFor="note">
 												Message (Optional)
 											</label>
 											<Field
@@ -117,7 +117,7 @@ export function ProductInquiryForm({
 							</AnimatePresence>
 
 							<Button
-								className="mt-2"
+								className=""
 								disabled={isSubmitting}
 								onClick={(e) => {
 									e.preventDefault();

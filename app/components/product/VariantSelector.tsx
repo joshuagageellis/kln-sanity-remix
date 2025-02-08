@@ -205,7 +205,6 @@ function Pill(props: {
     'btn-text-sm min-h-[48px] px-3 py-1',
     'transition-colors duration-200 ease-in-out',
     isActive && 'pointer-events-none bg-charcoal text-marble',
-    !isAvailable && 'opacity-50 pointer-events-none',
   ]);
 
   // Animated tabs implementation inspired by the fantastic Build UI recipes
@@ -222,6 +221,11 @@ function Pill(props: {
     >
       <span className="relative">
         {value}
+        {!isAvailable && (
+          <span className="text-xs">
+            {' '}(Request Only)
+          </span>
+        )}
       </span>
     </m.button>
   ) : (

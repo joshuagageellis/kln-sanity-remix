@@ -275,6 +275,10 @@ html {
         margin-top: 0.5em;
       }
     }
+
+    a {
+      text-decoration: underline;
+    }
   }
 
   .info-14 {
