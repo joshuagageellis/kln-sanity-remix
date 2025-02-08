@@ -18,6 +18,7 @@ import {envVariables} from '~/lib/env.server';
 import {HydrogenSession} from '~/lib/hydrogen.session.server';
 import {SanitySession} from '~/lib/sanity/sanity.session.server';
 
+import {redirects} from './app/lib/redirects';
 import {createSanityClient} from './app/lib/sanity/sanity.server';
 
 /*
@@ -30,6 +31,17 @@ export default {
     executionContext: ExecutionContext,
   ): Promise<Response> {
     try {
+      /**
+       * Check for the specific redirect in the hardcoded redirects.
+       * Early as possible to avoid unnecessary processing.
+       */
+      const {origin, pathname} = new URL(request.url)
+      const redirect = redirects.find((r) => r.from === pathname)
+      if (redirect) {
+        return Response.redirect(`${origin}${redirect.to}`, redirect.status)
+      }
+
+
       const envVars = envVariables(env);
       const isDev = envVars.NODE_ENV === 'development';
       const locale = getLocaleFromRequest(request);
