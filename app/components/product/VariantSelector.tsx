@@ -223,7 +223,7 @@ function Pill(props: {
         {value}
         {!isAvailable && (
           <span className="text-xs">
-            {' '}(Request Only)
+            {' '}(Made to Order)
           </span>
         )}
       </span>

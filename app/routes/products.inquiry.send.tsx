@@ -14,9 +14,17 @@ const submissionEmailFormat = (data: ProductInquiryForm) =>
           <h2>Contact Details</h2>
           <p>Name: {data.name}</p>
           <p>Email: {data.email}</p>
-          <p>Product URL: {data.productLink}</p>
-          <p>Product ID: {data.productId}</p>
-          {data.note && <p>Note: {data.note}</p>}
+          <h2>Product Details</h2>
+          <p>Product: {data.productTitle}</p>
+          <p>Variant: {data.variantTitle}</p>
+          <p>URL: {data.productLink}</p>
+          <p>ID: {data.productId}</p>
+          {data.note && (
+            <>
+              <h2>Additional Notes</h2>
+              <p>{data.note}</p>
+            </>
+          )}
         </div>
       </div>
     </div>,
@@ -28,6 +36,8 @@ export const productInquirySchema = object().shape({
   note: string(),
   productId: string().required('Product ID is required'),
   productLink: string().required('Product link is required'),
+  productTitle: string().required('Product title is required'),
+  variantTitle: string().required('Variant title is required'),
 });
 
 export interface ProductInquiryForm extends InferType<typeof productInquirySchema> {}

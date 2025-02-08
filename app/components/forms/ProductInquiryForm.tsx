@@ -132,7 +132,7 @@ export function ProductInquiryForm({
 							>
 								{isSubmitting ? 'Sending...' : (
 									<>
-										{isOpen ? 'Send Request' : 'Request Product'}
+										{isOpen ? 'Send Request' : 'Made to Order Request'}
 									</>
 								)}
 							</Button>
