@@ -63,7 +63,11 @@ export function CartDiscounts({
             'items-center justify-between gap-1',
           )}
         >
-          <Input
+          <input
+            className={cn(
+              'default-input default-input--dark',
+              layout === 'page' ? '' : 'h-[48px] min-h-[48px]',
+            )}
             name="discountCode"
             placeholder={themeContent?.cart?.discountCode || ''}
             type="text"
@@ -71,7 +75,7 @@ export function CartDiscounts({
           <Button
             className={cn(layout === 'page' && 'w-full lg:w-auto')}
             disabled={cartIsLoading}
-            size={layout === 'page' ? 'default' : 'sm'}
+            size={layout === 'page' ? 'lg' : 'sm'}
             variant="outline"
           >
             {themeContent?.cart?.applyDiscount}

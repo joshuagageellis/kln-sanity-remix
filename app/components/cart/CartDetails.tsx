@@ -64,7 +64,11 @@ export function CartDetails({
   return (
     <CartDetailsLayout layout={layout}>
       <CartLines layout={layout} lines={lines} onClose={onClose} />
-      <div>
+      <div
+        className={cn([
+          layout === 'page' && 'col-span-full md:col-span-5',
+        ])}
+      >
         <AnimatePresence>
           {cartHasItems && (
             <ProgressiveMotionDiv
@@ -99,7 +103,7 @@ function CartDetailsLayout(props: {
   return props.layout === 'drawer' ? (
     <>{props.children}</>
   ) : (
-    <div className="container w-full gap-8 pb-12 md:grid md:grid-cols-2 md:items-start md:gap-8 lg:gap-16">
+    <div className="site-grid my-12 md:min-h-[450px]">
       {props.children}
     </div>
   );
@@ -177,7 +181,9 @@ function CartSummary({
 
   return (
     <Card className="mt-5">
-      <CardContent className="px-5 py-6 lg:p-8">{Content}</CardContent>
+      <CardContent className={cn([
+        layout === 'page' ? '' : 'px-5 py-6 lg:p-8',
+      ])}>{Content}</CardContent>
     </Card>
   );
 }

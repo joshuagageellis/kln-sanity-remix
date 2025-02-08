@@ -70,5 +70,5 @@ function Layout(props: {children: React.ReactNode; layout: CartLayouts}) {
     );
   }
 
-  return <>{props.children}</>;
+  return <div className='col-span-full md:col-span-6'>{props.children}</div>;
 }
