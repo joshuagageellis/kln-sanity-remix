@@ -114,6 +114,10 @@ html {
     --fluid-headline-fw: 800;
   }
 
+  .highlight.h1-super {
+    --fluid-headline-lh: 1.2;
+  }
+
   h1,
   .h1 {
     --fluid-headline-fs: var(--fluid-fs-h1);

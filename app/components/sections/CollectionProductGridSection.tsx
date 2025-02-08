@@ -118,7 +118,7 @@ export function CollectionProductGridSection(
 
           // Todo => add enableFiltering and enableSorting settings
           return (
-            <div className="container-w-padding">
+            <div className="container-w-padding md:min-h-[480px]">
               <SortFilter
                 appliedFilters={appliedFilters}
                 filters={collection?.products.filters as Filter[]}

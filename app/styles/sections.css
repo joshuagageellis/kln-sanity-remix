@@ -71,3 +71,7 @@ Variable colors.
 [data-section-type="accordionSection"] + [data-section-type="accordionSection"] {
 	--section-margin: clamp(12px, 2.22vw, 32px);
 }
+
+[data-section-type="collectionProductGridSection"] {
+	--section-margin: 32px;
+}
