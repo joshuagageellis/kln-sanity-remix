@@ -121,7 +121,7 @@ html {
   h1,
   .h1 {
     --fluid-headline-fs: var(--fluid-fs-h1);
-    --fluid-headline-lh: 1.2;
+    --fluid-headline-lh: 1.1;
     --fluid-headline-fw: 700;
   }
 
@@ -134,7 +134,7 @@ html {
   h2,
   .h2 {
     --fluid-headline-fs: var(--fluid-fs-h2);
-    --fluid-headline-lh: 1.2;
+    --fluid-headline-lh: 1.1;
     --fluid-headline-fw: 500;
   }
 
@@ -148,6 +148,7 @@ html {
   h4,
   .h4 {
     --fluid-headline-fs: var(--fluid-fs-h4);
+    --fluid-headline-lh: 1.2;
   }
 
   h5,
@@ -243,6 +244,14 @@ html {
       'wght' 400,
       'wdth' 105;
     line-height: 1.4;
+  }
+
+  .bold-20 {
+    font-family: var(--body-font-family);
+    font-size: typeScale(16, 18);
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 105;
   }
 
   .body-link {

@@ -24,8 +24,8 @@ export function RelatedProducts(props: {
         '--grid-vertical-space': '1rem',
       } as CSSProperties}
     >
-      {props.heading && <h2 className="h3">{props.heading}</h2>}
-      <div className="mt-4">
+      {props.heading && <h2 className="h3 text-charcoal">{props.heading}</h2>}
+      <div className="mt-2 lg:mt-3">
         <ProductCardGrid
           columns={{
             desktop: props.columns?.desktop,

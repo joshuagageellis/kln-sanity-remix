@@ -70,7 +70,7 @@ export function ProductInquiryForm({
           {status === 'success' ? (
             <div className="py-6 text-charcoal">
               <h3 className="h5 mb-4">Thank you for your inquiry!</h3>
-              <p>
+              <p className='body-20'>
                 We'll get back to you soon about{' '}
                 <em>{selectedVariant.product?.title}</em>.
               </p>
@@ -78,8 +78,7 @@ export function ProductInquiryForm({
           ) : (
             <div className="grid gap-3 ">
 							<div>
-								<p className='body-20'>Our made to order products are personally handled. Please send us a message and we will follow up via email.</p>
-								<p className='info-16 mt-2'><em>Made to order products have longer production times.</em></p>
+								<p className='h4 text-pretty'>Our made to order products are personally handled. Please send us a message and we will follow up via email.</p>
 							</div>
               <div>
                 <label className="info-16 mb-1 block" htmlFor="name">

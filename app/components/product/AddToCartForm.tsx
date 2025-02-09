@@ -46,7 +46,7 @@ export function AddToCartForm(props: {
       <AnimatePresence>
         {isOutOfStock ? (
           <m.div
-            animate={{height: 'auto', opacity: 1, transition: {
+            animate={{opacity: 1, transition: {
               delay: 0.2,
               duration: 0.2
             }}}
@@ -54,7 +54,7 @@ export function AddToCartForm(props: {
             exit={{height: 0, opacity: 0, transition: {
               duration: 0.1,
             }}}
-            initial={{height: 0, opacity: 0}}
+            initial={{opacity: 0}}
             key="product-inquiry-form"
             transition={{duration: 0.3}}
           >
@@ -64,15 +64,15 @@ export function AddToCartForm(props: {
           <>
             {showQuantitySelector && (
               <m.div
-                animate={{height: 'auto', opacity: 1, transition: {
+                animate={{opacity: 1, transition: {
                   delay: 0.2,
                   duration: 0.2
                 }}}
                 className='overflow-hidden'
-                exit={{height: 0, opacity: 0, transition: {
+                exit={{opacity: 0, transition: {
                   duration: 0.1,
                 }}}
-                initial={{height: 0, opacity: 0}}
+                initial={{opacity: 0}}
                 key="quantity-selector"
                 transition={{duration: 0.3}}
               >
@@ -92,15 +92,15 @@ export function AddToCartForm(props: {
               </m.div>
             )}
             <m.div
-              animate={{height: 'auto', opacity: 1, transition: {
+              animate={{opacity: 1, transition: {
                 delay: 0.2,
                 duration: 0.2
               }}}
               className='overflow-hidden'
-              exit={{height: 0, opacity: 0, transition: {
+              exit={{opacity: 0, transition: {
                 duration: 0.1,
               }}}
-              initial={{height: 0, opacity: 0}}
+              initial={{opacity: 0}}
               key="cart-form"
               transition={{duration: 0.3}}
             >
