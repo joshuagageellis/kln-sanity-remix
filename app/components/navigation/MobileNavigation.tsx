@@ -143,13 +143,13 @@ export function MobileNavigation(props: {
 
 const mobileMenuLinkClass = cn([
   'text-marble',
-  'mobile-nav-link', // Custom class
+  'h2-super', // Custom class
 ]);
 
 const mobileMenuCTAClass = cn([
-  mobileMenuLinkClass,
-  'text-charcoal flex flex-row justify-between items-center gap-4 container-w-padding',
-  'pb-4 pt-6 bg-citrus w-full hover:bg-amethyst transition-all duration-200',
+  'container-w-padding flex flex-row items-center justify-between gap-4 text-charcoal',
+  'w-full bg-citrus pb-4 pt-6 transition-all duration-200 hover:bg-amethyst',
+  'h2-super',
   'mobile-nav-cta', // Custom class
 ]);
 
@@ -219,12 +219,7 @@ function MobileMenuModal(props: {
           <div className="mt-6">
             {callToAction.link ? (
               <SanityInternalLink
-                className={cn([
-                  mobileMenuLinkClass,
-                  'container-w-padding flex flex-row items-center justify-between gap-4 text-charcoal',
-                  'w-full bg-citrus pb-4 pt-6 transition-all duration-200 hover:bg-amethyst',
-                  'mobile-nav-cta', // Custom class
-                ])}
+                className={mobileMenuCTAClass}
                 data={{
                   _key: 'mobileNavCTA',
                   _type: 'internalLink',

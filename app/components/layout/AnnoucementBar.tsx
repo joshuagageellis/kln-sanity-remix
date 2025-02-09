@@ -2,7 +2,6 @@ import type {TypeFromSelection} from 'groqd';
 
 import {Link, useLocation} from '@remix-run/react';
 import {cx} from 'class-variance-authority';
-import {m} from 'framer-motion';
 
 import type {ANNOUCEMENT_BAR_FRAGMENT} from '~/qroq/fragments';
 
@@ -34,27 +33,20 @@ export function AnnouncementBar() {
 
   return (
     <section id="announcement-bar">
-      <m.div
-        animate={{opacity: 1}}
-        exit={{opacity: 0}}
-        initial={{opacity: 0}}
-        transition={{delay: 0.3, duration: 0.5, ease: 'easeOut'}}
-      >
-        <div className="group transition-all duration-300 bg-citrus text-charcoal relative flex justify-center p-3 pr-6 pl-6 has-[a:hover]:bg-amethyst has-[a:focus]:bg-amethyst">
-          <AnnouncementBarLink {...annoucementBarItem as AnnoucementBarProps} />
-          {!(annoucementBarItem.link || annoucementBarItem.externalLink) ? (
-            <p className="body-20"><span>{annoucementBarItem.text}</span></p>
-          ) : (
-            <ArrowLink
-              className=""
-              size="small"
-              variant="primary"
-            >
-              {annoucementBarItem.text}
-            </ArrowLink>
-          )}
-        </div>
-      </m.div>
+      <div className="group transition-all duration-300 bg-citrus text-charcoal relative flex justify-center p-3 pr-6 pl-6 has-[a:hover]:bg-amethyst has-[a:focus]:bg-amethyst">
+        <AnnouncementBarLink {...annoucementBarItem as AnnoucementBarProps} />
+        {!(annoucementBarItem.link || annoucementBarItem.externalLink) ? (
+          <p className="body-20"><span>{annoucementBarItem.text}</span></p>
+        ) : (
+          <ArrowLink
+            className=""
+            size="small"
+            variant="primary"
+          >
+            {annoucementBarItem.text}
+          </ArrowLink>
+        )}
+      </div>
     </section>
   );
 }

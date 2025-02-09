@@ -77,9 +77,9 @@ export function CaseStudyTopperSection(
 					}
 					{(link || location || collaborators || date) && (
 						<m.ul
-            animate={{opacity: 1, y: 0}}
+            animate={{opacity: 1, translateY: '0px'}}
             className="col-span-full flex-wrap md:justify-end row-start-2 info-16 flex flex-col gap-2 md:flex-row md:gap-x-4 lg:gap-x-7"
-            initial={{opacity: 0, y: 15}}
+            initial={{opacity: 0, translateY: '15px'}}
             transition={{delay: 0.4, duration: 0.4}}>
 							{link && (
 								<li>
@@ -99,9 +99,9 @@ export function CaseStudyTopperSection(
 			</div>
 			{slides && slides.length ? (
         <m.div
-        animate={{opacity: 1, y: 0}}
+        animate={{opacity: 1}}
         className="container-w-padding -mt-7 md:-mt-16"
-        initial={{opacity: 0, y: 25}}
+        initial={{opacity: 0}}
         transition={{delay: 0.6, duration: 0.4, ease: 'easeOut'}}>
         {slides.length > 1 ? (
             <Carousel

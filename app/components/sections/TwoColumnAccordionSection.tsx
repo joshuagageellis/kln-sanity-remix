@@ -101,7 +101,7 @@ export function TwoColumnAccordionSection(
               accordions.map((accordion) => (
                 <AccordionItem key={accordion._key} value={accordion._key}>
                   <AccordionTrigger className="ml-[-0.5rem] lg:ml-0 flex flex-row gap-4 justify-between items-center" hoverEffect triggerSize="small">
-                    <h3 className="left-[-0.5rem]">{accordion.title}</h3>
+                    <h3 className="left-[-0.5rem] text-pretty">{accordion.title}</h3>
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="mt-6 mb-2">

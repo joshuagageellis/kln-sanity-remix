@@ -164,10 +164,10 @@ export function CarouselSection(
                   .filter((l) => l.structuredLink)
                   .map((introLink, i) => (
                     <m.li
-                      initial={{opacity: 0, y: 15}}
+                      initial={{opacity: 0, translateY: '15px'}}
                       key={introLink._key}
                       transition={{delay: i * 0.1, duration: 0.4}}
-                      whileInView={{opacity: 1, y: 0}}
+                      whileInView={{opacity: 1, translateY: '0px'}}
                     >
                       <StructuredLink
                         className={cx('data-text', 'flex md:justify-end')}

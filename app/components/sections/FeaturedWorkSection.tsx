@@ -77,10 +77,10 @@ export function FeaturedWorkSection(props: SectionDefaultProps & {data: Featured
 					{/* Work sample one */}
 					{workSamples && workSamples.slice(0, 1).map((workSample) => (
 						<m.div
-							initial={{opacity: 0, scale: 0.99, y: 15}}
+							initial={{opacity: 0, scale: 0.99, translateY: '15px'}}
 							key={workSample._key}
 							transition={{delay: 0.2, duration: 0.6}}
-							whileInView={{opacity: 1, scale: 1, y: 0}}
+							whileInView={{opacity: 1, scale: 1, translateY: '0px'}}
 						>
 							<WorkSample workSample={workSample} />
 						</m.div>
@@ -91,10 +91,10 @@ export function FeaturedWorkSection(props: SectionDefaultProps & {data: Featured
 					{workSamples && workSamples.slice(1).map((workSample) => (
 						<m.div
 							className="flex-1"
-							initial={{opacity: 0, scale: 0.99, y: 15}}
+							initial={{opacity: 0, scale: 0.99, translateY: '15px'}}
 							key={workSample._key}
 							transition={{delay: 0.2, duration: 0.6}}
-							whileInView={{opacity: 1, scale: 1, y: 0}}
+							whileInView={{opacity: 1, scale: 1, translateY: '0px'}}
 						>
 							<WorkSample workSample={workSample} />
 						</m.div>

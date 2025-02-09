@@ -328,16 +328,6 @@ html {
     text-decoration: underline;
   }
 
-  .mobile-nav-link {
-    font-family: var(--body-font-family);
-    font-size: calcRem(52);
-    font-variation-settings:
-      'wght' 450,
-      'wdth' 105;
-    line-height: 1.2;
-    letter-spacing: 0.52px;
-  }
-
   .mobile-nav-sub-link {
     font-family: var(--body-font-family);
     font-size: calcRem(20);
