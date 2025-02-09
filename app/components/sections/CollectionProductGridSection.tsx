@@ -114,8 +114,6 @@ export function CollectionProductGridSection(
             searchParams,
           });
 
-          console.log('appliedFilters', appliedFilters, collection.products);
-
           // Todo => add enableFiltering and enableSorting settings
           return (
             <div className="container-w-padding md:min-h-[480px]">
