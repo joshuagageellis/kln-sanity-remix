@@ -47,6 +47,7 @@ import {ROOT_QUERY} from './qroq/queries';
 import headerCss from './styles/header.css';
 import sectionCss from './styles/sections.css';
 import tailwindCss from './styles/tailwind.css';
+import { GTMInstall } from './lib/gtag';
 
 // This is important to avoid re-fetching root queries on sub-navigations
 export const shouldRevalidate: ShouldRevalidateFunction = ({
@@ -248,16 +249,8 @@ export default function App() {
   const {env, locale} = useRootLoaderData();
   const hasUserConsent = true;
   const [theme, setTheme] = useReducer<React.Reducer<ThemeContextState, ThemeContextAction>>(themeReducer, themeContextDefault);
-  const location = useLocation();
 
   useAnalytics(hasUserConsent);
-
-  const gaTrackingId = env.GTM_ID;
-  useEffect(() => {
-    if (gaTrackingId?.length) {
-      gtag.pageview(location.pathname, gaTrackingId);
-    }
-  }, [location, gaTrackingId]);
 
   return (
     <ThemeContext.Provider value={{
@@ -273,29 +266,7 @@ export default function App() {
           <Links />
         </head>
         <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
-        {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
-            />
-            <script
-              async
-              dangerouslySetInnerHTML={{
-                __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${gaTrackingId}', {
-                  page_path: window.location.pathname,
-                });
-              `,
-              }}
-              id="gtag-init"
-            />
-          </>
-        )}
+          <GTMInstall gtm={env.GTM_ID} isDev={env.NODE_ENV === "development"} nonce={nonce} />
           <Layout>
             <Outlet />
           </Layout>
