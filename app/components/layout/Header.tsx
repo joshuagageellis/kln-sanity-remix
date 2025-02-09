@@ -31,7 +31,9 @@ export const Header = () => {
     'text-[--header-color]',
     'bg-[--header-bg]',
     'sticky top-0 z-[88] group lg:mb-[40px] lg:h-[86px]',
-    scrollPos > 126 ? 'scrolled' : '',
+    // 'lg:mb-[40px] lg:h-[86px]', // Reduced header height on scroll.
+    'lg:h-[126px]', // Static header height.
+    scrollPos > 220 ? 'scrolled' : '',
   ]);
 
   return (
@@ -39,9 +41,10 @@ export const Header = () => {
       <div
         className={
           cx([
-            "container-w-padding pt-2 pb-2 lg:h-[126px] lg:group-[.scrolled]:h-[86px]",      
+            "container-w-padding pt-2 pb-2",      
             "flex w-full flex-row content-center justify-between gap-4 lg:justify-normal lg:gap-12",
-            "transition-all duration-300",
+            // "lg:h-[126px] lg:group-[.scrolled]:h-[86px] transition-all duration-200", // Reduced header height on scroll.
+            "lg:h-[126px] transition-[background-color] duration-300", // Static header height.
             'bg-[--header-bg]',
           ])}
       >
@@ -54,7 +57,7 @@ export const Header = () => {
         >
           <span className="sr-only">Home</span>
           <Logo
-            className="h-auto w-full max-w-[140px] md:max-w-[180px] lg:max-w-[220px]"
+            className="h-auto w-full max-w-[140px] md:max-w-[180px] lg:max-w-[220px] transition-all duration-300"
             loading="eager"
           />
         </Link>
