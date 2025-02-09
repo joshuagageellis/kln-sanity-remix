@@ -14,6 +14,7 @@ export function envVariables(contextEnv: Env) {
   checkEnv(env as Env);
 
   return {
+    GTM_ID: env.GTM_ID,
     NODE_ENV: env.NODE_ENV,
     PRIVATE_STOREFRONT_API_TOKEN: env.PRIVATE_STOREFRONT_API_TOKEN,
     PUBLIC_STORE_DOMAIN: env.PUBLIC_STORE_DOMAIN,

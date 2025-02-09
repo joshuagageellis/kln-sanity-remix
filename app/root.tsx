@@ -15,6 +15,7 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useLocation,
   useMatches,
   useNavigate,
   useRouteError,
@@ -27,7 +28,7 @@ import {
 import {Seo, useNonce} from '@shopify/hydrogen';
 import {defer} from '@shopify/remix-oxygen';
 import {DEFAULT_LOCALE} from 'countries';
-import {createContext, useReducer} from 'react';
+import {createContext, useEffect, useReducer} from 'react';
 
 import {Layout} from '~/components/layout/Layout';
 
@@ -38,6 +39,7 @@ import {generateSanityImageUrl} from './components/sanity/SanityImage';
 import {Button} from './components/ui/Button';
 import {useAnalytics} from './hooks/useAnalytics';
 import {useSanityThemeContent} from './hooks/useSanityThemeContent';
+import * as gtag from './lib/gtag';
 import {resolveShopifyPromises} from './lib/resolveShopifyPromises';
 import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
 import {seoPayload} from './lib/seo.server';
@@ -159,6 +161,7 @@ export async function loader({context, request}: LoaderFunctionArgs) {
       cart: cartPromise,
       collectionListPromise,
       env: {
+        GTM_ID: env.GTM_ID,
         /*
          * Be careful not to expose any sensitive environment variables here.
          */
@@ -242,11 +245,19 @@ export const ThemeContext = createContext<{
 
 export default function App() {
   const nonce = useNonce();
-  const {locale} = useRootLoaderData();
+  const {env, locale} = useRootLoaderData();
   const hasUserConsent = true;
   const [theme, setTheme] = useReducer<React.Reducer<ThemeContextState, ThemeContextAction>>(themeReducer, themeContextDefault);
+  const location = useLocation();
 
   useAnalytics(hasUserConsent);
+
+  const gaTrackingId = env.GTM_ID;
+  useEffect(() => {
+    if (gaTrackingId?.length) {
+      gtag.pageview(location.pathname, gaTrackingId);
+    }
+  }, [location, gaTrackingId]);
 
   return (
     <ThemeContext.Provider value={{
@@ -262,6 +273,29 @@ export default function App() {
           <Links />
         </head>
         <body className="flex min-h-screen flex-col overflow-x-hidden bg-background text-foreground">
+        {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
+            />
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${gaTrackingId}', {
+                  page_path: window.location.pathname,
+                });
+              `,
+              }}
+              id="gtag-init"
+            />
+          </>
+        )}
           <Layout>
             <Outlet />
           </Layout>

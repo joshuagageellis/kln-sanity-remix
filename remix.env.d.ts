@@ -26,6 +26,7 @@ declare global {
    * Declare expected Env parameter in fetch handler.
    */
   interface Env {
+    GTM_ID: string;
     NODE_ENV: 'development' | 'production';
     PRIVATE_STOREFRONT_API_TOKEN: string;
     PUBLIC_STORE_DOMAIN: string;
