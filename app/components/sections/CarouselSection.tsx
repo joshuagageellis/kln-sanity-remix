@@ -90,12 +90,12 @@ const ProductCard = ({inView, slide}: CarouselCardProps) => {
           />
         </div>
         {slide.structuredLink?.reference && (
-          <div className="data-text mt-3 flex w-full flex-row items-center justify-between gap-2">
+          <div className="data-text mt-3 flex w-full flex-wrap flex-row items-center justify-between gap-2">
             <p className="h5 highlight-hover highlight-hover--citrus">
               <span>{title}</span>
             </p>
             {slide.structuredLink?.reference?.product?.firstVariant && (
-              <p className="mr-[0.5rem]">
+              <p className="mx-[0.5rem] info-14">
                 Starting at $
                 {
                   slide.structuredLink.reference.product.firstVariant?.store
@@ -157,7 +157,7 @@ export function CarouselSection(
               <ul
                 className={cx(
                   'flex flex-col gap-2 text-left md:gap-4',
-                  introLinks.length > 1 ? 'md:order-2 md:mb-4' : 'order-1',
+                  introLinks.length > 1 ? 'md:order-2 mb-4' : 'order-1',
                 )}
               >
                 {useIntroLinks
@@ -187,7 +187,7 @@ export function CarouselSection(
             ) : null}
             <div
               className={cx(
-                'data-text',
+                'data-text hidden md:block',
                 useIntroLinks.length > 1
                   ? 'order-1 mb-4 ml-[-11px]'
                   : 'order-2 ml-[-11px] sm:mr-0 md:ml-0 md:mr-[-11px]',
@@ -226,6 +226,12 @@ export function CarouselSection(
               {device !== 'mobile' && <CarouselItem></CarouselItem>}
             </CarouselContent>
           </m.div>
+          <div className='container-w-padding flex justify-end'>
+            <div className='data-text md:hidden mr-[-11px] mt-2'>
+              <CarouselPrevious />
+              <CarouselNext />
+            </div>
+          </div>
         </Carousel>
       ) : null}
     </div>

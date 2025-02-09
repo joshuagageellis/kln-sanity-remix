@@ -29,7 +29,7 @@ export function HomepageCarouselSection(
   const rootData = useSanityRoot();
 
   return (
-    <div className="homepage-carousel relative flex flex-col pb-12 md:pb-16 bg-dark" data-section-bg="dark">
+    <div className="homepage-carousel relative flex flex-col bg-dark" data-section-bg="dark">
       {rootData?.data?.settings?.siteName && (
         <h1 className="sr-only">{rootData.data.settings?.siteName}</h1>
       )}
@@ -107,7 +107,7 @@ export function HomepageCarouselSection(
 										</div>
 									)}
 									{slide.link && (
-										<div className="mt-6 md:mt-8 lg:mt-12">
+										<div className="mt-4 md:mt-8">
 											<Button asChild variant="outlineDark">
 												<StructuredLink
 													className="min-w-[180px] lg:min-w-[220px]"

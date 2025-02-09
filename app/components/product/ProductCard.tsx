@@ -46,7 +46,7 @@ const InnerProductCard = ({
         <div className="aspect-[5/4] relative">
           <ImageComponent />
         </div>
-        <div className="data-text mt-3 flex w-full flex-row items-center justify-between gap-2">
+        <div className="data-text mt-3 flex w-full flex-row flex-wrap items-center justify-between gap-2">
           <p className={cn("h5", ! skeleton && 'highlight-hover highlight-hover--citrus')}>
             <span>{title}</span>
           </p>
@@ -106,12 +106,12 @@ export function ProductCard(props: {
           PriceComponent={() => <>
             {firstVariant.compareAtPrice && (
               <ShopifyMoney
-                className=""
+                className="info-14"
                 data={firstVariant.compareAtPrice}
               />
             )}
             <ShopifyMoney
-              className=""
+              className="info-14"
               data={firstVariant.price}
             />
           </>}

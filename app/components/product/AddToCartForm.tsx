@@ -11,6 +11,7 @@ import {
   getClientBrowserParameters,
   sendShopifyAnalytics,
 } from '@shopify/hydrogen';
+import {AnimatePresence, m} from 'framer-motion';
 import {useEffect, useState} from 'react';
 import {useIdle, useSessionStorage} from 'react-use';
 
@@ -42,15 +43,39 @@ export function AddToCartForm(props: {
 
   return (
     selectedVariant && (
-      <>
+      <AnimatePresence>
         {isOutOfStock ? (
-          <ProductInquiryForm
-            selectedVariant={selectedVariant}
-          />
+          <m.div
+            animate={{height: 'auto', opacity: 1, transition: {
+              delay: 0.2,
+              duration: 0.2
+            }}}
+            className='overflow-hidden'
+            exit={{height: 0, opacity: 0, transition: {
+              duration: 0.1,
+            }}}
+            initial={{height: 0, opacity: 0}}
+            key="product-inquiry-form"
+            transition={{duration: 0.3}}
+          >
+            <ProductInquiryForm selectedVariant={selectedVariant} />
+          </m.div>
         ) : (
           <>
             {showQuantitySelector && (
-              <div className="flex">
+              <m.div
+                animate={{height: 'auto', opacity: 1, transition: {
+                  delay: 0.2,
+                  duration: 0.2
+                }}}
+                className='overflow-hidden'
+                exit={{height: 0, opacity: 0, transition: {
+                  duration: 0.1,
+                }}}
+                initial={{height: 0, opacity: 0}}
+                key="quantity-selector"
+                transition={{duration: 0.3}}
+              >
                 <QuantitySelector>
                   <QuantitySelector.Button
                     disabled={isOutOfStock || quantity === 1}
@@ -64,51 +89,66 @@ export function AddToCartForm(props: {
                     symbol="increase"
                   />
                 </QuantitySelector>
-              </div>
+              </m.div>
             )}
-            <CartForm
-              action={CartForm.ACTIONS.LinesAdd}
-              inputs={{
-                lines: [
-                  {
-                    merchandiseId: selectedVariant?.id!,
-                    quantity,
-                  },
-                ],
-              }}
-              route={cartPath}
+            <m.div
+              animate={{height: 'auto', opacity: 1, transition: {
+                delay: 0.2,
+                duration: 0.2
+              }}}
+              className='overflow-hidden'
+              exit={{height: 0, opacity: 0, transition: {
+                duration: 0.1,
+              }}}
+              initial={{height: 0, opacity: 0}}
+              key="cart-form"
+              transition={{duration: 0.3}}
             >
-              {(fetcher) => {
-                const isLoading = fetcher.state !== 'idle' || navigationIsLoading;
+              <CartForm
+                action={CartForm.ACTIONS.LinesAdd}
+                inputs={{
+                  lines: [
+                    {
+                      merchandiseId: selectedVariant?.id!,
+                      quantity,
+                    },
+                  ],
+                }}
+                route={cartPath}
+              >
+                {(fetcher) => {
+                  const isLoading =
+                    fetcher.state !== 'idle' || navigationIsLoading;
 
-                // Button is disabled if the variant is out of stock or if fetcher is not idle.
-                // Button is also disabled if navigation is loading (new variant is being fetched)
-                // to prevent adding the wrong variant to the cart.
-                return (
-                  <AddToCartAnalytics fetcher={fetcher}>
-                    <div className="grid gap-3">
-                      <OptimisticInput
-                        data={{
-                          action: 'add',
-                          line: {
-                            cost: {
-                              amountPerQuantity: selectedVariant.price,
-                              totalAmount: selectedVariant.price,
-                            },
-                            id: selectedVariant.id,
-                            merchandise: {
-                              image: selectedVariant.image,
-                              product: {
-                                handle: selectedVariant.product?.handle,
-                                title: selectedVariant.product?.title,
+                  // Button is disabled if the variant is out of stock or if fetcher is not idle.
+                  // Button is also disabled if navigation is loading (new variant is being fetched)
+                  // to prevent adding the wrong variant to the cart.
+                  return (
+                    <AddToCartAnalytics fetcher={fetcher}>
+                      <div className="grid gap-3">
+                        <OptimisticInput
+                          data={{
+                            action: 'add',
+                            line: {
+                              cost: {
+                                amountPerQuantity: selectedVariant.price,
+                                totalAmount: selectedVariant.price,
                               },
-                              selectedOptions: selectedVariant.selectedOptions,
+                              id: selectedVariant.id,
+                              merchandise: {
+                                image: selectedVariant.image,
+                                product: {
+                                  handle: selectedVariant.product?.handle,
+                                  title: selectedVariant.product?.title,
+                                },
+                                selectedOptions:
+                                  selectedVariant.selectedOptions,
+                              },
+                              quantity,
                             },
-                            quantity,
-                          },
-                        }}
-                        id="cart-line-item"
-                      />
+                          }}
+                          id="cart-line-item"
+                        />
                         <Button
                           className={cn([
                             // Opacity does not change when is loading to prevent flickering
@@ -119,7 +159,9 @@ export function AddToCartForm(props: {
                           disabled={isLoading}
                           type="submit"
                         >
-                          <CleanString value={themeContent?.product?.addToCart} />
+                          <CleanString
+                            value={themeContent?.product?.addToCart}
+                          />
                         </Button>
                         {showShopPay && selectedVariant.id && (
                           <ShopPay
@@ -129,14 +171,15 @@ export function AddToCartForm(props: {
                             variantId={selectedVariant.id}
                           />
                         )}
-                    </div>
-                  </AddToCartAnalytics>
-                );
-              }}
-            </CartForm>
+                      </div>
+                    </AddToCartAnalytics>
+                  );
+                }}
+              </CartForm>
+            </m.div>
           </>
         )}
-      </>
+      </AnimatePresence>
     )
   );
 }

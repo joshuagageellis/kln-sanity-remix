@@ -1,5 +1,7 @@
 import type { TypeFromSelection } from "groqd";
 
+import {m} from 'framer-motion';
+
 import type {ArrayMember, SectionDefaultProps} from '~/lib/type';
 import type {FEATURED_WORK_SECTION_FRAGMENT} from '~/qroq/sections';
 
@@ -64,28 +66,38 @@ export function FeaturedWorkSection(props: SectionDefaultProps & {data: Featured
 		<div className="relative flex flex-col w-full pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20 bg-dark" data-section-bg="dark">
 			<div className="container-w-padding site-grid">
 				<div className="col-span-full lg:col-span-5 lg:row-start-1 lg:row-end-3 lg:pt-12">
-					<div className="mb-8 md:mb-12 lg:mb-20 text-on-dark pr-0 md:pr-6 max-w-[640px] lg:min-h-[200px] lg:flex-col lg:flex justify-end">
+					<div className="mb-8 text-on-dark pr-0 md:pr-6 max-w-[640px] lg:min-h-[200px] lg:flex-col lg:flex justify-end">
 						{title && (
 							<h2 className="h2">{title}</h2>
 						)}
 						{deck && (
-							<p className="body-20 max-x-[478px] mt-3 md:mt-4">{deck}</p>
+							<p className="body-20 max-x-[478px] mt-2">{deck}</p>
 						)}
 					</div>
 					{/* Work sample one */}
 					{workSamples && workSamples.slice(0, 1).map((workSample) => (
-						<WorkSample key={workSample._key} workSample={workSample} />
+						<m.div
+							initial={{opacity: 0, scale: 0.99, y: 15}}
+							key={workSample._key}
+							transition={{delay: 0.2, duration: 0.6}}
+							whileInView={{opacity: 1, scale: 1, y: 0}}
+						>
+							<WorkSample workSample={workSample} />
+						</m.div>
 					))}
 				</div>
 				{/* Work samples 2 and 3 */}
 				<div className="col-span-full lg:col-start-6 lg:col-span-6 flex flex-col md:flex-row lg:flex-col site-grid-gap">
 					{workSamples && workSamples.slice(1).map((workSample) => (
-						<div
+						<m.div
 							className="flex-1"
+							initial={{opacity: 0, scale: 0.99, y: 15}}
 							key={workSample._key}
+							transition={{delay: 0.2, duration: 0.6}}
+							whileInView={{opacity: 1, scale: 1, y: 0}}
 						>
 							<WorkSample workSample={workSample} />
-						</div>
+						</m.div>
 					))}
 				</div>
 			</div>

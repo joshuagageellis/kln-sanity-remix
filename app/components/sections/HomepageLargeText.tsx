@@ -19,9 +19,9 @@ export function HomepageLargeText(
 			<div className="site-grid container-w-padding py-12 md:py-16 lg:py-20">
 				<m.div
 					className="col-span-full md:col-span-10 xl:col-span-8"
-					initial={{opacity: 0, x: -10, y: 25}}
+					initial={{opacity: 0, scale: 0.98, x: -10, y: 25}}
 					transition={{duration: 0.6}}
-					whileInView={{opacity: 1, x: 0, y: 0}}
+					whileInView={{opacity: 1, scale: 1, x: 0, y: 0}}
 				>
 					{content && (
 						<h2 className="text-pretty leading-tight">

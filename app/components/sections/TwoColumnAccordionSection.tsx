@@ -78,7 +78,7 @@ export function TwoColumnAccordionSection(
       <div className="container-w-padding site-grid py-6 md:py-8 lg:py-10">
         <div className="mb-8 lg:mb-0 col-span-full lg:col-span-5 lg:pr-6 lg:py-8 lg:mt-9">
           <h2>{title}</h2>
-          {deck && <p className="body-20 mt-3 md:mt-4 max-w-[480px]">{deck}</p>}
+          {deck && <p className="body-20 mt-2 max-w-[480px]">{deck}</p>}
           {structuredLink && (
             <div className="mt-6 md:mt-8 lg:mt-12">
               <Button
