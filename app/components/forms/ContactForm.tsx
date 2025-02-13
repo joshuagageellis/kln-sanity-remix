@@ -6,7 +6,7 @@ import {AnimatePresence, m} from 'framer-motion';
 import {useRef} from 'react';
 
 import {cn} from '~/lib/utils';
-import {contactFormSchema, contactFormInitialValues, deliveryOptions, deliveryOptionsValues, serviceTypes, serviceTypesValues} from '~/routes/contact.send';
+import {contactFormInitialValues, contactFormSchema, deliveryOptions, deliveryOptionsValues, serviceTypes, serviceTypesValues} from '~/routes/contact.send';
 
 import { Button } from '../ui/Button';
 import {SliderField} from './inputs/Range';
