@@ -55,7 +55,11 @@ export default defineField({
             defineField({
               name: 'image',
               type: 'image',
+							description: 'Aspect ratio: 16/9',
 							validation: Rule => Rule.required(),
+							options: {
+								hotspot: true,
+							},
             }),
             defineField({
               name: 'description',

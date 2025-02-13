@@ -123,7 +123,7 @@ export function CaseStudyTopperSection(
                         {/* image */}
                         <SanityImage
                           aspectRatio='16/9'
-                          className="size-full object-cover"
+                          className="size-full"
                           data={slide.image}
                           loading={i == 0 ? 'eager' : 'lazy'}
                         />
