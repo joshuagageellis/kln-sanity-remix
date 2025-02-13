@@ -29,7 +29,7 @@ export function HomepageCarouselSection(
   const rootData = useSanityRoot();
 
   return (
-    <div className="homepage-carousel relative flex flex-col bg-dark" data-section-bg="dark">
+    <div className="homepage-carousel relative flex flex-col bg-dark pb-1" data-section-bg="dark">
       {rootData?.data?.settings?.siteName && (
         <h1 className="sr-only">{rootData.data.settings?.siteName}</h1>
       )}

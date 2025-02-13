@@ -31,6 +31,8 @@ main {
 .cms-section:has([data-section-bg="dark"]) + .cms-section:has([data-section-bg="dark"]) {
 	/**
 	 * Prevent possible bg leak between sections.
+	 * This is a hacky solution, but it works.
+	 * Careful as it can cause very subtle visual overlapping.
 	 */
 	margin-top: -1px;
 }
