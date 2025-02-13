@@ -6,7 +6,7 @@ import {AnimatePresence, m} from 'framer-motion';
 import {useRef} from 'react';
 
 import {cn} from '~/lib/utils';
-import {contactFormSchema, contactForminitialValues, deliveryOptions, deliveryOptionsValues, serviceTypes, serviceTypesValues} from '~/routes/contact.send';
+import {contactFormSchema, contactFormInitialValues, deliveryOptions, deliveryOptionsValues, serviceTypes, serviceTypesValues} from '~/routes/contact.send';
 
 import { Button } from '../ui/Button';
 import {SliderField} from './inputs/Range';
@@ -40,7 +40,7 @@ export function ContactForm() {
 		<section className="container-w-padding site-grid bg-light relative[content-visibility:auto] text-on-light">
 			<div className="container col-span-full md:col-span-9 lg:col-span-7 md:col-start-2 lg:col-start-3 flex justify-center">
 				<Formik
-					initialValues={contactForminitialValues}
+					initialValues={contactFormInitialValues}
 					onSubmit={async (values, actions) => {
 						try {
 							const response = await fetch('/contact/send', {
@@ -179,7 +179,7 @@ export function ContactForm() {
 												</div>
 												<div className={cn(inputRowClass)} key="contact-budget">
 													<div className='grow'>
-														<SliderField currency label="Budget" max={100000} min={5000} name="budget" step={5000} unlimited />
+														<SliderField currency label="Budget" max={50000} min={contactFormInitialValues.budget[0]} name="budget" step={100} unlimited />
 													</div>
 												</div>
 												<div className={cn(inputRowClass)}>

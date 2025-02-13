@@ -21,10 +21,10 @@ export const deliveryOptions = {
 
 export const deliveryOptionsValues = Object.values(deliveryOptions);
 
-export const contactForminitialValues = {
+export const contactFormInitialValues = {
   addressLine1: '',
   addressLine2: '',
-  budget: [5000, 15000],
+  budget: [100, 5000],
   city: '',
   country: 'United States',
   delivery: '',
