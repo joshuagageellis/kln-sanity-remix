@@ -86,12 +86,11 @@ export const CASE_STUDY_INDEX_PAGE = q('*')
     `(
       _type == "page" &&
       slug.current == $handle
-    )
-    `,
+    )`,
   )
   .grab({
     _type: q.literal('page'),
-    caseStudies: q('*[_type == "caseStudy"][$first..$last]', {isArray: true})
+    caseStudies: q('*[_type == "caseStudy"] | order(weight desc)[$first..$last]', {isArray: true})
       .grab({
         _id: q.string(),
         _type: q.literal('caseStudy'),

@@ -26,6 +26,14 @@ export default defineType({
 			description: 'The URL path for this case study (eg. ../case-studies/{slug})',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'weight',
+      type: 'number',
+      title: 'Weight',
+			description: 'Higher value will be shown first in the Case Study index.',
+      initialValue: 0,
+      validation: (Rule) => Rule.min(0),
+    }),
   ],
   preview: {
     select: {
